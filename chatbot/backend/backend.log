@@ -1,0 +1,897 @@
+[33m[nodemon] 3.1.11[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching path(s): *.*[39m
+[33m[nodemon] watching extensions: js,mjs,cjs,json[39m
+[32m[nodemon] starting `node index.js`[39m
+Backend server listening at http://localhost:3001
+Ensured books directory exists at C:\clipoc\chatbot\books
+Loading PDF documents from: C:\clipoc\chatbot\books
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Mastering_Detachment_A_Practical_Guide_to_Releasing_Control_Cultivating_Inner_Calm_and_Attracting_Life_on_Your_Terms_-_Auren_Auren.pdf
+Error loading PDF documents: TypeError: pdfParse is not a function
+    at loadPdfDocuments (C:\clipoc\chatbot\backend\index.js:40:36)
+    at async initializeKnowledgeBase (C:\clipoc\chatbot\backend\index.js:119:23)
+Indexing documents...
+Indexed 0 documents.
+[32m[nodemon] clean exit - waiting for changes before restart[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+Backend server listening at http://localhost:3001
+Ensured books directory exists at C:\clipoc\chatbot\books
+Loading PDF documents from: C:\clipoc\chatbot\books
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Mastering_Detachment_A_Practical_Guide_to_Releasing_Control_Cultivating_Inner_Calm_and_Attracting_Life_on_Your_Terms_-_Auren_Auren.pdf
+Error loading PDF documents: ReferenceError: pdfParse is not defined
+    at loadPdfDocuments (C:\clipoc\chatbot\backend\index.js:40:30)
+    at async initializeKnowledgeBase (C:\clipoc\chatbot\backend\index.js:119:23)
+Indexing documents...
+Indexed 0 documents.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+Backend server listening at http://localhost:3001
+Ensured books directory exists at C:\clipoc\chatbot\books
+Loading PDF documents from: C:\clipoc\chatbot\books
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Mastering_Detachment_A_Practical_Guide_to_Releasing_Control_Cultivating_Inner_Calm_and_Attracting_Life_on_Your_Terms_-_Auren_Auren.pdf
+Error loading PDF documents: TypeError: pdf is not a function
+    at loadPdfDocuments (C:\clipoc\chatbot\backend\index.js:40:36)
+    at async initializeKnowledgeBase (C:\clipoc\chatbot\backend\index.js:119:23)
+Indexing documents...
+Indexed 0 documents.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+Backend server listening at http://localhost:3001
+Ensured books directory exists at C:\clipoc\chatbot\books
+Loading PDF documents from: C:\clipoc\chatbot\books
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Mastering_Detachment_A_Practical_Guide_to_Releasing_Control_Cultivating_Inner_Calm_and_Attracting_Life_on_Your_Terms_-_Auren_Auren.pdf
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Philosophy_of_the_Bhagavad_Gita_-_Keya_Maitra.pdf
+Loaded 2 PDF documents.
+Indexing documents...
+Indexed 2 documents.
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+Backend server listening at http://localhost:3001
+Ensured books directory exists at C:\clipoc\chatbot\books
+Loading PDF documents from: C:\clipoc\chatbot\books
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Mastering_Detachment_A_Practical_Guide_to_Releasing_Control_Cultivating_Inner_Calm_and_Attracting_Life_on_Your_Terms_-_Auren_Auren.pdf
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Philosophy_of_the_Bhagavad_Gita_-_Keya_Maitra.pdf
+Loaded 2 PDF documents.
+Indexing documents...
+Indexed 2 documents.
+[32m[nodemon] clean exit - waiting for changes before restart[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+Backend server listening at http://localhost:3001
+Ensured books directory exists at C:\clipoc\chatbot\books
+Loading PDF documents from: C:\clipoc\chatbot\books
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Mastering_Detachment_A_Practical_Guide_to_Releasing_Control_Cultivating_Inner_Calm_and_Attracting_Life_on_Your_Terms_-_Auren_Auren.pdf
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Philosophy_of_the_Bhagavad_Gita_-_Keya_Maitra.pdf
+Loaded 2 PDF documents.
+Indexing documents...
+Indexed 2 documents.
+[32m[nodemon] clean exit - waiting for changes before restart[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+Backend server listening at http://localhost:3001
+Ensured books directory exists at C:\clipoc\chatbot\books
+Loading PDF documents from: C:\clipoc\chatbot\books
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Mastering_Detachment_A_Practical_Guide_to_Releasing_Control_Cultivating_Inner_Calm_and_Attracting_Life_on_Your_Terms_-_Auren_Auren.pdf
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Philosophy_of_the_Bhagavad_Gita_-_Keya_Maitra.pdf
+Loaded 2 PDF documents.
+Indexing documents...
+Indexed 2 documents.
+[32m[nodemon] clean exit - waiting for changes before restart[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+Ensured books directory exists at C:\clipoc\chatbot\books
+Loading PDF documents from: C:\clipoc\chatbot\books
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Mastering_Detachment_A_Practical_Guide_to_Releasing_Control_Cultivating_Inner_Calm_and_Attracting_Life_on_Your_Terms_-_Auren_Auren.pdf
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Philosophy_of_the_Bhagavad_Gita_-_Keya_Maitra.pdf
+Loaded 2 PDF documents.
+Indexing documents...
+Indexed 2 documents.
+Backend server listening at http://localhost:3001
+[32m[nodemon] clean exit - waiting for changes before restart[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+Ensured books directory exists at C:\clipoc\chatbot\books
+Loading PDF documents from: C:\clipoc\chatbot\books
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Mastering_Detachment_A_Practical_Guide_to_Releasing_Control_Cultivating_Inner_Calm_and_Attracting_Life_on_Your_Terms_-_Auren_Auren.pdf
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Philosophy_of_the_Bhagavad_Gita_-_Keya_Maitra.pdf
+Loaded 2 PDF documents.
+Indexing documents...
+Indexed 2 documents.
+Backend server listening at http://localhost:3001
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+Ensured books directory exists at C:\clipoc\chatbot\books
+Loading PDF documents from: C:\clipoc\chatbot\books
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Mastering_Detachment_A_Practical_Guide_to_Releasing_Control_Cultivating_Inner_Calm_and_Attracting_Life_on_Your_Terms_-_Auren_Auren.pdf
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Philosophy_of_the_Bhagavad_Gita_-_Keya_Maitra.pdf
+Loaded 2 PDF documents.
+Indexing documents...
+Indexed 2 documents.
+Backend server listening at http://localhost:3001
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `node index.js`[39m
+Ensured books directory exists at C:\clipoc\chatbot\books
+Loading PDF documents from: C:\clipoc\chatbot\books
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Mastering_Detachment_A_Practical_Guide_to_Releasing_Control_Cultivating_Inner_Calm_and_Attracting_Life_on_Your_Terms_-_Auren_Auren.pdf
+Parsing PDF: C:\clipoc\chatbot\books\_OceanofPDF.com_Philosophy_of_the_Bhagavad_Gita_-_Keya_Maitra.pdf
+Loaded 2 PDF documents.
+Indexing documents...
+Indexed 2 documents.
+Backend server listening at http://localhost:3001
+RAG Search query: hi
+Book download topic: hi
+Error in book download: AxiosError: Request failed with status code 403
+    at settle (C:\clipoc\chatbot\backend\node_modules\axios\dist\node\axios.cjs:2151:12)
+    at BrotliDecompress.handleStreamEnd (C:\clipoc\chatbot\backend\node_modules\axios\dist\node\axios.cjs:3545:11)
+    at BrotliDecompress.emit (node:events:508:28)
+    at endReadableNT (node:internal/streams/readable:1701:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+    at Axios.request (C:\clipoc\chatbot\backend\node_modules\axios\dist\node\axios.cjs:4796:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async C:\clipoc\chatbot\backend\index.js:154:26 {
+  isAxiosError: true,
+  code: 'ERR_BAD_REQUEST',
+  config: {
+    transitional: {
+      silentJSONParsing: true,
+      forcedJSONParsing: true,
+      clarifyTimeoutError: false,
+      legacyInterceptorReqResOrdering: true
+    },
+    adapter: [ 'xhr', 'http', 'fetch' ],
+    transformRequest: [ [Function: transformRequest] ],
+    transformResponse: [ [Function: transformResponse] ],
+    timeout: 0,
+    xsrfCookieName: 'XSRF-TOKEN',
+    xsrfHeaderName: 'X-XSRF-TOKEN',
+    maxContentLength: -1,
+    maxBodyLength: -1,
+    env: { FormData: [Function], Blob: [class Blob] },
+    validateStatus: [Function: validateStatus],
+    headers: Object [AxiosHeaders] {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': undefined,
+      'User-Agent': 'axios/1.13.5',
+      'Accept-Encoding': 'gzip, compress, deflate, br'
+    },
+    method: 'get',
+    url: 'https://oceanofpdf.com/?s=hi',
+    allowAbsoluteUrls: true,
+    data: undefined
+  },
+  request: <ref *1> ClientRequest {
+    _events: [Object: null prototype] {
+      abort: [Function (anonymous)],
+      aborted: [Function (anonymous)],
+      connect: [Function (anonymous)],
+      error: [Function (anonymous)],
+      socket: [Function (anonymous)],
+      timeout: [Function (anonymous)],
+      finish: [Function: requestOnFinish]
+    },
+    _eventsCount: 7,
+    _maxListeners: undefined,
+    outputData: [],
+    outputSize: 0,
+    writable: true,
+    destroyed: true,
+    _last: true,
+    chunkedEncoding: false,
+    shouldKeepAlive: false,
+    maxRequestsOnConnectionReached: false,
+    _defaultKeepAlive: true,
+    useChunkedEncodingByDefault: false,
+    sendDate: false,
+    _removedConnection: false,
+    _removedContLen: false,
+    _removedTE: false,
+    strictContentLength: false,
+    _contentLength: 0,
+    _hasBody: true,
+    _trailer: '',
+    finished: true,
+    _headerSent: true,
+    _closed: true,
+    _header: 'GET /?s=hi HTTP/1.1\r\n' +
+      'Accept: application/json, text/plain, */*\r\n' +
+      'User-Agent: axios/1.13.5\r\n' +
+      'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+      'Host: oceanofpdf.com\r\n' +
+      'Connection: keep-alive\r\n' +
+      '\r\n',
+    _keepAliveTimeout: 0,
+    _onPendingData: [Function: nop],
+    agent: Agent {
+      _events: [Object: null prototype],
+      _eventsCount: 2,
+      _maxListeners: undefined,
+      options: [Object: null prototype],
+      defaultPort: 443,
+      protocol: 'https:',
+      requests: [Object: null prototype] {},
+      sockets: [Object: null prototype] {},
+      freeSockets: [Object: null prototype] {},
+      keepAliveMsecs: 1000,
+      keepAlive: true,
+      maxSockets: Infinity,
+      maxFreeSockets: 256,
+      scheduling: 'lifo',
+      maxTotalSockets: Infinity,
+      totalSocketCount: 0,
+      agentKeepAliveTimeoutBuffer: 1000,
+      maxCachedSessions: 100,
+      _sessionCache: [Object],
+      Symbol(shapeMode): false,
+      Symbol(kCapture): false
+    },
+    socketPath: undefined,
+    method: 'GET',
+    maxHeaderSize: undefined,
+    insecureHTTPParser: undefined,
+    joinDuplicateHeaders: undefined,
+    path: '/?s=hi',
+    _ended: true,
+    res: IncomingMessage {
+      _events: [Object],
+      _readableState: [ReadableState],
+      _maxListeners: undefined,
+      socket: [TLSSocket],
+      httpVersionMajor: 1,
+      httpVersionMinor: 1,
+      httpVersion: '1.1',
+      complete: true,
+      rawHeaders: [Array],
+      rawTrailers: [],
+      joinDuplicateHeaders: undefined,
+      aborted: false,
+      upgrade: false,
+      url: '',
+      method: null,
+      statusCode: 403,
+      statusMessage: 'Forbidden',
+      client: [TLSSocket],
+      _consuming: true,
+      _dumped: false,
+      req: [Circular *1],
+      _eventsCount: 4,
+      responseUrl: 'https://oceanofpdf.com/?s=hi',
+      redirects: [],
+      Symbol(shapeMode): true,
+      Symbol(kCapture): false,
+      Symbol(kHeaders): [Object],
+      Symbol(kHeadersCount): 50,
+      Symbol(kTrailers): null,
+      Symbol(kTrailersCount): 0
+    },
+    aborted: false,
+    timeoutCb: [Function: emitRequestTimeout],
+    upgradeOrConnect: false,
+    parser: null,
+    maxHeadersCount: null,
+    reusedSocket: false,
+    host: 'oceanofpdf.com',
+    protocol: 'https:',
+    _redirectable: Writable {
+      _events: [Object],
+      _writableState: [WritableState],
+      _maxListeners: undefined,
+      _options: [Object],
+      _ended: true,
+      _ending: true,
+      _redirectCount: 0,
+      _redirects: [],
+      _requestBodyLength: 0,
+      _requestBodyBuffers: [],
+      _eventsCount: 3,
+      _onNativeResponse: [Function (anonymous)],
+      _currentRequest: [Circular *1],
+      _currentUrl: 'https://oceanofpdf.com/?s=hi',
+      _timeout: null,
+      Symbol(shapeMode): true,
+      Symbol(kCapture): false
+    },
+    Symbol(shapeMode): false,
+    Symbol(kCapture): false,
+    Symbol(kBytesWritten): 0,
+    Symbol(kNeedDrain): false,
+    Symbol(corked): 0,
+    Symbol(kChunkedBuffer): [],
+    Symbol(kChunkedLength): 0,
+    Symbol(kSocket): TLSSocket {
+      _tlsOptions: [Object],
+      _secureEstablished: true,
+      _securePending: false,
+      _newSessionPending: false,
+      _controlReleased: true,
+      secureConnecting: false,
+      _SNICallback: null,
+      servername: 'oceanofpdf.com',
+      alpnProtocol: false,
+      authorized: true,
+      authorizationError: null,
+      encrypted: true,
+      _events: [Object: null prototype],
+      _eventsCount: 9,
+      connecting: false,
+      _hadError: false,
+      _parent: null,
+      _host: 'oceanofpdf.com',
+      _closeAfterHandlingError: false,
+      _readableState: [ReadableState],
+      _writableState: [WritableState],
+      allowHalfOpen: false,
+      _maxListeners: undefined,
+      _sockname: null,
+      _pendingData: null,
+      _pendingEncoding: '',
+      server: undefined,
+      _server: null,
+      ssl: null,
+      _requestCert: true,
+      _rejectUnauthorized: true,
+      timeout: 0,
+      parser: null,
+      _httpMessage: [Circular *1],
+      autoSelectFamilyAttemptedAddresses: [Array],
+      write: [Function: writeAfterFIN],
+      Symbol(alpncallback): null,
+      Symbol(res): null,
+      Symbol(verified): true,
+      Symbol(pendingSession): null,
+      Symbol(async_id_symbol): 77,
+      Symbol(kHandle): null,
+      Symbol(lastWriteQueueSize): 0,
+      Symbol(timeout): Timeout {
+        _idleTimeout: -1,
+        _idlePrev: null,
+        _idleNext: null,
+        _idleStart: 986597,
+        _onTimeout: null,
+        _timerArgs: undefined,
+        _repeat: null,
+        _destroyed: true,
+        Symbol(refed): false,
+        Symbol(kHasPrimitive): false,
+        Symbol(asyncId): 79,
+        Symbol(triggerId): 72,
+        Symbol(kAsyncContextFrame): undefined
+      },
+      Symbol(kBuffer): null,
+      Symbol(kBufferCb): null,
+      Symbol(kBufferGen): null,
+      Symbol(shapeMode): true,
+      Symbol(kCapture): false,
+      Symbol(kSetNoDelay): false,
+      Symbol(kSetKeepAlive): true,
+      Symbol(kSetKeepAliveInitialDelay): 60,
+      Symbol(kBytesRead): 7829,
+      Symbol(kBytesWritten): 184,
+      Symbol(connect-options): [Object]
+    },
+    Symbol(kOutHeaders): [Object: null prototype] {
+      accept: [Array],
+      'user-agent': [Array],
+      'accept-encoding': [Array],
+      host: [Array]
+    },
+    Symbol(errored): null,
+    Symbol(kHighWaterMark): 16384,
+    Symbol(kRejectNonStandardBodyWrites): false,
+    Symbol(kUniqueHeaders): null
+  },
+  response: {
+    status: 403,
+    statusText: 'Forbidden',
+    headers: Object [AxiosHeaders] {
+      date: 'Sat, 14 Feb 2026 05:13:58 GMT',
+      'content-type': 'text/html; charset=UTF-8',
+      'transfer-encoding': 'chunked',
+      connection: 'close',
+      'accept-ch': 'Sec-CH-UA-Bitness, Sec-CH-UA-Arch, Sec-CH-UA-Full-Version, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Platform, Sec-CH-UA, UA-Bitness, UA-Arch, UA-Full-Version, UA-Mobile, UA-Model, UA-Platform-Version, UA-Platform, UA',
+      'cf-mitigated': 'challenge',
+      'critical-ch': 'Sec-CH-UA-Bitness, Sec-CH-UA-Arch, Sec-CH-UA-Full-Version, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Platform, Sec-CH-UA, UA-Bitness, UA-Arch, UA-Full-Version, UA-Mobile, UA-Model, UA-Platform-Version, UA-Platform, UA',
+      'cross-origin-embedder-policy': 'require-corp',
+      'cross-origin-opener-policy': 'same-origin',
+      'cross-origin-resource-policy': 'same-origin',
+      'origin-agent-cluster': '?1',
+      'permissions-policy': 'accelerometer=(),browsing-topics=(),camera=(),clipboard-read=(),clipboard-write=(),geolocation=(),gyroscope=(),hid=(),interest-cohort=(),magnetometer=(),microphone=(),payment=(),publickey-credentials-get=(),screen-wake-lock=(),serial=(),sync-xhr=(),usb=()',
+      'referrer-policy': 'same-origin',
+      'server-timing': 'chlray;desc="9cda144f5cd5178f"',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+      expires: 'Thu, 01 Jan 1970 00:00:01 GMT',
+      'report-to': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=BQeeo0NnG1%2BCoeMWk8i7WYASOhISYOytWHGyJBVChld85iT5q6vImvhpsrCV3tR7%2Fdm0UmCq%2BifgA9TvgeU6Ca7iq4cQQIX3VL2mZlj6uhB%2BkLWIs%2FFW8afHEm3jNB2e"}],"group":"cf-nel","max_age":604800}',
+      nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
+      vary: 'Accept-Encoding',
+      server: 'cloudflare',
+      'cf-ray': '9cda144f5cd5178f-MAA',
+      'alt-svc': 'h3=":443"; ma=86400'
+    },
+    config: {
+      transitional: [Object],
+      adapter: [Array],
+      transformRequest: [Array],
+      transformResponse: [Array],
+      timeout: 0,
+      xsrfCookieName: 'XSRF-TOKEN',
+      xsrfHeaderName: 'X-XSRF-TOKEN',
+      maxContentLength: -1,
+      maxBodyLength: -1,
+      env: [Object],
+      validateStatus: [Function: validateStatus],
+      headers: [Object [AxiosHeaders]],
+      method: 'get',
+      url: 'https://oceanofpdf.com/?s=hi',
+      allowAbsoluteUrls: true,
+      data: undefined
+    },
+    request: <ref *1> ClientRequest {
+      _events: [Object: null prototype],
+      _eventsCount: 7,
+      _maxListeners: undefined,
+      outputData: [],
+      outputSize: 0,
+      writable: true,
+      destroyed: true,
+      _last: true,
+      chunkedEncoding: false,
+      shouldKeepAlive: false,
+      maxRequestsOnConnectionReached: false,
+      _defaultKeepAlive: true,
+      useChunkedEncodingByDefault: false,
+      sendDate: false,
+      _removedConnection: false,
+      _removedContLen: false,
+      _removedTE: false,
+      strictContentLength: false,
+      _contentLength: 0,
+      _hasBody: true,
+      _trailer: '',
+      finished: true,
+      _headerSent: true,
+      _closed: true,
+      _header: 'GET /?s=hi HTTP/1.1\r\n' +
+        'Accept: application/json, text/plain, */*\r\n' +
+        'User-Agent: axios/1.13.5\r\n' +
+        'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+        'Host: oceanofpdf.com\r\n' +
+        'Connection: keep-alive\r\n' +
+        '\r\n',
+      _keepAliveTimeout: 0,
+      _onPendingData: [Function: nop],
+      agent: [Agent],
+      socketPath: undefined,
+      method: 'GET',
+      maxHeaderSize: undefined,
+      insecureHTTPParser: undefined,
+      joinDuplicateHeaders: undefined,
+      path: '/?s=hi',
+      _ended: true,
+      res: [IncomingMessage],
+      aborted: false,
+      timeoutCb: [Function: emitRequestTimeout],
+      upgradeOrConnect: false,
+      parser: null,
+      maxHeadersCount: null,
+      reusedSocket: false,
+      host: 'oceanofpdf.com',
+      protocol: 'https:',
+      _redirectable: [Writable],
+      Symbol(shapeMode): false,
+      Symbol(kCapture): false,
+      Symbol(kBytesWritten): 0,
+      Symbol(kNeedDrain): false,
+      Symbol(corked): 0,
+      Symbol(kChunkedBuffer): [],
+      Symbol(kChunkedLength): 0,
+      Symbol(kSocket): [TLSSocket],
+      Symbol(kOutHeaders): [Object: null prototype],
+      Symbol(errored): null,
+      Symbol(kHighWaterMark): 16384,
+      Symbol(kRejectNonStandardBodyWrites): false,
+      Symbol(kUniqueHeaders): null
+    },
+    data: `<!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{box-sizing:border-box;margin:0;padding:0}html{line-height:1.15;-webkit-text-size-adjust:100%;color:#313131;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"}body{display:flex;flex-direction:column;height:100vh;min-height:100vh}.main-content{margin:8rem auto;padding-left:1.5rem;max-width:60rem}@media (width <= 720px){.main-content{margin-top:4rem}}.h2{line-height:2.25rem;font-size:1.5rem;font-weight:500}@media (width <= 720px){.h2{line-height:1.5rem;font-size:1.25rem}}#challenge-error-text{background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI0IyMEYwMyIgZD0iTTE2IDNhMTMgMTMgMCAxIDAgMTMgMTNBMTMuMDE1IDEzLjAxNSAwIDAgMCAxNiAzbTAgMjRhMTEgMTEgMCAxIDEgMTEtMTEgMTEuMDEgMTEuMDEgMCAwIDEtMTEgMTEiLz48cGF0aCBmaWxsPSIjQjIwRjAzIiBkPSJNMTcuMDM4IDE4LjYxNUgxNC44N0wxNC41NjMgOS41aDIuNzgzem0tMS4wODQgMS40MjdxLjY2IDAgMS4wNTcuMzg4LjQwNy4zODkuNDA3Ljk5NCAwIC41OTYtLjQwNy45ODQtLjM5Ny4zOS0xLjA1Ny4zODktLjY1IDAtMS4wNTYtLjM4OS0uMzk4LS4zODktLjM5OC0uOTg0IDAtLjU5Ny4zOTgtLjk4NS40MDYtLjM5NyAxLjA1Ni0uMzk3Ii8+PC9zdmc+");background-repeat:no-repeat;background-size:contain;padding-left:34px}@media (prefers-color-scheme: dark){body{background-color:#222;color:#d9d9d9}}</style><meta http-equiv="refresh" content="360"></head><body><div class="main-wrapper" role="main"><div class="main-content"><noscript><div class="h2"><span id="challenge-error-text">Enable JavaScript and cookies to continue</span></div></noscript></div></div><script>(function(){window._cf_chl_opt = {cvId: '3',cZone: 'oceanofpdf.com',cType: 'managed',cRay: '9cda144f5cd5178f',cH: 'Nq5W0TZb1SoB7zAEV4v71861AT.6MTQDM6qPQqxvSFw-1771046038-1.2.1.1-ZV1iNcVzGCJgygNevjs4kgsSS4dsjWAEC5cCrs.ElaBvL3Nttl_5Ng.P8LAMkK0e',cUPMDTk:"\\/?s=hi&__cf_chl_tk=Sm27OxAFW9wWp54WbaPBK.37ttY10HxVd.ldcFKsm2o-1771046038-1.0.1.1-CsBfIbUMjYLYQ5dx5ZclVNYSP6wsGYVw3fLwmYafVLk",cFPWv: 'g',cITimeS: '1771046038',cTplC:0,cTplV:5,cTplB: '0',fa:"\\/?s=hi&__cf_chl_f_tk=Sm27OxAFW9wWp54WbaPBK.37ttY10HxVd.ldcFKsm2o-1771046038-1.0.1.1-CsBfIbUMjYLYQ5dx5ZclVNYSP6wsGYVw3fLwmYafVLk",md: 'bd4vKpxmj0t3EFLIgrGpUl4S.BvwuKWNfvsIQAXW.X8-1771046038-1.2.1.1-Ohj.we9Zn069ZDhGVtOSGahZqvmqLzZauOJGk_r5FoUCQXi.EoenqN_Bb.4CqpqqpwUUFVFTbJuOPcvtjI0mKmIi9pu_FThkCKAl7ftfIQsbLklid590Ll4HdNbFhatu.Z_oWEdiMeDkQsNnXQU.d7G7mXQfBu9yQ2SCp5HSSz.Guw2PjBIzFxcEe_36WjyZgyOV1WGWFUkJNo.ExIxrgd9oxCItAuSfKgyKGML.YGyTH4OXZ5gNIqzLPgXNUzAVcT5eAAyVkPIJMh35Tjm4rztlI4sI7cRzyChbYGijxEWamqizBB73uW_XCppJoasP_ZuL0gSJPf6Se0WcbtKQsisi249eu3GkUkGmJ3HDFjjMYygNwiN1iN_2weRaMcBTZ9GdVkdyZrAX29JgZfrWAXBM0wiPwKG1Ykx6htGG4RPvzskLhUDF7vRYhILHlHANA5NA6dqQUoHD3hNAAhyZOp4XyAGuVy7ArbmAWYDRGoSjp1MVKhDHTmi7RkVLvojHMm9z43DQCAXehz2jLQYPopKJ1D5v0EG2F3u_Aw4yc1XiJ2Kt5DGtF05JFZop7h5jNOURzqrr.laslzf40ZYk9kK7EvpJJ.mq_EUYttQBJbdJk3dj5IuUgpFnuPlABKuf_9A11dGJCjjauwVkS63YvibUhp.gmLnjZcCxe3BAAqtTakqr2AFmm6xMsZY_WCjLfJFLO43vELe4_n.eDGkrmobYzDFHATSeATV_auTkKojtI02GSJ2jaJHsSkCmJbsPsVhL6itDnDrZjXNWDt3dp8Y.WGK0c8ZCpTEabuohjARPeAKTKIyawvWKpJC3cNPBlryRZsXfAgwGRC6qvdPMqjGJIi2XM06mZD2lIsXiPuHkK9g4Po2ZZY.nSAppX4UO.9ESsZ_xT34HWQO.fcjQ48DpaKUy0sNt6R5Ch4EkoMI',mdrd: '5LZ29ZuFs2laNrwnhum0XsYXOWkLgQq8Xn8D4swrrok-1771046038-1.2.1.1-YoMzQseL224OsL2hXiCqbQkdrIxnQ9uMXVlKc6Vxk9__QGFRnMp6w0E2EhpnQPuymJbDOUPTpjBL23_cLiiA4VfdpCC8o2iPPPH8vhEWkRmGXBgtjAfSYS6T.GfTkkwRX7QNZgTcfERAICE7yDtEtAsoEdS_3XEa3fhBhL2adh76_tWtlH8jzwKd6rWolsZn2tCERlbPyEy2h2DqAaT_6fiz8vDgpy4Pc2wIGu9ZwFDF98IbVwn_Fbz..4Q9pnxt8.YLqVfZAqKaND7Fs0JdowN3CcRHjAnmHFxBwQtu7JLSCfvHRZkOvrk6MA4hFePrHvfxhO9532Qq.bVjADoANBEkKVLXsvSHQq2QA5c1MKYKi3UIyLrlyMUtycW2jGkYHcMIZQdU72_U26O3PRPdYuWLuh.7ouFwXnRnxY16iddWQQF51Bpp7egWAWvCcvmeFfQnlnW1tRVZ9MEOpQub3f_Ep1wZW3UsH8OF21kzicBZpda2Os4qJVDQuYfqL51aB7rZ9W6KDp8VmK6NNnxpVsS4GcBEW0FgiD_tptChAcDp53puuc4gTTPcSOMmj0.fQW4Kd4uXPhp3C3d1plweycuURiwTCW7Y1wZgDCWe4q7fzlN1WAGG0_2_MJAy6WmMO_mDI9WFySRh5LyfPFslC9mnIoTl9eoe7Ree57qadcoSEpPYj4Ht1XUUUnG3tBaICZRavCZo48.X6209UaHyrw2886PIPRV1YRT1J_yau0vqeQXnYNaCLVCxU7932U683NISyFm55plEdUYX5Jg2dXW5as5vWgAeKBTDo5r8nlvHl_WfEvnjRgxsKnjWWqHloOu5uhddc2xAJ3hBA75nClDygJ2VueZzTM.S01s8HCFKOMB_7m8R1PposrK0p0PLTLQajoLctTR.YbkETdP3ls6xe3Pu_oSDgkg2bGymubL9z3XnnCPTKibk8EFpZYkoUozL28znPnnz9aXmPnthk4lhyVyy1_snJgyeCgD8lVgQY3Rc9GEJbwLr424rtX1l4G.8e.gADi2oWXaQD5Ld102tS1KCRYp2XIHbkSFzXWReEx9dVWuIk3gKATsXEHPmukfn6VuWID3q6ybrhaSedRMk5Lc5P5Q6VQwEJG1uwYTqlitOO3IL0a45JNssDk6mzMGsxOW70T11lcdyzgDfPXWcKkFwGgZljdkUaa8t_rLdkp0nFX0rFXMZltsdKwFRlTdxCd7iaMjWz_FBmAOOSgwsz8f83ObycxkbYk40XqUYa0JaXJ8NgCNLmBOG_j5Rdq634d7Om9x9aRU6m3cmjnwmdqx5wjW5NZBO0Y1flKi72jsMCGeLl1zIvbzk41arfSAgik9ACUdUOaNwENBuJSO9HoO9Jv.wrt6KMu0mO34x4XcyIpEO_raF_sb9FBT.W1FdWXNhuLVjXkYR5zctCm6rT21GAB0lftRbYKOAvm1snL5aLOU6UiHPH7CwxFolGS0mKDe8hhQiRNwJIRWC8aJyyp0thSDO4JigdYnYIOdF0vG79eOl8r0vsIkImgT32Es5_O8I2wzTP1QuUUGDa2IVVA_MFwlgzPmrdH7kVDZpM9XSBJdSLOJyRGnaIt.WrxVQYBIVA09iL6Yq9hZGpBH91B1_ZuUpKKlrb5ZWi58MqWkFu2TK5yDbzIE0C.TmGrU2weTw6SDZY9FWb8gAb7LM5TTO8zcn81R3kV0MUcInD9cbK8nkF_HOzHNHy0tAl6fCeh5V2uQLWmAX4wYJT49cyBmXlEmi8w1zuow_ZaiO10ceO.ZidhhDuxdZbxIq6nvAvzDlDLtlrP.Cad3_.e2Gg7NeOM.nO.61vptWQkQpRzioPSUROFv1pcclQZ3Tt0ck4YKzYrMoG0t43vsKGST3GOSq946WWZYMLFsnMF40RqVnoJ5CnTSBQcqIG6erlqPGRc9LdUUVqPxfOf933w.QB3OsYzL9r6MEOuM0iNsqHtK1mxQdIfeNBr_0ZNG4IKZzfaiO5SjQ2OkMzeR0i1v0VWF54t4YkGLktp7C0ado9JCML.LOna79FwYBdGzZfLepx.noB5rl5OPjy3HsqW5ULQS9IsA4gQrWlo6KThWkbfi6NDvl.vLzgxq6.WgfsbpEWYnCn74xFzxErZa2hkEDVdDaf.dExbE7qPmqgST23T9GW1xjpzsS8MeSguSbt.qzt2k.eWXn8p.i_HpRP5JWg8Xc5wK6UgbVDez6ueqQmFe2vZutOYhSkCtPHQtfBcad6dgzG9hJUuwu2vR8fn5d7Kta757NIkG1JvJG2gPNVnSwJlgDPUMrUIUM5A2_GZrKoVui9XSQWzkOTXfNqHz4Qj5lMaQ6wqU2RzwFuhiut9MXH8ecHmRf4jlc9DJKnu3VoNiJ9ZbhxN9ZDprWTqwrSRpDa6Y6AWdWGfvUk1YfHQNaHAFvXo_PenfJBebm9RgiTUsxQPkijvfk0vJIaMu7unuS3wxUxioRfIUmXV2Kl9TAPg8p7jkT5E4SrfAYW_IFc3anPuyyeMwhrOo.RhlQ2LUVDGX3keuIyhTj.FTJ1cj.5tSUxt6tyas2Nt9FMo0f.wP6eunuOsA7S2F4KlnKI0rFU7Mi61RwJG3vImLNiJ21wxBvRQj389Yw9Nj9s2ufq4zeedmXaqeAJfYVFUrwfM3K7uPHAK2VHI127_qm30RJd1mFbyqxB.i9XXc250PqTDQGgCLg2MrsshEhXM9Y.GHgv7roQm5dVNvlkdPlMnWivZ9ApbcbI5PZEM2XYfRzA.BMdVs2nJzOb7_wFwBOANWMSUpNNB4Rg.s.elt1nphe0j8I46uuoHGOHNNBmwTpxd0rBlxigpSrncO8geDq_En8RPMUFuBle7nMgBiQxa9Z.6PQtu1MtyXK3wTqC8FRwHT23jaSNRT5dbc7lkCuh2PzsNLdscpC5k21gAEvUXoNcVqkMsydZVZjwlzMQRh7i9i0zYffkgJRzDT1vTSP6Tk7fXgON_ehQv_TpnzIALXLY3O7zbGkvpdJ8On8HH9FQc0nzQcMeLXaptcvpnFdJ90naWrEWh9f3hrp1rj4zpBkGnDxBg._KCivOQSHQ63fiUnHljNnQmni0OVH52AByYZexCiBRdU772jig7te2r8r6pd7VRQ0crOGr3LkWY2Lj7sQp6EPpAA_pfE3_iH9y_qwqk5x.NUUD0beEayt1SpL6UC2PRb5tOdTNwjj7Du6WPdiZ1Dt6n0ZUQg16o2He4qLvfBxOKFOAsN1NEuksFJpg5jpzJNE7wjRSZhxEUtn7lDMocc3YbVayX3eZYMvzjTn72Xn.3OC5S63ZUQujUWFMZguQ9jko71gbPG7HAuSAcm7NmqaC.pd6CZ2adKoyGjK0WiiM2iF9BUGbXZakdsfS5wEVRuuEeF4A6hwVBkTLS1BWBkLSo4zaWuAxH9FNd91cHZv9MDiSis5gWR3h4uIrvVpYasU8G3vIGObu02.yOSVu6xZ_VzK8ui0PB.N39ii0iS6N0GljSUwYtISNmac805bAvisD.mHpkD5m4m1AVpubixigkvZJ1iIjHYJd3Aa5cv7wq7oIQLKooIZU8IUDpcUE9fSV65ZcoU5tFRzpP1pmBLzbuJw7S_JeZ8nxsgx6hK_NYuukz.HfXzHQQW9z2OOvXsjnWEffMjkO2DwE0gtmGp37yb35wmuxHYGweJBZXRojpfVCy4TFoeRP7ZmprZ76MIM0PSotoAeDbs2h8kax3XUJVQRer3Wn3qnkJJDcbTzDyXYkQl6C5UN0Mdz4ZNKYHhyIYrQEhsrvynb0bGhjw0Wn5Rj3HZistHT_J21A2_mZJOzgqq7Qh3po9HV2BLTjI0.Q7BClRVGc6biybCiKfiu3adZgh4_9y77502j1P8ASa7sN0iXnSNRan5AlGWXkTkWrzasNtxUTY_F41MWKbkcLxch1zNJJ8HeLyBmjX4hO0tZsVuO1ecayPk35euaNjazUhO678_O3URfHmKY1sCG_sph9sIUiE4CsD_1DBWVOU9AV_c3nubqPfyxqE9Z0JisUivnXx.Nv69..xkIveeuMt3dT7ybpGT_iq7s_fUDqiplY0Gf1_Gbp.zatSuKDB7eVDsKUCfmFTS5fdkBmMlrPY59tQvRz6b8YgZI3fzqzZNiiFRBBj405Lr0xTPrcCUMDX4cZRfgRIqqsX35ouBvQ8AtGSBFLsZGHprK4HrujUwXSLdOszqXnXeN1B6mC39L86NN4R1s7tLRZeztatr6emSUSfUHNX6iABjBLWjCSjd6KP.rSgmxlqQanfaZUaP81Rjf6IxIvHqjBMLyUI46ewp0JgjuF_uFbNV74gwxgYTzRajI8z0',};var a = document.createElement('script');a.src = '/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1?ray=9cda144f5cd5178f';window._cf_chl_opt.cOgUHash = location.hash === '' && location.href.indexOf('#') !== -1 ? '#' : location.hash;window._cf_chl_opt.cOgUQuery = location.search === '' && location.href.slice(0, location.href.length - window._cf_chl_opt.cOgUHash.length).indexOf('?') !== -1 ? '?' : location.search;if (window.history && window.history.replaceState) {var ogU = location.pathname + window._cf_chl_opt.cOgUQuery + window._cf_chl_opt.cOgUHash;history.replaceState(null, null,"\\/?s=hi&__cf_chl_rt_tk=Sm27OxAFW9wWp54WbaPBK.37ttY10HxVd.ldcFKsm2o-1771046038-1.0.1.1-CsBfIbUMjYLYQ5dx5ZclVNYSP6wsGYVw3fLwmYafVLk"+ window._cf_chl_opt.cOgUHash);a.onload = function() {history.replaceState(null, null, ogU);}}document.getElementsByTagName('head')[0].appendChild(a);}());</script></body></html>`
+  },
+  status: 403
+}
+RAG Search query: hope
+RAG Search query: anxiety
+RAG Search query: devil
+Book download topic: devil
+Error in book download: AxiosError: Request failed with status code 403
+    at settle (C:\clipoc\chatbot\backend\node_modules\axios\dist\node\axios.cjs:2151:12)
+    at BrotliDecompress.handleStreamEnd (C:\clipoc\chatbot\backend\node_modules\axios\dist\node\axios.cjs:3545:11)
+    at BrotliDecompress.emit (node:events:508:28)
+    at endReadableNT (node:internal/streams/readable:1701:12)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+    at Axios.request (C:\clipoc\chatbot\backend\node_modules\axios\dist\node\axios.cjs:4796:41)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async C:\clipoc\chatbot\backend\index.js:154:26 {
+  isAxiosError: true,
+  code: 'ERR_BAD_REQUEST',
+  config: {
+    transitional: {
+      silentJSONParsing: true,
+      forcedJSONParsing: true,
+      clarifyTimeoutError: false,
+      legacyInterceptorReqResOrdering: true
+    },
+    adapter: [ 'xhr', 'http', 'fetch' ],
+    transformRequest: [ [Function: transformRequest] ],
+    transformResponse: [ [Function: transformResponse] ],
+    timeout: 0,
+    xsrfCookieName: 'XSRF-TOKEN',
+    xsrfHeaderName: 'X-XSRF-TOKEN',
+    maxContentLength: -1,
+    maxBodyLength: -1,
+    env: { FormData: [Function], Blob: [class Blob] },
+    validateStatus: [Function: validateStatus],
+    headers: Object [AxiosHeaders] {
+      Accept: 'application/json, text/plain, */*',
+      'Content-Type': undefined,
+      'User-Agent': 'axios/1.13.5',
+      'Accept-Encoding': 'gzip, compress, deflate, br'
+    },
+    method: 'get',
+    url: 'https://oceanofpdf.com/?s=devil',
+    allowAbsoluteUrls: true,
+    data: undefined
+  },
+  request: <ref *1> ClientRequest {
+    _events: [Object: null prototype] {
+      abort: [Function (anonymous)],
+      aborted: [Function (anonymous)],
+      connect: [Function (anonymous)],
+      error: [Function (anonymous)],
+      socket: [Function (anonymous)],
+      timeout: [Function (anonymous)],
+      finish: [Function: requestOnFinish]
+    },
+    _eventsCount: 7,
+    _maxListeners: undefined,
+    outputData: [],
+    outputSize: 0,
+    writable: true,
+    destroyed: true,
+    _last: true,
+    chunkedEncoding: false,
+    shouldKeepAlive: false,
+    maxRequestsOnConnectionReached: false,
+    _defaultKeepAlive: true,
+    useChunkedEncodingByDefault: false,
+    sendDate: false,
+    _removedConnection: false,
+    _removedContLen: false,
+    _removedTE: false,
+    strictContentLength: false,
+    _contentLength: 0,
+    _hasBody: true,
+    _trailer: '',
+    finished: true,
+    _headerSent: true,
+    _closed: true,
+    _header: 'GET /?s=devil HTTP/1.1\r\n' +
+      'Accept: application/json, text/plain, */*\r\n' +
+      'User-Agent: axios/1.13.5\r\n' +
+      'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+      'Host: oceanofpdf.com\r\n' +
+      'Connection: keep-alive\r\n' +
+      '\r\n',
+    _keepAliveTimeout: 0,
+    _onPendingData: [Function: nop],
+    agent: Agent {
+      _events: [Object: null prototype],
+      _eventsCount: 2,
+      _maxListeners: undefined,
+      options: [Object: null prototype],
+      defaultPort: 443,
+      protocol: 'https:',
+      requests: [Object: null prototype] {},
+      sockets: [Object: null prototype] {},
+      freeSockets: [Object: null prototype] {},
+      keepAliveMsecs: 1000,
+      keepAlive: true,
+      maxSockets: Infinity,
+      maxFreeSockets: 256,
+      scheduling: 'lifo',
+      maxTotalSockets: Infinity,
+      totalSocketCount: 0,
+      agentKeepAliveTimeoutBuffer: 1000,
+      maxCachedSessions: 100,
+      _sessionCache: [Object],
+      Symbol(shapeMode): false,
+      Symbol(kCapture): false
+    },
+    socketPath: undefined,
+    method: 'GET',
+    maxHeaderSize: undefined,
+    insecureHTTPParser: undefined,
+    joinDuplicateHeaders: undefined,
+    path: '/?s=devil',
+    _ended: true,
+    res: IncomingMessage {
+      _events: [Object],
+      _readableState: [ReadableState],
+      _maxListeners: undefined,
+      socket: [TLSSocket],
+      httpVersionMajor: 1,
+      httpVersionMinor: 1,
+      httpVersion: '1.1',
+      complete: true,
+      rawHeaders: [Array],
+      rawTrailers: [],
+      joinDuplicateHeaders: undefined,
+      aborted: false,
+      upgrade: false,
+      url: '',
+      method: null,
+      statusCode: 403,
+      statusMessage: 'Forbidden',
+      client: [TLSSocket],
+      _consuming: true,
+      _dumped: false,
+      req: [Circular *1],
+      _eventsCount: 4,
+      responseUrl: 'https://oceanofpdf.com/?s=devil',
+      redirects: [],
+      Symbol(shapeMode): true,
+      Symbol(kCapture): false,
+      Symbol(kHeaders): [Object],
+      Symbol(kHeadersCount): 50,
+      Symbol(kTrailers): null,
+      Symbol(kTrailersCount): 0
+    },
+    aborted: false,
+    timeoutCb: [Function: emitRequestTimeout],
+    upgradeOrConnect: false,
+    parser: null,
+    maxHeadersCount: null,
+    reusedSocket: false,
+    host: 'oceanofpdf.com',
+    protocol: 'https:',
+    _redirectable: Writable {
+      _events: [Object],
+      _writableState: [WritableState],
+      _maxListeners: undefined,
+      _options: [Object],
+      _ended: true,
+      _ending: true,
+      _redirectCount: 0,
+      _redirects: [],
+      _requestBodyLength: 0,
+      _requestBodyBuffers: [],
+      _eventsCount: 3,
+      _onNativeResponse: [Function (anonymous)],
+      _currentRequest: [Circular *1],
+      _currentUrl: 'https://oceanofpdf.com/?s=devil',
+      _timeout: null,
+      Symbol(shapeMode): true,
+      Symbol(kCapture): false
+    },
+    Symbol(shapeMode): false,
+    Symbol(kCapture): false,
+    Symbol(kBytesWritten): 0,
+    Symbol(kNeedDrain): false,
+    Symbol(corked): 0,
+    Symbol(kChunkedBuffer): [],
+    Symbol(kChunkedLength): 0,
+    Symbol(kSocket): TLSSocket {
+      _tlsOptions: [Object],
+      _secureEstablished: true,
+      _securePending: false,
+      _newSessionPending: false,
+      _controlReleased: true,
+      secureConnecting: false,
+      _SNICallback: null,
+      servername: 'oceanofpdf.com',
+      alpnProtocol: false,
+      authorized: true,
+      authorizationError: null,
+      encrypted: true,
+      _events: [Object: null prototype],
+      _eventsCount: 9,
+      connecting: false,
+      _hadError: false,
+      _parent: null,
+      _host: 'oceanofpdf.com',
+      _closeAfterHandlingError: false,
+      _readableState: [ReadableState],
+      _writableState: [WritableState],
+      allowHalfOpen: false,
+      _maxListeners: undefined,
+      _sockname: null,
+      _pendingData: null,
+      _pendingEncoding: '',
+      server: undefined,
+      _server: null,
+      ssl: null,
+      _requestCert: true,
+      _rejectUnauthorized: true,
+      timeout: 0,
+      parser: null,
+      _httpMessage: [Circular *1],
+      autoSelectFamilyAttemptedAddresses: [Array],
+      write: [Function: writeAfterFIN],
+      Symbol(alpncallback): null,
+      Symbol(res): null,
+      Symbol(verified): true,
+      Symbol(pendingSession): null,
+      Symbol(async_id_symbol): 224,
+      Symbol(kHandle): null,
+      Symbol(lastWriteQueueSize): 0,
+      Symbol(timeout): Timeout {
+        _idleTimeout: -1,
+        _idlePrev: null,
+        _idleNext: null,
+        _idleStart: 1032143,
+        _onTimeout: null,
+        _timerArgs: undefined,
+        _repeat: null,
+        _destroyed: true,
+        Symbol(refed): false,
+        Symbol(kHasPrimitive): false,
+        Symbol(asyncId): 226,
+        Symbol(triggerId): 219,
+        Symbol(kAsyncContextFrame): undefined
+      },
+      Symbol(kBuffer): null,
+      Symbol(kBufferCb): null,
+      Symbol(kBufferGen): null,
+      Symbol(shapeMode): true,
+      Symbol(kCapture): false,
+      Symbol(kSetNoDelay): false,
+      Symbol(kSetKeepAlive): true,
+      Symbol(kSetKeepAliveInitialDelay): 60,
+      Symbol(kBytesRead): 8118,
+      Symbol(kBytesWritten): 187,
+      Symbol(connect-options): [Object]
+    },
+    Symbol(kOutHeaders): [Object: null prototype] {
+      accept: [Array],
+      'user-agent': [Array],
+      'accept-encoding': [Array],
+      host: [Array]
+    },
+    Symbol(errored): null,
+    Symbol(kHighWaterMark): 16384,
+    Symbol(kRejectNonStandardBodyWrites): false,
+    Symbol(kUniqueHeaders): null
+  },
+  response: {
+    status: 403,
+    statusText: 'Forbidden',
+    headers: Object [AxiosHeaders] {
+      date: 'Sat, 14 Feb 2026 05:14:44 GMT',
+      'content-type': 'text/html; charset=UTF-8',
+      'transfer-encoding': 'chunked',
+      connection: 'close',
+      'accept-ch': 'Sec-CH-UA-Bitness, Sec-CH-UA-Arch, Sec-CH-UA-Full-Version, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Platform, Sec-CH-UA, UA-Bitness, UA-Arch, UA-Full-Version, UA-Mobile, UA-Model, UA-Platform-Version, UA-Platform, UA',
+      'cf-mitigated': 'challenge',
+      'critical-ch': 'Sec-CH-UA-Bitness, Sec-CH-UA-Arch, Sec-CH-UA-Full-Version, Sec-CH-UA-Mobile, Sec-CH-UA-Model, Sec-CH-UA-Platform-Version, Sec-CH-UA-Full-Version-List, Sec-CH-UA-Platform, Sec-CH-UA, UA-Bitness, UA-Arch, UA-Full-Version, UA-Mobile, UA-Model, UA-Platform-Version, UA-Platform, UA',
+      'cross-origin-embedder-policy': 'require-corp',
+      'cross-origin-opener-policy': 'same-origin',
+      'cross-origin-resource-policy': 'same-origin',
+      'origin-agent-cluster': '?1',
+      'permissions-policy': 'accelerometer=(),browsing-topics=(),camera=(),clipboard-read=(),clipboard-write=(),geolocation=(),gyroscope=(),hid=(),interest-cohort=(),magnetometer=(),microphone=(),payment=(),publickey-credentials-get=(),screen-wake-lock=(),serial=(),sync-xhr=(),usb=()',
+      'referrer-policy': 'same-origin',
+      'server-timing': 'chlray;desc="9cda1568ff2a913b"',
+      'x-content-type-options': 'nosniff',
+      'x-frame-options': 'SAMEORIGIN',
+      'cache-control': 'private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0',
+      expires: 'Thu, 01 Jan 1970 00:00:01 GMT',
+      'report-to': '{"endpoints":[{"url":"https:\\/\\/a.nel.cloudflare.com\\/report\\/v4?s=%2FVy2wCkKodPslv10VBM4N%2FInOberxEnnJMYwwidyNPi0uB6BiiUBcewF8HFn%2FGRYcVyd624fPyNHKtqCL55oWQ6Xi2QIVcxG97r%2BGyjz3wPzY2ikxO6YeXc7saRvE7rC"}],"group":"cf-nel","max_age":604800}',
+      nel: '{"success_fraction":0,"report_to":"cf-nel","max_age":604800}',
+      vary: 'Accept-Encoding',
+      server: 'cloudflare',
+      'cf-ray': '9cda1568ff2a913b-MAA',
+      'alt-svc': 'h3=":443"; ma=86400'
+    },
+    config: {
+      transitional: [Object],
+      adapter: [Array],
+      transformRequest: [Array],
+      transformResponse: [Array],
+      timeout: 0,
+      xsrfCookieName: 'XSRF-TOKEN',
+      xsrfHeaderName: 'X-XSRF-TOKEN',
+      maxContentLength: -1,
+      maxBodyLength: -1,
+      env: [Object],
+      validateStatus: [Function: validateStatus],
+      headers: [Object [AxiosHeaders]],
+      method: 'get',
+      url: 'https://oceanofpdf.com/?s=devil',
+      allowAbsoluteUrls: true,
+      data: undefined
+    },
+    request: <ref *1> ClientRequest {
+      _events: [Object: null prototype],
+      _eventsCount: 7,
+      _maxListeners: undefined,
+      outputData: [],
+      outputSize: 0,
+      writable: true,
+      destroyed: true,
+      _last: true,
+      chunkedEncoding: false,
+      shouldKeepAlive: false,
+      maxRequestsOnConnectionReached: false,
+      _defaultKeepAlive: true,
+      useChunkedEncodingByDefault: false,
+      sendDate: false,
+      _removedConnection: false,
+      _removedContLen: false,
+      _removedTE: false,
+      strictContentLength: false,
+      _contentLength: 0,
+      _hasBody: true,
+      _trailer: '',
+      finished: true,
+      _headerSent: true,
+      _closed: true,
+      _header: 'GET /?s=devil HTTP/1.1\r\n' +
+        'Accept: application/json, text/plain, */*\r\n' +
+        'User-Agent: axios/1.13.5\r\n' +
+        'Accept-Encoding: gzip, compress, deflate, br\r\n' +
+        'Host: oceanofpdf.com\r\n' +
+        'Connection: keep-alive\r\n' +
+        '\r\n',
+      _keepAliveTimeout: 0,
+      _onPendingData: [Function: nop],
+      agent: [Agent],
+      socketPath: undefined,
+      method: 'GET',
+      maxHeaderSize: undefined,
+      insecureHTTPParser: undefined,
+      joinDuplicateHeaders: undefined,
+      path: '/?s=devil',
+      _ended: true,
+      res: [IncomingMessage],
+      aborted: false,
+      timeoutCb: [Function: emitRequestTimeout],
+      upgradeOrConnect: false,
+      parser: null,
+      maxHeadersCount: null,
+      reusedSocket: false,
+      host: 'oceanofpdf.com',
+      protocol: 'https:',
+      _redirectable: [Writable],
+      Symbol(shapeMode): false,
+      Symbol(kCapture): false,
+      Symbol(kBytesWritten): 0,
+      Symbol(kNeedDrain): false,
+      Symbol(corked): 0,
+      Symbol(kChunkedBuffer): [],
+      Symbol(kChunkedLength): 0,
+      Symbol(kSocket): [TLSSocket],
+      Symbol(kOutHeaders): [Object: null prototype],
+      Symbol(errored): null,
+      Symbol(kHighWaterMark): 16384,
+      Symbol(kRejectNonStandardBodyWrites): false,
+      Symbol(kUniqueHeaders): null
+    },
+    data: `<!DOCTYPE html><html lang="en-US"><head><title>Just a moment...</title><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><meta name="robots" content="noindex,nofollow"><meta name="viewport" content="width=device-width,initial-scale=1"><style>*{box-sizing:border-box;margin:0;padding:0}html{line-height:1.15;-webkit-text-size-adjust:100%;color:#313131;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji"}body{display:flex;flex-direction:column;height:100vh;min-height:100vh}.main-content{margin:8rem auto;padding-left:1.5rem;max-width:60rem}@media (width <= 720px){.main-content{margin-top:4rem}}.h2{line-height:2.25rem;font-size:1.5rem;font-weight:500}@media (width <= 720px){.h2{line-height:1.5rem;font-size:1.25rem}}#challenge-error-text{background-image:url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgZmlsbD0ibm9uZSI+PHBhdGggZmlsbD0iI0IyMEYwMyIgZD0iTTE2IDNhMTMgMTMgMCAxIDAgMTMgMTNBMTMuMDE1IDEzLjAxNSAwIDAgMCAxNiAzbTAgMjRhMTEgMTEgMCAxIDEgMTEtMTEgMTEuMDEgMTEuMDEgMCAwIDEtMTEgMTEiLz48cGF0aCBmaWxsPSIjQjIwRjAzIiBkPSJNMTcuMDM4IDE4LjYxNUgxNC44N0wxNC41NjMgOS41aDIuNzgzem0tMS4wODQgMS40MjdxLjY2IDAgMS4wNTcuMzg4LjQwNy4zODkuNDA3Ljk5NCAwIC41OTYtLjQwNy45ODQtLjM5Ny4zOS0xLjA1Ny4zODktLjY1IDAtMS4wNTYtLjM4OS0uMzk4LS4zODktLjM5OC0uOTg0IDAtLjU5Ny4zOTgtLjk4NS40MDYtLjM5NyAxLjA1Ni0uMzk3Ii8+PC9zdmc+");background-repeat:no-repeat;background-size:contain;padding-left:34px}@media (prefers-color-scheme: dark){body{background-color:#222;color:#d9d9d9}}</style><meta http-equiv="refresh" content="360"></head><body><div class="main-wrapper" role="main"><div class="main-content"><noscript><div class="h2"><span id="challenge-error-text">Enable JavaScript and cookies to continue</span></div></noscript></div></div><script>(function(){window._cf_chl_opt = {cvId: '3',cZone: 'oceanofpdf.com',cType: 'managed',cRay: '9cda1568ff2a913b',cH: '3SoU8OvPy_AuTs8LQo5tI7Kn68IVuv79IcKPxeX3Uio-1771046084-1.2.1.1-g4WOp.Ct4dg30devuvimWPp5eK_FFALMe4rbZ_Qhzc7rSCDtVCJ1eDZ276cUn7s0',cUPMDTk:"\\/?s=devil&__cf_chl_tk=Mat2JyREiEfTDOK_lgpCgrAEjXHNKDHrONOcU6m8qTI-1771046084-1.0.1.1-PbodoQMckmmFvF3fsXGtN4S.zfdCoNpQ3gqpLyXmMxk",cFPWv: 'g',cITimeS: '1771046084',cTplC:0,cTplV:5,cTplB: '0',fa:"\\/?s=devil&__cf_chl_f_tk=Mat2JyREiEfTDOK_lgpCgrAEjXHNKDHrONOcU6m8qTI-1771046084-1.0.1.1-PbodoQMckmmFvF3fsXGtN4S.zfdCoNpQ3gqpLyXmMxk",md: 'jS0gP9giVJNfmLU4ozno7jKsgnQ2XT9au8pkO23SZF8-1771046084-1.2.1.1-hhPQOctsOw0Jti7b61LoGBGXKgPiOGwt8DZYnLGc.cdwH8Ldy90QH7hFHV3lMekQmlDj8R8hbsIAtPcxcdumFpiqEM.fTLFuMjhJddRCbJhy1ysWChYhOi7m1u2qphTtm2OsqKRsAA_rL6aZ2KzhUN6P6X_C4udGZ5lWz0bGVL9fOrWPBEuV61QtkaeNWKYvfVj5v6m1e2x7BTSwyP6dJ1QtlUZBopEXQYyfOB6SF7Y9L2H79Od9oM20jF3Nf0S0pTG0VTTSLgKYYebHogx0tCApEntDz2GbxxNRsDxkIGY3ALeTXx0Yo.rgA2.3qivvExenxzRyeOFbPLITdsrvKeEE_CFj3Puc7hCPOGp1IZ9pZVExgKw1md_4oAVe_PTnWt3k7Ge_WBCztj_6jaGSwP99lxIr5OOIDwt2T1bKjuxE0ce.jA2ibw4K3jxkuKQu_smCZ7r9ncdRZWH9TJcnOeyVJvmv8OxsP2RuHwsBxByerFC3yE7LfaG86NpYm88S6VCmIdzFNPUyFZsMh2heeff5bEn2F1fcX7loJ6XEawzkoSqD4TrCp7eDDZpC21Qz3ifEeMQ5SWUWUgbSneUdPTQNamb_IVhA0IDk9M7HG3avIWOpd9vzlluTK1yCxAKzHS1f8ui_6XRYqkAh4dHtEnWXlKK0GdBOgX7j4c7Vz4YPMKFQBc7XDQ4X8TkcNsITfMD2Zp5k4ExC6aAgqEuZBLpu.VdN678k36MOA1AFWdS_OP5Z.4ycxabEUk1GgiLB5pDo2svtE5ybzX5BaY9_QeY9NQTw0z1xy2lXvrmwOSPj2cFrAESEuQGzNnopvudb0GBlHEvGtrtGp9G1F7IRBLKjdWDTwhPB5IyZFj.BraQEmieKYVCSXCfIR0TWH2NLnQ61sq34RnRs5lhUoAjBt8BdllzPIwJCobSgp8XCHGE',mdrd: 'Z12FM1J3E579lzuvaytATew4qgO2OQpPcrVIRI8DED0-1771046084-1.2.1.1-JQO3AuGNCpYH0Oxl8ON18eoke6_HlKSbYqy8Rwn5uHye4Zrk42TDz5DjFt.R3fwxYSwOOBbSpOWkJ5K..dFsNPzfslS7M_Z25.VQVFXQ92kBJ1Jf8j6sKtGQZ_fS.Lszbp3QKJQc6t97ePKDG20f5AGH_TWqm37JqYzvmYCjlpo_.zdsS1oUK6H67vCt3CCtUF8VxRRS32HRUlMbbFCZq3w_KVKkLtobu2LfAWFMDZ8eDJ2_ruZlljhOl44nrTn5BWCTTYIIaHIjDWTZxPzeyLCWpqO.h4m83Twal0WvqLTB6Cilxdp5nw7qFHfdKjM0R4K3KjcWs6KYbFY29gsAesjVodolwkvkv5aL7IAVsMSS5OGTitqnjtNqck9xoIyngqXtb1Nv8NFGG9Pu9A6fPvTRCYUh82Lz3pbRy9OARso6Rtn_hGFMGV2pq2DylTvJbhpi1MR4moE6TG1fqqLzrhy8QQHBo3SQLX_rh.WVdu5nwNnOkxTKK5KbngPopvtrkgrVs7DP_sDKPRjb6Y0ou6ctQbs3BTm3WkEcVpO3txaqugGbgpBxurUxf7smAMaLrCQ0JugHpTAqyDmQT9DarFyflr2hhpUI4Eg3BM4GINhtYkMgyI2fTMIzOqr_pY8XhKtqnTXHpqiFxzeovp_FQsrnrraTXZQViObtbi5ZGODv7ATBESnJRjRGSLX4oZZ9BXOdBPJop0LbIlpJ7i5Q.REx4K.6MiR91Id.kGOZNPcB.cc8cFdXZyAMAoY.JRNKE8ZzgWzC3s1NRwHXx0oTmvn2c3Au_zg_hLIWrAW6hans6I2_ltaWId_V_CQLSoWod5BlGrGnhtaIJzB4IOv4IE_1O0tUDHHTV15pin_d27lN0ayu7yodQTAh1bODE.i9iUW.FWefevlCK4x9XIvvbb9MIZYkM_ULmZ7mYjrt2n1402sf3j.OeHWlllQgXtoy1iY183Sr8zyBrOGJXdkVDagwytTuxS3FTM7qMpTdceYdgsKy9IuQ0_yJhx_8SL.fP6LfKgf2AkppQomc0j67e5GNJAoBpAauEkef3VLWZ3LOYOipyzX7M0H9wXZp49C3OoU52JljgYoz.IGebWfGSdHrUVYlUzV1Pcera57zcShA7oe1NMffo0pWrQS5YIJK0DcXIBXEga9j9gFXThLrsVbcFzsw70BZ3Ol92H60h8LNv0ZLJ0n3Z5hGv2v8XzevRizrJPEKTWXmbM50ZbbXK7Z4ngJDOgOz6R0Ck9FRE017wkgQpkZ2SkhFz6kpyDfuXp3l691PL5MSSy3HtKSxwj9XdJG9D8GIt8aAXDEy3i5cKVYEVUW3uc4ECwhZ.1HkLZHXYyjiySU1TG46YytqFA8LyztcCxH4At3jKJirHWzoU9wpasYTjjG1oOGJhKSV5BgK7Ed.7L8yl1ypqqwnKVVz9pUvMbqWNSFEnrtK0Ff.yOiQRTHfCDS85YKV_2zCFJQpzRqLWUOVKksPD.TAau6dAYiwBgw0EeGEOJsSvUwrCuKCmapfSwLflmJtB2bUA84cWlRWmWl4cNGknUzbi6coqGYWldgpr4sZPNvoVmPneJ4q8f92_CEBZHeOTLH8LW2wTT4YmLQq2m8VmKOrUiFa3QHjlmPOSlZs3GEz7c6WiXZRWnSsTwUXfpB5V_VyRE_TEUwM2rtD9T3t4BapKkqzo.1Qgy0rbG28XcQ0m170QfLRZw6LN3Qdx2M2.yBz_JsRsGfBgjLumHPhpCss_zg2rqtGH5EQEjQPhS42YA_3E1i1srX1Wg6AAA3r_vzUf3qNmmuPfKeeBtkTasLv44M_A8JU06cPdf.nvq1suFK.b4hgjqdYdFrtqrkJaGnDKFiwYevMQaiLv5l3KNvcDUuekA_4WfGmliI8LvfCBR5eJMV6mWsxpRB_YiGUmSSYyExAaJW3Sz5PvdmktNaTWYrzfuIgjFryxiMG5YiEM_t8uaq2j9W7jH0J3HnwPmj93qZMD7l7uIUMbxRrdLxrMCOz6cti00scPIslpEd8R.sPFJ6OjCxnoK7db2IWleJv5L6dfPEVDH1sJCl9GyZKUNZtZAQfjUCQk.mzEzknIihIS8n8EQv253aDur.2jsLVxbUluQiTV2nEN_qoecD44Ie2GmpoON.7kkkWJeHI2EKEnL5Jv_6FEqxPjRVbgpdu4kFcb6T6ln5sfpmHTyqrN2H8ZOsh9EJ.3.sasyZKDkEJuUJcPyC560D5qrV9Fh_tazpWW4lA0swLQVchmnrf0b.Q6hEba8oglHUxXg2z7li2fz.uNrqhvPEUnHJs2Uxf66Y9LKyxhMntrDm1igfNNj.fAxkkoXa5xk7zMc7d.Tu6r2D.s0L811DTDQ39MWWuHCyBSSZShEdKcAnBxlRLCsmPW6gOIaKa_RJwAKrwP9oYwJpu_3sWYbHZ1XNsJxobQGTNECvX0del2vbkcvpRgb1QmKnQibtoZxBKNqgEu85avLz9j15lwBlDsqYgGRRSJvDtVdHRZa4zl11K79xcjiCppOtaTsD344JiBqytw9FWy.rUqUeWbSOTIaG5dGXI3x25agBmtFM3m2jtgHvAmRaW4qk4ZiYoenEuvrp2klCqzelMy2HREvq6mab7WW57oVV0KwWoufzjYtnQrefQyzrDaIx2y2h3mm8u_UnAM92cMLKPk8o.qFYUtqLi2SYW.jKOfovna7SWhn0AN25tsyYEPD7.Yj30pKrzpFvtMosE8ouO_1ZubrG6J6TqFVXK2Z2JjWW75cbBJWz1GxliACNfBW0IZI3UQT9b3QwbjC4LzmZlQuS3ptFVRlchuUvO3xMkSE_AvpTJuYp40oAtAyXAeU7A18m0oAdHhgHti.rILChPQpyJmXSeLLOcTbSLzrhAtS9bjmozMxy_9729Vdls7NNN57dnqQI0bYjL3hDwcZG3CluJehH6InqtKCnFUb7KswQo5peNGGb3CexokCREiz63_XZT61dYF8q9qCCq.48.G8_XfRgwZzHYNvtHfE0IjAPyO5VNo.tWSe9QB2wmzFkFmr4gOlWsTpLT3j2L73.riUBf2hUJsNriGQlMyBdl5AaZnOlNx6I1khpcZfCl6k5_herEtvKOTqq8Nn3RmaHzB.VarGvno.5GfbysaI55mzsWE2O6NVzas89viEzqCeHrsqmpI4kh1K4nunyfQxhKfbRQyQHJCTZanyIfImWn2b33rdsRlgHvef9pCTk1pvSZGgyC0.Pq7EHFCYUzpdx.90gQMBUFqH3ogaXYL8Io7QZvohcpjfWg5NXn6zbBgRQvYibX48LFsSMmiAZOas5VvNPoc9uzVp4rINWBgSo2zzHJLlV118aXpK4po9wxseR7Dx24_OIsMkuGhildrXCKErJKW5woM3jRm9yWNHL0iB3IAEg467kXlNCQJAflmDoV1jZjP_D6ZhL.lxZC7QL9Hfnwgaf3dKgszWG1ZHleSWRhkJ61_DlM5OkrhB9IlOwImdpF4dm21Z8VhqYo99TQwmMigs35p3aM6s5GqZcfvK4xJiI6VTWfIA80jZml.8rdGNLTF5D_m0.1olyo1zk0exiO58FJzoTIGjZGUQ5MstSGMiLN6XGFLXYqbuCMkjm2WZkHJRp_CcgBuJTjTvRZp2lD3i6OnQCL4aFcETEMYRDBiXa_wFHu7fKhYc5OSGE65gH0lu6Y.phJ9MmyPqs9yJGRbCASodb3CuneWQyrAXWF.wf41gT0XUe7n8ohdw6F44iL544UXKCsbhC8KuP.6t8v3RZcu4I0GteAYQCfDSOYTSF5SzWBXp08eqVCKLlo106.W5_0JQxgHvHoGXuqF6B_r4VgYV0TAI0Lxd4mLyLB.IPUNWKwhjnRitA7fkjeECwwAUbAC3ddCEbXtE2UuXpB.9Wy.2biWaJZXtAGrUjtwVXlZsOutSULqDf0xlFYRadqw7iiGXZy.bhTLVZHtvjNGY_xK6lXzhCQbeHBExIeGC5W6.u8Tj.KkopitgGCt9D6hTcqTK6FoAutBqcTL0edgIrxrMKM0swSk0efCn5Or92TTFmOMsVEOEylwEZs0uHwE1qU21WQOcGxHeSbCGIHMtmzt6b7j2xQc1nqbNyYRf2MESsx._OB.b8.gjcl3sAERKrLEqDlh11PRTyyDmJHMOZUcVZnmytLH08it8xeIj3WBXotWhal9j9hEC03pDDcprIlVC7EQA7g9DmovZ4mE.yLBDkQz8tuci_Gofrr7lv54VwaQzlHy._8L8i8GHtDlJTozwuAQwEXy3xqE94de533ryf1LbGAMflkQBtt6lKWQn_I876EJBOWRoUsgf9lc8fk5_6PnAB0iHrL6tB_KsW1KpVPF3zPe36wUqKZMe2HVNK3aoQ6EkAEkb1OYu28d6rmSrTf1r7YCwvU67jSrEylTMwOO5iTVhXvN4oSQ8ktItw8uogyTxYGk8TXl._fmnDT4Zr9LtOLo.KYN8m5Dfle7f8gxQLI7_ze2yWjTGxtt.zWbprNZzuCovYjnAxhX1jleQYWFCygKlNXunNxqUlNsm5GlV3pt0c19gRrq3VP1f21Cy81fWbLB3gOZOIsagH_OkuswBbM7xGT.w58NXwZIG5UArP_H77._yJCGZekz7CWtstJCWVuLGm.L5EDWN0pOBf0O5GzEA.6d7sphvE7Ks90RHcrf3SANSjVeukbNL8fe_IySQyZ7bmhKPNp838dCi_nD.E',};var a = document.createElement('script');a.src = '/cdn-cgi/challenge-platform/h/g/orchestrate/chl_page/v1?ray=9cda1568ff2a913b';window._cf_chl_opt.cOgUHash = location.hash === '' && location.href.indexOf('#') !== -1 ? '#' : location.hash;window._cf_chl_opt.cOgUQuery = location.search === '' && location.href.slice(0, location.href.length - window._cf_chl_opt.cOgUHash.length).indexOf('?') !== -1 ? '?' : location.search;if (window.history && window.history.replaceState) {var ogU = location.pathname + window._cf_chl_opt.cOgUQuery + window._cf_chl_opt.cOgUHash;history.replaceState(null, null,"\\/?s=devil&__cf_chl_rt_tk=Mat2JyREiEfTDOK_lgpCgrAEjXHNKDHrONOcU6m8qTI-1771046084-1.0.1.1-PbodoQMckmmFvF3fsXGtN4S.zfdCoNpQ3gqpLyXmMxk"+ window._cf_chl_opt.cOgUHash);a.onload = function() {history.replaceState(null, null, ogU);}}document.getElementsByTagName('head')[0].appendChild(a);}());</script></body></html>`
+  },
+  status: 403
+}
