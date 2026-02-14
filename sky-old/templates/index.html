@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast & Slide Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0056b3;
+            margin-bottom: 30px;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result-section {
+            margin-top: 30px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        .result-section h2 {
+            color: #0056b3;
+            margin-bottom: 15px;
+        }
+        pre {
+            background-color: #e9e9e9;
+            padding: 15px;
+            border-radius: 4px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+        }
+        .loading {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.1em;
+            color: #555;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI Podcast & Slide Generator</h1>
+        <p>Enter your request below (e.g., "create a tamil podcast on tamil actor chandra babu"):</p>
+        <textarea id="userPrompt" rows="5" placeholder="Type your request here..."></textarea>
+        <button onclick="generateContent()">Generate Podcast & Slides</button>
+
+        <div id="loading" class="loading" style="display: none;">Generating content, please wait...</div>
+        <div id="error" class="error" style="display: none;"></div>
+
+        <div class="result-section" id="podcastScriptSection" style="display: none;">
+            <h2>Podcast Script</h2>
+            <pre id="podcastScriptContent"></pre>
+        </div>
+
+        <div class="result-section" id="slideOutlineSection" style="display: none;">
+            <h2>Slide Outline</h2>
+            <pre id="slideOutlineContent"></pre>
+        </div>
+    </div>
+
+    <script>
+        async function generateContent() {
+            const userPrompt = document.getElementById('userPrompt').value;
+            const loadingDiv = document.getElementById('loading');
+            const errorDiv = document.getElementById('error');
+            const podcastScriptSection = document.getElementById('podcastScriptSection');
+            const slideOutlineSection = document.getElementById('slideOutlineSection');
+
+            loadingDiv.style.display = 'block';
+            errorDiv.style.display = 'none';
+            podcastScriptSection.style.display = 'none';
+            slideOutlineSection.style.display = 'none';
+
+            try {
+                const response = await fetch('/generate_podcast', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ prompt: userPrompt }),
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    const generatedContent = data.content;
+                    
+                    // Simple parsing for now - assumes "## Podcast Script" and "## Slide Outline" headings
+                    const podcastScriptMatch = generatedContent.match(/## Podcast Script\n([\s\S]*?)(?=## Slide Outline|$)/);
+                    const slideOutlineMatch = generatedContent.match(/## Slide Outline\n([\s\S]*)/);
+
+                    let podcastScript = "Could not parse podcast script. Raw content:\n" + generatedContent;
+                    let slideOutline = "Could not parse slide outline. Raw content:\n" + generatedContent;
+
+                    if (podcastScriptMatch && podcastScriptMatch[1]) {
+                        podcastScript = podcastScriptMatch[1].trim();
+                    }
+                    if (slideOutlineMatch && slideOutlineMatch[1]) {
+                        slideOutline = slideOutlineMatch[1].trim();
+                    }
+
+                    document.getElementById('podcastScriptContent').innerText = podcastScript;
+                    document.getElementById('slideOutlineContent').innerText = slideOutline;
+
+                    podcastScriptSection.style.display = 'block';
+                    slideOutlineSection.style.display = 'block';
+
+                } else {
+                    errorDiv.innerText = `Error: ${data.error}`;
+                    errorDiv.style.display = 'block';
+                }
+            } catch (e) {
+                errorDiv.innerText = `An unexpected error occurred: ${e.message}`;
+                errorDiv.style.display = 'block';
+            } finally {
+                loadingDiv.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
