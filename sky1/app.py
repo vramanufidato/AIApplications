@@ -1,18 +1,12 @@
 from flask import Flask, request, jsonify, render_template, send_from_directory
-import wave
+from gtts import gTTS
 from fpdf import FPDF
 from datetime import datetime
 import os
 import re
 import unicodedata
-from google import genai
-from google.genai import types
-from google.genai.errors import ClientError # New import
-# No longer need google_exceptions for ResourceExhausted directly as ClientError handles it
+import google.generativeai as genai
 from dotenv import load_dotenv
-# import openai # Removed - no longer using OpenAI
-import time
-import base64 # Needed for decoding Gemini image data
 
 # Load environment variables
 load_dotenv()
@@ -21,84 +15,52 @@ app = Flask(__name__)
 app.config['OUTPUT_FOLDER'] = 'outputs'
 os.makedirs(app.config['OUTPUT_FOLDER'], exist_ok=True)
 
-# Configure Google Gemini API Client
+# Configure Google Gemini API
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 if not GOOGLE_API_KEY:
     raise ValueError("GOOGLE_API_KEY not found. Set it in .env or environment variables.")
-# Unified client for all Gemini API calls
-client = genai.Client(api_key=GOOGLE_API_KEY)
+genai.configure(api_key=GOOGLE_API_KEY)
+model = genai.GenerativeModel('models/gemini-2.5-flash')
 
+# --- Configure OpenAI API for Image Generation (DALL-E 3) ---
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+openai_client = None
+if OPENAI_API_KEY:
+    openai_client = openai.OpenAI(api_key=OPENAI_API_KEY)
+    print("OpenAI API client initialized for DALL-E 3.")
+else:
+    print("OPENAI_API_KEY not found. DALL-E 3 image generation will be skipped.")
 
-# --- Helper Function for Gemini Image Generation (Nano Banana) ---
-# Removed OpenAI imports/client init
+# --- Helper Function for DALL-E 3 Image Generation ---
+import requests # Import requests for downloading images
+import time
+
 def _generate_image_from_prompt(image_prompt):
-    print(f"Generating image for prompt: '{image_prompt}' using gemini-2.5-flash-image...")
-    image_retries = 3
-    while image_retries > 0:
-        try:
-            response = client.models.generate_content(
-                model="gemini-2.5-flash-image", # Using Nano Banana model
-                contents=[image_prompt], # Image prompt as content
-                config=types.GenerateContentConfig(
-                    response_modalities=["IMAGE"], # Requesting image output
-                ),
-            )
+    if not openai_client:
+        print("OpenAI API key not configured. Skipping image generation.")
+        return None
 
-            if response.candidates and response.candidates[0].content.parts:
-                for part in response.candidates[0].content.parts:
-                    if part.inline_data:
-                        # Gemini image generation returns base64 encoded data
-                        image_data = base64.b64decode(part.inline_data.data)
-                        print(f"Successfully generated image for prompt: '{image_prompt}'")
-                        return image_data # Return raw image data
-            
-            # If no image data is received, it's a soft failure, retry
-            image_retries -= 1
-            if image_retries <= 0:
-                print(f"Warning: API call succeeded but no image data received after max retries for prompt: '{image_prompt}'. Failing.")
-                break
-            print(f"Warning: No image data received for prompt: '{image_prompt}'. Retrying (attempts left: {image_retries})...")
-            time.sleep(2) # Short delay before retrying
+    try:
+        print(f"Generating image for prompt: '{image_prompt}'")
+        response = openai_client.images.generate(
+            model="dall-e-3",
+            prompt=image_prompt,
+            size="1024x1024", # Standard size for DALL-E 3
+            quality="standard",
+            n=1,
+        )
+        image_url = response.data[0].url
+        print(f"Generated image URL: {image_url}")
+        return image_url
+    except openai.APIError as e:
+        print(f"OpenAI API Error during image generation: {e}")
+        return None
+    except Exception as e:
+        print(f"An unexpected error occurred during image generation: {e}")
+        return None
 
-        except ClientError as e:
-            error_str = str(e)
-            if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
-                image_retries -= 1
-                if image_retries <= 0:
-                    print(f"ERROR: Image generation rate limit exceeded. Max retries reached for prompt: '{image_prompt}'. Failing.")
-                    break
-                print(f"DEBUG: Caught ClientError (429 RESOURCE_EXHAUSTED) for image prompt: '{image_prompt}'. Retries left: {image_retries}.")
-                sleep_time = 60 # Default if parsing fails
-                match_seconds = re.search(r"retry in (\d+\.?\d*)s", error_str)
-                match_delay_str = re.search(r"retryDelay': '(\d+)s'", error_str)
-                if match_seconds:
-                    sleep_time = float(match_seconds.group(1)) + 2
-                elif match_delay_str:
-                    sleep_time = int(match_delay_str.group(1)) + 2
-                print(f"Waiting for {sleep_time:.2f} seconds before retrying image prompt: '{image_prompt}'...")
-                time.sleep(sleep_time)
-            elif "500" in error_str or "INTERNAL" in error_str:
-                image_retries -= 1
-                if image_retries <= 0:
-                    print(f"ERROR: Google API 500 Internal error for image prompt: '{image_prompt}'. Max retries reached. Failing.")
-                    break
-                print(f"WARNING: Google API returned 500 Internal error for image prompt: '{image_prompt}'. Retrying (attempts left: {image_retries})...")
-                time.sleep(5)
-            else:
-                print(f"ERROR: Non-retryable ClientError occurred during image generation for prompt: '{image_prompt}': {e}. Failing.")
-                break # Non-retryable ClientError
-
-        except Exception as e:
-            print(f"ERROR: An unexpected general error occurred during image generation for prompt: '{image_prompt}': {e}. Failing.")
-            break
-
-    print("No image content received from the Gemini API after multiple retries.")
-    return None
-
-
-# Helper for Text-to-Speech (using new Gemini TTS)
-def _synthesize_text_to_audio(text, output_file_path, voice="Charon"):
-    # First, perform initial cleaning
+# Helper for Text-to-Speech
+def _synthesize_text_to_audio(text, output_file_path):
     cleaned_text = text
     cleaned_text = re.sub(r'\(\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}\)', '', cleaned_text)
     cleaned_text = re.sub(r'\(\d{1,2}:\d{2}\)', '', cleaned_text)
@@ -106,105 +68,13 @@ def _synthesize_text_to_audio(text, output_file_path, voice="Charon"):
     cleaned_text = re.sub(r'\((?:அறிமுகம்|முடிவுரை|தொடக்க இசை|மெல்லிசை|இசை|சவுண்ட் எஃபெக்ட்|உரை|பேச்சு|பகுதி|வரவு|போகுதல்)[^\)]*\)', '', cleaned_text, flags=re.IGNORECASE)
     cleaned_text = re.sub(r'\((?:intro|conclusion|music|sound effect|part|segment|break)[^\)]*\)', '', cleaned_text, flags=re.IGNORECASE)
     cleaned_text = re.sub(r'[*_]', '', cleaned_text)
+    cleaned_text = re.sub(r'^\s*Host:\s*', '', cleaned_text, flags=re.MULTILINE)
     cleaned_text = re.sub(r'\n{3,}', '\n\n', cleaned_text)
     cleaned_text = re.sub(r' {2,}', ' ', cleaned_text)
     cleaned_text = cleaned_text.strip()
-
-    # --- New Host Name Logic ---
-    lines = cleaned_text.split('\n')
-    found_first_host = False
-    processed_lines = []
-    for line in lines:
-        match = re.match(r'^\s*Host:\s*', line)
-        if match and not found_first_host:
-            processed_line = line.replace(match.group(0), 'Fidato: ', 1)
-            processed_lines.append(processed_line)
-            found_first_host = True
-        elif match and found_first_host:
-            processed_line = line.replace(match.group(0), '', 1)
-            processed_lines.append(processed_line)
-        else:
-            processed_lines.append(line)
-    final_cleaned_text = '\n'.join(processed_lines)
-    # --- End New Logic ---
-
-    print(f"Total text length for TTS: {len(final_cleaned_text)}")
-    # User requested NO CHUNKING. We are sending the entire text in one request.
-    # WARNING: This may lead to API errors for long texts due to API length limits.
-
-    retries = 3 # Max retries for the single API call
-    while retries > 0:
-        try:
-            print(f"Attempting to generate audio for entire script (retry {4-retries}/3)...")
-            response = client.models.generate_content(
-                model="gemini-2.5-flash-preview-tts",
-                contents=final_cleaned_text,
-                config=types.GenerateContentConfig(
-                    response_modalities=["AUDIO"],
-                    speech_config=types.SpeechConfig(
-                        voice_config=types.VoiceConfig(
-                            prebuilt_voice_config=types.PrebuiltVoiceConfig(voice_name=voice)
-                        )
-                    )
-                ),
-            )
-            if response.candidates and response.candidates[0].content.parts:
-                for part in response.candidates[0].content.parts:
-                    if part.inline_data:
-                        audio_data = part.inline_data.data
-                        with wave.open(output_file_path, "wb") as wf:
-                            wf.setnchannels(1)       # Mono
-                            wf.setsampwidth(2)       # 16-bit (as per Gemini specs)
-                            wf.setframerate(24000)   # 24kHz sample rate (as per Gemini specs)
-                            wf.writeframes(audio_data)
-                        print(f"Successfully generated full audio to file: {output_file_path}")
-                        return
-            else:
-                retries -= 1
-                if retries <= 0:
-                    print(f"Warning: API call succeeded but no audio data received after max retries. Failing.")
-                    break
-                print(f"Warning: API call succeeded but no audio data received. Retrying (attempts left: {retries})...")
-                time.sleep(2) # Short delay before retrying this type of failure
-
-
-        except ClientError as e:
-            error_str = str(e)
-            if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
-                retries -= 1
-                if retries <= 0:
-                    print(f"ERROR: Rate limit exceeded. Max retries reached. Failing.")
-                    break
-                
-                print(f"DEBUG: Caught ClientError (429 RESOURCE_EXHAUSTED). Retries left: {retries}.")
-                sleep_time = 60 # Default if parsing fails
-                match_seconds = re.search(r"retry in (\d+\.?\d*)s", error_str)
-                match_delay_str = re.search(r"retryDelay': '(\d+)s'", error_str)
-
-                if match_seconds:
-                    sleep_time = float(match_seconds.group(1)) + 2 # Add a small buffer
-                elif match_delay_str:
-                    sleep_time = int(match_delay_str.group(1)) + 2 # Add a small buffer
-
-                print(f"Waiting for {sleep_time:.2f} seconds before retrying...")
-                time.sleep(sleep_time)
-            elif "500" in error_str or "INTERNAL" in error_str:
-                retries -= 1
-                if retries <= 0:
-                    print(f"ERROR: Google API 500 Internal error. Max retries reached. Failing.")
-                    break
-                print(f"WARNING: Google API returned 500 Internal error. Retrying (attempts left: {retries})...")
-                time.sleep(5) # Small fixed delay for internal server error retry
-            else:
-                print(f"ERROR: Non-retryable ClientError occurred: {e}. Failing.")
-                break # For other ClientErrors, don't retry
-
-        except Exception as e:
-            print(f"ERROR: An unexpected general error occurred: {e}. Failing.")
-            break # For any other general error, don't retry
-
-    raise IOError("Could not generate audio from Gemini API after multiple retries.")
-
+    tts = gTTS(text=cleaned_text, lang='ta', slow=False)
+    tts.save(output_file_path)
+    print(f"Audio content written to file: {output_file_path}")
 
 # Helper for PDF Generation
 class PDF(FPDF):
@@ -249,7 +119,7 @@ class SlidePDF(FPDF):
             raise FileNotFoundError(f"Tamil font file not found: {font_path}. Place 'NotoSansTamil-Regular.ttf' in static/fonts.")
         self.add_font('NotoSansTamil', '', font_path)
         self.add_font('NotoSansTamil', 'B', font_path)
-    def add_slide(self, title, content, image_data, image_prompt): # image_data is raw bytes now
+    def add_slide(self, title, content, image_prompt, image_url=None):
         self.add_page()
         self.set_font('NotoSansTamil', 'B', 20)
         self.multi_cell(self.w - self.l_margin - self.r_margin, 10, title, align='C')
@@ -262,27 +132,37 @@ class SlidePDF(FPDF):
                 self.multi_cell(self.w - self.l_margin - self.r_margin, 7, line.strip())
         
         # Add image if available
-        if image_data:
+        if image_url:
             try:
-                # Save raw image data to a temporary file
-                image_filename = os.path.join(app.config['OUTPUT_FOLDER'], "temp_slide_image.png")
-                with open(image_filename, 'wb') as f:
-                    f.write(image_data)
+                # Download image
+                image_filename = os.path.join(app.config['OUTPUT_FOLDER'], "temp_image.png") # Using a temp name
+                response = requests.get(image_url, stream=True)
+                response.raise_for_status()
+                with open(image_filename, 'wb') as out_file:
+                    out_file.write(response.content)
                 
-                image_width = 150 # Fixed width for images
-                # FPDF will auto-calculate height to maintain aspect ratio
+                # Calculate image position and size
+                # 150 width, aspect ratio
+                page_width = self.w - self.l_margin - self.r_margin
+                image_width = 150
                 
-                x_pos = self.l_margin + (self.w - self.l_margin - self.r_margin - image_width) / 2
-                y_pos = self.get_y() + 5
+                # Get image dimensions to maintain aspect ratio
+                # FPDF doesn't directly give image dims from file path before adding
+                # So we'll make a best guess or let FPDF auto-scale if possible
+                # For simplicity, we'll assume a square image from DALL-E 3 1024x1024
+                # and place it centered below the text
+                
+                x_pos = self.l_margin + (page_width - image_width) / 2
+                y_pos = self.get_y() + 5 # Small margin from text
                 
                 self.image(image_filename, x=x_pos, y=y_pos, w=image_width)
                 self.ln(image_width * (self.h/self.w) / 4) # Adjust line break after image to prevent overlap
                 
                 os.remove(image_filename) # Clean up temp file
             except Exception as e:
-                print(f"Error embedding image in PDF: {e}")
+                print(f"Error embedding image from {image_url}: {e}")
                 self.set_font('NotoSansTamil', 'I', 8)
-                self.multi_cell(self.w - self.l_margin - self.r_margin, 5, f'Could not embed image for prompt: {image_prompt}', align='C')
+                self.multi_cell(self.w - self.l_margin - self.r_margin, 5, f'Could not load image: {image_url}', align='C')
                 self.ln(5)
         
         self.ln(10)
@@ -310,17 +190,19 @@ def _generate_slides_pdf(slide_outline_text, output_file_path, title="Podcast Sl
     cleaned_slide_outline_text = _clean_slide_text(slide_outline_text)
     
     # Regex to parse each slide
+    # Assumes "Slide Title:", "Content:", "Image Prompt:" structure
     slide_pattern = re.compile(r"Slide Title:\s*(.*?)\nContent:\s*([\s\S]*?)\nImage Prompt:\s*(.*?)(?=\nSlide Title:|\Z)", re.MULTILINE)
     
     slides = slide_pattern.findall(cleaned_slide_outline_text)
 
     if not slides:
         print("No slides found in the outline.")
-        pdf.add_slide("No Slides Found", "Could not parse slide outline. Raw content:\n" + cleaned_slide_outline_text, "N/A", image_data=None)
+        # Create a single slide with an error message or just the raw outline
+        pdf.add_slide("No Slides Found", "Could not parse slide outline. Raw content:\n" + cleaned_slide_outline_text, "N/A")
     else:
         for title, content, image_prompt in slides:
-            image_data = _generate_image_from_prompt(image_prompt) # Generate image, now returns raw data
-            pdf.add_slide(title.strip(), content.strip(), image_prompt.strip(), image_data)
+            image_url = _generate_image_from_prompt(image_prompt) # Generate image
+            pdf.add_slide(title.strip(), content.strip(), image_prompt.strip(), image_url)
     
     pdf.output(output_file_path)
     print(f"Slide PDF content written to file: {output_file_path}")
@@ -348,7 +230,7 @@ def generate_podcast():
         full_prompt = f"""
         You are an expert podcast script and slide outline generator.
         Based on the following request, generate two distinct outputs:
-        1. A detailed podcast script in Tamil. The script should be conversational, engaging, and structured with an introduction, main body segments, and a conclusion. Include suggestions for intro/outro music and approximate timings. **The script should be concise, approximately 800-1000 words, suitable for a 7-minute podcast.**
+        1. A detailed podcast script in Tamil. The script should be conversational, engaging, and structured with an introduction, main body segments, and a conclusion. Include suggestions for intro/outro music and approximate timings.
         2. A structured slide outline for a presentation based on the podcast content. Each slide should have a "Slide Title," "Content" (bullet points summarizing the key information for that slide, *without* music cues, timings, or host instructions), and an "Image Prompt" (a short description for a visual related to the slide). Ensure the slide content is concise and directly relevant to the slide's topic.
 
         User Request: "{user_prompt}"
@@ -356,8 +238,7 @@ def generate_podcast():
         Please format the output clearly with distinct sections for the "## Podcast Script" and "## Slide Outline".
         Use Markdown for both outputs.
         """
-        # Use the unified client to generate text
-        response = client.models.generate_content(model='models/gemini-2.5-flash', contents=full_prompt)
+        response = model.generate_content(full_prompt)
         generated_content = response.text
 
         podcast_script = "Could not extract podcast script."
@@ -393,7 +274,7 @@ def generate_podcast():
         with open(text_script_path_abs, "w", encoding="utf-8") as f:
             f.write(podcast_script)
         
-        audio_file_path_rel = os.path.join(date_folder, unique_folder_name, f"{base_filename}.wav")
+        audio_file_path_rel = os.path.join(date_folder, unique_folder_name, f"{base_filename}.mp3")
         audio_file_path_abs = os.path.join(app.config['OUTPUT_FOLDER'], audio_file_path_rel)
         _synthesize_text_to_audio(podcast_script, audio_file_path_abs)
 
@@ -420,10 +301,6 @@ def generate_podcast():
     except Exception as e:
         print(f"An error occurred: {e}")
         return jsonify({"error": str(e)}), 500
-
-@app.route('/favicon.ico')
-def favicon():
-    return '', 204
 
 @app.route('/outputs/<path:filename>')
 def serve_output_files(filename):

@@ -103,8 +103,13 @@ def _synthesize_text_to_audio(text, output_file_path, voice="Charon"):
     cleaned_text = re.sub(r'\(\d{1,2}:\d{2}\s*-\s*\d{1,2}:\d{2}\)', '', cleaned_text)
     cleaned_text = re.sub(r'\(\d{1,2}:\d{2}\)', '', cleaned_text)
     cleaned_text = re.sub(r'\[[^\]]+\]', '', cleaned_text)
-    cleaned_text = re.sub(r'\((?:அறிமுகம்|முடிவுரை|தொடக்க இசை|மெல்லிசை|இசை|சவுண்ட் எஃபெக்ட்|உரை|பேச்சு|பகுதி|வரவு|போகுதல்)[^\)]*\)', '', cleaned_text, flags=re.IGNORECASE)
-    cleaned_text = re.sub(r'\((?:intro|conclusion|music|sound effect|part|segment|break)[^\)]*\)', '', cleaned_text, flags=re.IGNORECASE)
+    
+    # Original regex that caused SyntaxError:
+    # cleaned_text = re.sub(r'\((?:அறிமுகம்|முடிவுரை|தொடக்க இசை|மெல்லிசை|இசை|சவுண்ட் எஃபெக்ட்|உரை|பேச்சு|பகுதி|வரவு|போகுதல்)[^\)]*\)', '', cleaned_text, flags=re.IGNORECASE)
+    # Replaced with a more robust/safe version, splitting the regex if needed
+    cleaned_text = re.sub(r'\((?:அறிமுகம்|முடிவுரை|தொடக்க இசை|மெல்லிசை|இசை|சவுண்ட் எஃபெக்ட்|உரை|பேச்சு|பகுதி|வரவு|போகுதல்)[^)]*\)', '', cleaned_text, flags=re.IGNORECASE)
+
+    cleaned_text = re.sub(r'\((?:intro|conclusion|music|sound effect|part|segment|break)[^)]*\)', '', cleaned_text, flags=re.IGNORECASE)
     cleaned_text = re.sub(r'[*_]', '', cleaned_text)
     cleaned_text = re.sub(r'\n{3,}', '\n\n', cleaned_text)
     cleaned_text = re.sub(r' {2,}', ' ', cleaned_text)
@@ -129,81 +134,103 @@ def _synthesize_text_to_audio(text, output_file_path, voice="Charon"):
     # --- End New Logic ---
 
     print(f"Total text length for TTS: {len(final_cleaned_text)}")
-    # User requested NO CHUNKING. We are sending the entire text in one request.
-    # WARNING: This may lead to API errors for long texts due to API length limits.
+    text_chunks = [chunk for chunk in final_cleaned_text.split('\n\n') if chunk.strip()] # Re-introduced chunking
+    
+    if not text_chunks:
+        print("No text to synthesize after cleaning.")
+        return
 
-    retries = 3 # Max retries for the single API call
-    while retries > 0:
-        try:
-            print(f"Attempting to generate audio for entire script (retry {4-retries}/3)...")
-            response = client.models.generate_content(
-                model="gemini-2.5-flash-preview-tts",
-                contents=final_cleaned_text,
-                config=types.GenerateContentConfig(
-                    response_modalities=["AUDIO"],
-                    speech_config=types.SpeechConfig(
-                        voice_config=types.VoiceConfig(
-                            prebuilt_voice_config=types.PrebuiltVoiceConfig(voice_name=voice)
+    all_audio_data = []
+    
+    print(f"Splitting text into {len(text_chunks)} chunks for audio generation.")
+
+    for i, chunk in enumerate(text_chunks): # Re-introduced chunking loop
+        print(f"Processing chunk {i+1}/{len(text_chunks)}...")
+        chunk_retries = 3 # Max retries for a single chunk for any API error
+        while chunk_retries > 0:
+            try:
+                response = client.models.generate_content(
+                    model="gemini-2.5-flash-preview-tts",
+                    contents=chunk, # Using chunk here
+                    config=types.GenerateContentConfig(
+                        response_modalities=["AUDIO"],
+                        speech_config=types.SpeechConfig(
+                            voice_config=types.VoiceConfig(
+                                prebuilt_voice_config=types.PrebuiltVoiceConfig(voice_name=voice)
+                            )
                         )
-                    )
-                ),
-            )
-            if response.candidates and response.candidates[0].content.parts:
-                for part in response.candidates[0].content.parts:
-                    if part.inline_data:
-                        audio_data = part.inline_data.data
-                        with wave.open(output_file_path, "wb") as wf:
-                            wf.setnchannels(1)       # Mono
-                            wf.setsampwidth(2)       # 16-bit (as per Gemini specs)
-                            wf.setframerate(24000)   # 24kHz sample rate (as per Gemini specs)
-                            wf.writeframes(audio_data)
-                        print(f"Successfully generated full audio to file: {output_file_path}")
-                        return
-            else:
-                retries -= 1
-                if retries <= 0:
-                    print(f"Warning: API call succeeded but no audio data received after max retries. Failing.")
-                    break
-                print(f"Warning: API call succeeded but no audio data received. Retrying (attempts left: {retries})...")
-                time.sleep(2) # Short delay before retrying this type of failure
+                    ),
+                )
+                if response.candidates and response.candidates[0].content.parts:
+                    for part in response.candidates[0].content.parts:
+                        if part.inline_data:
+                            all_audio_data.append(part.inline_data.data)
+                            print(f"Successfully generated audio for chunk {i+1}.")
+                            break # Found audio, exit inner loop for this chunk
+                    break # Successfully processed chunk (or no audio data, but no exception), move to next
+                else:
+                    # If API call succeeds but returns no audio, decrement retries and try again
+                    chunk_retries -= 1
+                    if chunk_retries <= 0:
+                        print(f"Warning: API call succeeded but no audio data received for chunk {i+1} after max retries. Skipping chunk.")
+                        break # Skip this chunk if no audio after max retries
+                    print(f"Warning: API call succeeded but no audio data received for chunk {i+1}. Retrying (attempts left: {chunk_retries})...")
+                    time.sleep(2) # Short delay before retrying this type of failure
 
+            except ClientError as e: # Catch ClientError directly
+                error_str = str(e)
+                # Check for 429 status code or RESOURCE_EXHAUSTED message in the error string
+                if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
+                    chunk_retries -= 1
+                    if chunk_retries <= 0:
+                        print(f"ERROR: Rate limit exceeded for chunk {i+1}. Max retries reached. Skipping chunk.")
+                        break # Skip this chunk if rate limit persists after max retries
+                    
+                    print(f"DEBUG: Caught ClientError (429 RESOURCE_EXHAUSTED) for chunk {i+1}. Retries left: {chunk_retries}.")
+                    print(f"Waiting for rate limit reset for chunk {i+1}...")
+                    sleep_time = 60 # Default if parsing fails
+                    
+                    match_seconds = re.search(r"retry in (\d+\.?\d*)s", error_str)
+                    match_delay_str = re.search(r"retryDelay': '(\d+)s'", error_str)
 
-        except ClientError as e:
-            error_str = str(e)
-            if "429" in error_str or "RESOURCE_EXHAUSTED" in error_str:
-                retries -= 1
-                if retries <= 0:
-                    print(f"ERROR: Rate limit exceeded. Max retries reached. Failing.")
-                    break
-                
-                print(f"DEBUG: Caught ClientError (429 RESOURCE_EXHAUSTED). Retries left: {retries}.")
-                sleep_time = 60 # Default if parsing fails
-                match_seconds = re.search(r"retry in (\d+\.?\d*)s", error_str)
-                match_delay_str = re.search(r"retryDelay': '(\d+)s'", error_str)
+                    if match_seconds:
+                        sleep_time = float(match_seconds.group(1)) + 2 # Add a small buffer
+                    elif match_delay_str:
+                        sleep_time = int(match_delay_str.group(1)) + 2 # Add a small buffer
 
-                if match_seconds:
-                    sleep_time = float(match_seconds.group(1)) + 2 # Add a small buffer
-                elif match_delay_str:
-                    sleep_time = int(match_delay_str.group(1)) + 2 # Add a small buffer
+                    print(f"Waiting for {sleep_time:.2f} seconds before retrying chunk {i+1}...")
+                    time.sleep(sleep_time)
+                elif "500" in error_str or "INTERNAL" in error_str:
+                    chunk_retries -= 1
+                    if chunk_retries <= 0:
+                        print(f"ERROR: Google API 500 Internal error for chunk {i+1}. Max retries reached. Skipping chunk.")
+                        break
+                    print(f"WARNING: Google API returned 500 Internal error for chunk {i+1}. Retrying (attempts left: {chunk_retries})...")
+                    time.sleep(5) # Small fixed delay for internal server error retry
+                else:
+                    # It's a ClientError, but not 429 or 500. Treat as unexpected and non-retryable for this chunk
+                    print(f"ERROR: Non-retryable ClientError occurred for chunk {i+1}: {e}. Skipping chunk.")
+                    break 
 
-                print(f"Waiting for {sleep_time:.2f} seconds before retrying...")
-                time.sleep(sleep_time)
-            elif "500" in error_str or "INTERNAL" in error_str:
-                retries -= 1
-                if retries <= 0:
-                    print(f"ERROR: Google API 500 Internal error. Max retries reached. Failing.")
-                    break
-                print(f"WARNING: Google API returned 500 Internal error. Retrying (attempts left: {retries})...")
-                time.sleep(5) # Small fixed delay for internal server error retry
-            else:
-                print(f"ERROR: Non-retryable ClientError occurred: {e}. Failing.")
-                break # For other ClientErrors, don't retry
+            except Exception as e:
+                # Generic catch-all for any other unexpected errors.
+                print(f"ERROR: An unexpected general error occurred for chunk {i+1}: {e}. Skipping chunk.")
+                break # Move to the next chunk if a non-retryable error occurs
 
-        except Exception as e:
-            print(f"ERROR: An unexpected general error occurred: {e}. Failing.")
-            break # For any other general error, don't retry
+    if not all_audio_data:
+        print("Failed to generate any audio. All chunks either failed, returned no data, or were skipped due to errors.")
+        raise IOError("Could not generate audio from Gemini API for any text chunk.")
 
-    raise IOError("Could not generate audio from Gemini API after multiple retries.")
+    print("Stitching audio chunks together...")
+    final_audio_data = b''.join(all_audio_data)
+
+    with wave.open(output_file_path, "wb") as wf:
+        wf.setnchannels(1)       # Mono
+        wf.setsampwidth(2)       # 16-bit (as per Gemini specs)
+        wf.setframerate(24000)   # 24kHz sample rate (as per Gemini specs)
+        wf.writeframes(final_audio_data)
+    
+    print(f"Successfully generated and saved full audio to file: {output_file_path}")
 
 
 # Helper for PDF Generation
@@ -295,7 +322,7 @@ def _clean_slide_text(text):
     text = re.sub(r'\(\d{1,2}:\d{2}\)', '', text)
     # Remove specific music cues, host instructions, and other noise
     text = re.sub(r'\[[^\]]+\]', '', text) # [music - intro], [host], [sound effect]
-    text = re.sub(r'\((?:அறிமுகம்|முடிவுரை|தொடக்க இசை|மெல்லிசை|இசை|சவுண்ட் எஃபெக்ட்|உரை|பேச்சு|பகுதி|வரவு|போகுதல்|intro|conclusion|music|sound effect|part|segment|break)[^\)]*\)', '', text, flags=re.IGNORECASE)
+    text = re.sub(r'\((?:அறிமுகம்|முடிவுரை|தொடக்க இசை|மெல்லிசை|இசை|சவுண்ட் எஃபெக்ட்|உரை|பேச்சு|பகுதி|வரவு|போகுதல்)[^\)]*\)', '', text, flags=re.IGNORECASE)
     text = re.sub(r'^\s*Host:\s*', '', text, flags=re.MULTILINE) # Remove "Host:"
     text = re.sub(r'[*#`]', '', text) # Remove common markdown formatting characters if they somehow persist
     text = re.sub(r'(\s*\n){3,}', '\n\n', text) # Reduce excessive newlines
