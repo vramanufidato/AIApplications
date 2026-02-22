@@ -1,4 +1,4 @@
----
+
 
 # Unified Health Diagnosis Platform
 
@@ -12,7 +12,7 @@ The platform is designed with:
 - **Terraform IaC** for secure, HIPAA-ready infrastructure provisioning  
 - **Evaluation Metrics** for performance and fairness  
 
----
+
 
 ## Project Structure
 
