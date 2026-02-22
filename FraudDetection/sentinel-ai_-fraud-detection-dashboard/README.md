@@ -64,3 +64,9 @@ Ensure the following environment variables are set in your environment:
 - **Accuracy**: 99.9% (Note: Accuracy is a "trap" in fraud; focus on F1-Score).
 - **Precision**: 92.4% (Minimizes false declines).
 - **Recall**: 88.1% (Captures the majority of fraudulent attempts).
+
+<img width="1553" height="732" alt="image" src="https://github.com/user-attachments/assets/afbc2362-e525-43e4-90ba-4bea3130a340" />
+
+<img width="1547" height="733" alt="image" src="https://github.com/user-attachments/assets/7948d57a-3399-4825-b2e5-3a56c9e6f267" />
+
+<img width="1538" height="738" alt="image" src="https://github.com/user-attachments/assets/a53086bf-2fa4-48fb-98c8-9e013ee66807" />
