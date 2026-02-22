@@ -1,0 +1,5 @@
+{
+  "name": "Sentinel AI: Fraud Detection Dashboard",
+  "description": "A high-precision fraud detection monitoring system featuring real-time anomaly detection, precision-recall analytics, and AI-powered transaction risk assessment.",
+  "requestFramePermissions": []
+}
