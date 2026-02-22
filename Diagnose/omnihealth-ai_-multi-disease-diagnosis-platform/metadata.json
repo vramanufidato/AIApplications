@@ -1,0 +1,7 @@
+{
+  "name": "OmniHealth AI: Multi-Disease Diagnosis Platform",
+  "description": "A comprehensive medical diagnostic suite integrating supervised learning for Diabetes, unsupervised clustering for Mental Health, and deep learning vision models for Oncology MRI analysis.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
