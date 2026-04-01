@@ -1,0 +1,5 @@
+opencv-python
+google-cloud-vision
+flask
+Pillow
+gpiozero

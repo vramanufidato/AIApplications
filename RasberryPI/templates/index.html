@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autonomous Car Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #1a1a1a; color: white; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .container { width: 80%; max-width: 800px; background: #2d2d2d; padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .status-panel { display: flex; justify-content: space-between; margin-bottom: 20px; padding: 20px; background: #3d3d3d; border-radius: 10px; }
+        .status-item { text-align: center; }
+        .status-value { font-size: 1.5em; font-weight: bold; color: #00ff88; }
+        .upload-section { margin-top: 30px; border: 2px dashed #555; padding: 20px; text-align: center; border-radius: 10px; transition: 0.3s; }
+        .upload-section:hover { border-color: #00ff88; }
+        .btn { padding: 10px 20px; background: #00ff88; color: #1a1a1a; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-stop { background: #ff4444; color: white; margin-top: 10px; }
+        .logs { margin-top: 20px; height: 150px; overflow-y: auto; background: #000; padding: 10px; font-family: monospace; border-radius: 5px; color: #aaa; }
+        .log-entry { margin-bottom: 5px; }
+        .toggle-container { margin-bottom: 20px; }
+        #preview { max-width: 100%; margin-top: 20px; border-radius: 10px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚗 Autonomous Car Dashboard</h1>
+        
+        <div class="toggle-container">
+            <label>
+                <input type="checkbox" id="googleVisionToggle"> Use Google Cloud Vision
+            </label>
+        </div>
+
+        <div class="status-panel">
+            <div class="status-item">
+                <div>Model Status</div>
+                <div id="carStatus" class="status-value">Stopped</div>
+            </div>
+            <div class="status-item">
+                <div>Pins Active</div>
+                <div id="activePins" class="status-value">-</div>
+            </div>
+        </div>
+
+        <div class="upload-section">
+            <h3>Camera Simulation</h3>
+            <p>Upload an image to simulate camera feed</p>
+            <input type="file" id="imageInput" accept="image/*" style="display:none">
+            <button class="btn" onclick="document.getElementById('imageInput').click()">Capture Image</button>
+            <img id="preview">
+        </div>
+
+        <button class="btn btn-stop" onclick="stopCar()">EMERGENCY STOP</button>
+
+        <div class="logs" id="logs">
+            <div class="log-entry">> Dashboard initialized.</div>
+        </div>
+    </div>
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const googleVisionToggle = document.getElementById('googleVisionToggle');
+        
+        googleVisionToggle.onchange = async () => {
+            await fetch('/toggle_vision', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ enabled: googleVisionToggle.checked })
+            });
+            addLog(`Vision system switched to: ${googleVisionToggle.checked ? 'Google Cloud' : 'OpenCV'}`);
+        };
+
+        imageInput.onchange = async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            // Show preview
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const preview = document.getElementById('preview');
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+
+            // Upload and process
+            const formData = new FormData();
+            formData.append('image', file);
+
+            addLog(`Processing image: ${file.name}...`);
+            const res = await fetch('/process_image', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await res.json();
+            
+            if (data.error) {
+                addLog(`Error: ${data.error}`);
+                return;
+            }
+
+            addLog(`Detected: ${data.detections.join(', ')}`);
+            addLog(`Command: ${data.command}`);
+            updateStatus();
+        };
+
+        async function updateStatus() {
+            const res = await fetch('/status');
+            const data = await res.json();
+            document.getElementById('carStatus').innerText = data.status;
+            
+            const activePins = Object.entries(data.pins)
+                .filter(([p, v]) => v === 1)
+                .map(([p, v]) => p)
+                .join(', ') || 'None';
+            document.getElementById('activePins').innerText = activePins;
+        }
+
+        async function stopCar() {
+            await fetch('/stop', { method: 'POST' });
+            addLog("EMERGENCY STOP TRIGGERED");
+            updateStatus();
+        }
+
+        function addLog(msg) {
+            const logs = document.getElementById('logs');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.innerText = `> [${new Date().toLocaleTimeString()}] ${msg}`;
+            logs.insertBefore(entry, logs.firstChild);
+        }
+
+        // Poll status every 2 seconds
+        setInterval(updateStatus, 2000);
+    </script>
+</body>
+</html>
