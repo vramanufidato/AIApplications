@@ -1,0 +1,79 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  VERIFIED_CREATOR
+  NGO_PARTNER
+}
+
+enum Category {
+  MENTAL_HEALTH
+  CAREER
+  CLIMATE
+  LEGAL_RIGHTS
+  INTERGENERATIONAL_WISDOM
+}
+
+enum ModerationStatus {
+  PENDING
+  APPROVED
+  FLAGGED
+}
+
+model User {
+  id        String       @id @default(uuid())
+  email     String       @unique
+  name      String
+  role      Role         @default(USER)
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  pods      AudioPod[]
+  replies   VoiceReply[]
+}
+
+model AudioPod {
+  id               String           @id @default(uuid())
+  title            String
+  audioUrl         String
+  duration         Int              // Strict max 30 seconds
+  category         Category
+  transcript       String?
+  partnerLink      String?          // e.g. Kuku FM, Sheroes, Mahila Money
+  userId           String
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
+  moderationStatus ModerationStatus @default(PENDING)
+  moderationReason String?
+  replies          VoiceReply[]
+
+  @@index([category])
+  @@index([userId])
+}
+
+model VoiceReply {
+  id               String           @id @default(uuid())
+  audioUrl         String
+  duration         Int              // Strict max 30 seconds
+  transcript       String?
+  userId           String
+  user             User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  podId            String
+  pod              AudioPod         @relation(fields: [podId], references: [id], onDelete: Cascade)
+  createdAt        DateTime         @default(now())
+  moderationStatus ModerationStatus @default(PENDING)
+  moderationReason String?
+
+  @@index([podId])
+  @@index([userId])
+}

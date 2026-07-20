@@ -1,0 +1,257 @@
+openapi: 3.0.3
+info:
+  title: VoxSphere API
+  description: Voice-first micro-podcasting API for women-only community empowerment.
+  version: 1.0.0
+servers:
+  - url: /api
+    description: Sandbox/Local Environment
+paths:
+  /pods/feed:
+    get:
+      summary: Fetch categorized audio pods
+      description: Returns a paginated list of audio pods for a specific category, complete with transcrips, user info, and partner links.
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [MENTAL_HEALTH, CAREER, CLIMATE, LEGAL_RIGHTS, INTERGENERATIONAL_WISDOM]
+        - name: language
+          in: query
+          required: false
+          schema:
+            type: string
+            default: en
+        - name: page
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 1
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 5
+      responses:
+        '200':
+          description: Successful retrieval of feed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  pods:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AudioPod'
+                  pagination:
+                    type: object
+                    properties:
+                      total:
+                        type: integer
+                      page:
+                        type: integer
+                      totalPages:
+                        type: integer
+  /pods/upload:
+    post:
+      summary: Upload a 30-second audio pod
+      description: Verifies user draft limit (max 10 active pods), runs async automated audio moderation, and persists metadata.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - title
+                - category
+                - duration
+              properties:
+                title:
+                  type: string
+                  maxLength: 100
+                category:
+                  type: string
+                  enum: [MENTAL_HEALTH, CAREER, CLIMATE, LEGAL_RIGHTS, INTERGENERATIONAL_WISDOM]
+                duration:
+                  type: integer
+                  description: Duration in seconds (strict max 30)
+                  maximum: 30
+                audioData:
+                  type: string
+                  description: Base64-encoded audio chunk or file url
+                transcript:
+                  type: string
+                  description: Optional manual transcript (or automatic speech-to-text input)
+                isDraft:
+                  type: boolean
+                  default: false
+      responses:
+        '201':
+          description: Pod uploaded successfully and sent to moderation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  pod:
+                    $ref: '#/components/schemas/AudioPod'
+                  moderationResult:
+                    type: object
+                    properties:
+                      status:
+                        type: string
+                        enum: [APPROVED, FLAGGED, PENDING]
+                      reason:
+                        type: string
+        '403':
+          description: Storage quota exceeded (max 10 active pods reached)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+  /pods/{id}/reply:
+    post:
+      summary: Post a 30-second audio voice reply to a pod
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - duration
+              properties:
+                duration:
+                  type: integer
+                  maximum: 30
+                audioData:
+                  type: string
+                  description: Base64-encoded audio reply file
+                transcript:
+                  type: string
+      responses:
+        '201':
+          description: Voice reply posted successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  reply:
+                    $ref: '#/components/schemas/VoiceReply'
+  /pods/contest:
+    post:
+      summary: Submit audio pod for active community empowerment contest
+      description: Enters a podcast into community contests (e.g. #MahilaPower, #LegalVoice) to unlock incentives.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - podId
+                - contestHashtag
+              properties:
+                podId:
+                  type: string
+                contestHashtag:
+                  type: string
+                  example: "#MahilaPower"
+      responses:
+        '200':
+          description: Contest entry verified
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  contestName:
+                    type: string
+                  incentiveStatus:
+                    type: string
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+        email:
+          type: string
+        name:
+          type: string
+        role:
+          type: string
+          enum: [USER, VERIFIED_CREATOR, NGO_PARTNER]
+    AudioPod:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        audioUrl:
+          type: string
+        duration:
+          type: integer
+        category:
+          type: string
+        transcript:
+          type: string
+        partnerLink:
+          type: string
+        userId:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+        moderationStatus:
+          type: string
+          enum: [PENDING, APPROVED, FLAGGED]
+        moderationReason:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+    VoiceReply:
+      type: object
+      properties:
+        id:
+          type: string
+        audioUrl:
+          type: string
+        duration:
+          type: integer
+        transcript:
+          type: string
+        userId:
+          type: string
+        user:
+          $ref: '#/components/schemas/User'
+        podId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time

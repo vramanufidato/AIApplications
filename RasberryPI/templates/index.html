@@ -42,24 +42,62 @@
         </div>
 
         <div class="upload-section">
-            <h3>Camera Simulation</h3>
-            <p>Upload an image to simulate camera feed</p>
-            <input type="file" id="imageInput" accept="image/*" style="display:none">
-            <button class="btn" onclick="document.getElementById('imageInput').click()">Capture Image</button>
-            <img id="preview">
+            <h3>📷 Live Camera & Feed Simulation</h3>
+            
+            <div id="cameraContainer" style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 15px;">
+                <!-- Live Video Element -->
+                <div class="video-wrapper" style="position: relative; width: 100%; max-width: 480px; aspect-ratio: 4/3; background: #111; border-radius: 8px; overflow: hidden; display: none; border: 2px solid #555;">
+                    <video id="webcam" autoplay playsinline style="width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);"></video>
+                    <div style="position: absolute; top: 10px; left: 10px; background: rgba(255,0,0,0.7); padding: 4px 8px; border-radius: 4px; font-size: 0.8em; font-weight: bold; color: white; display: flex; align-items: center; gap: 5px;">
+                        <span style="width: 8px; height: 8px; background: white; border-radius: 50%; display: inline-block; animation: blink 1s infinite;"></span>
+                        LIVE FEED
+                    </div>
+                </div>
+
+                <!-- Preview of captured image -->
+                <img id="preview" style="max-width: 100%; max-height: 360px; border-radius: 8px; display: none; border: 2px solid #00ff88;">
+
+                <div class="button-group" style="display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;">
+                    <button class="btn" id="startCamBtn" onclick="startCamera()">Start Webcam</button>
+                    <button class="btn" id="captureBtn" onclick="captureSnapshot()" style="display: none; background: #00bcd4; color: white;">Capture Snapshot</button>
+                    <button class="btn" id="stopCamBtn" onclick="stopCamera()" style="display: none; background: #777; color: white;">Stop Webcam</button>
+                    
+                    <input type="file" id="imageInput" accept="image/*" style="display:none">
+                    <button class="btn" id="uploadFileBtn" onclick="document.getElementById('imageInput').click()" style="background: #e91e63; color: white;">Upload Image</button>
+                </div>
+            </div>
+            <canvas id="captureCanvas" style="display: none;"></canvas>
         </div>
 
         <button class="btn btn-stop" onclick="stopCar()">EMERGENCY STOP</button>
 
         <div class="logs" id="logs">
-            <div class="log-entry">> Dashboard initialized.</div>
+            <div class="log-entry">> Dashboard initialized. Live camera controls added.</div>
         </div>
     </div>
+
+    <style>
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+        .video-wrapper {
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
+        }
+    </style>
 
     <script>
         const imageInput = document.getElementById('imageInput');
         const googleVisionToggle = document.getElementById('googleVisionToggle');
+        const webcam = document.getElementById('webcam');
+        const preview = document.getElementById('preview');
+        const videoWrapper = document.querySelector('.video-wrapper');
+        const startCamBtn = document.getElementById('startCamBtn');
+        const captureBtn = document.getElementById('captureBtn');
+        const stopCamBtn = document.getElementById('stopCamBtn');
+        const canvas = document.getElementById('captureCanvas');
         
+        let localStream = null;
+
         googleVisionToggle.onchange = async () => {
             await fetch('/toggle_vision', {
                 method: 'POST',
@@ -69,50 +107,140 @@
             addLog(`Vision system switched to: ${googleVisionToggle.checked ? 'Google Cloud' : 'OpenCV'}`);
         };
 
+        // Start local webcam stream
+        async function startCamera() {
+            try {
+                addLog("Requesting access to HP True Vision FHD Camera / system webcam...");
+                localStream = await navigator.mediaDevices.getUserMedia({
+                    video: { width: { ideal: 640 }, height: { ideal: 480 } }
+                });
+                webcam.srcObject = localStream;
+                videoWrapper.style.display = 'block';
+                preview.style.display = 'none';
+                
+                startCamBtn.style.display = 'none';
+                captureBtn.style.display = 'inline-block';
+                stopCamBtn.style.display = 'inline-block';
+                addLog("Camera started successfully.");
+            } catch (err) {
+                addLog(`Error starting camera: ${err.message}`);
+                console.error("Camera access error:", err);
+            }
+        }
+
+        // Stop local webcam stream
+        function stopCamera() {
+            if (localStream) {
+                localStream.getTracks().forEach(track => track.stop());
+                localStream = null;
+            }
+            webcam.srcObject = null;
+            videoWrapper.style.display = 'none';
+            
+            startCamBtn.style.display = 'inline-block';
+            captureBtn.style.display = 'none';
+            stopCamBtn.style.display = 'none';
+            addLog("Camera stopped.");
+        }
+
+        // Capture snapshot from video stream and upload it
+        function captureSnapshot() {
+            if (!localStream) {
+                addLog("Camera stream not available.");
+                return;
+            }
+
+            const ctx = canvas.getContext('2d');
+            canvas.width = webcam.videoWidth || 640;
+            canvas.height = webcam.videoHeight || 480;
+            
+            // Mirror back to match mirrored view preview
+            ctx.translate(canvas.width, 0);
+            ctx.scale(-1, 1);
+            ctx.drawImage(webcam, 0, 0, canvas.width, canvas.height);
+            
+            // Reset transformation for safety
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+            // Convert to Blob and send
+            canvas.toBlob(async (blob) => {
+                if (!blob) {
+                    addLog("Error creating image blob from video frame.");
+                    return;
+                }
+                
+                // Show captured image preview
+                const url = URL.createObjectURL(blob);
+                preview.src = url;
+                preview.style.display = 'block';
+                videoWrapper.style.display = 'none';
+                
+                addLog("Uploading captured snapshot...");
+                
+                // Keep stream active in background or stop it? Let's keep it active but swap visibility
+                await uploadAndProcessImage(blob, "snapshot.png");
+            }, 'image/png');
+        }
+
+        // Local file picker fallback
         imageInput.onchange = async (e) => {
             const file = e.target.files[0];
             if (!file) return;
 
+            // Stop camera if running to focus on uploaded file
+            stopCamera();
+
             // Show preview
             const reader = new FileReader();
             reader.onload = (e) => {
-                const preview = document.getElementById('preview');
                 preview.src = e.target.result;
                 preview.style.display = 'block';
             };
             reader.readAsDataURL(file);
 
-            // Upload and process
-            const formData = new FormData();
-            formData.append('image', file);
-
-            addLog(`Processing image: ${file.name}...`);
-            const res = await fetch('/process_image', {
-                method: 'POST',
-                body: formData
-            });
-            const data = await res.json();
-            
-            if (data.error) {
-                addLog(`Error: ${data.error}`);
-                return;
-            }
-
-            addLog(`Detected: ${data.detections.join(', ')}`);
-            addLog(`Command: ${data.command}`);
-            updateStatus();
+            addLog(`Processing uploaded file: ${file.name}...`);
+            await uploadAndProcessImage(file, file.name);
         };
 
+        // Shared upload function
+        async function uploadAndProcessImage(fileOrBlob, filename) {
+            const formData = new FormData();
+            formData.append('image', fileOrBlob, filename);
+
+            try {
+                const res = await fetch('/process_image', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await res.json();
+                
+                if (data.error) {
+                    addLog(`Error: ${data.error}`);
+                    return;
+                }
+
+                addLog(`Detected: ${data.detections.join(', ')}`);
+                addLog(`Command: ${data.command}`);
+                updateStatus();
+            } catch (err) {
+                addLog(`Upload error: ${err.message}`);
+            }
+        }
+
         async function updateStatus() {
-            const res = await fetch('/status');
-            const data = await res.json();
-            document.getElementById('carStatus').innerText = data.status;
-            
-            const activePins = Object.entries(data.pins)
-                .filter(([p, v]) => v === 1)
-                .map(([p, v]) => p)
-                .join(', ') || 'None';
-            document.getElementById('activePins').innerText = activePins;
+            try {
+                const res = await fetch('/status');
+                const data = await res.json();
+                document.getElementById('carStatus').innerText = data.status;
+                
+                const activePins = Object.entries(data.pins)
+                    .filter(([p, v]) => v === 1)
+                    .map(([p, v]) => p)
+                    .join(', ') || 'None';
+                document.getElementById('activePins').innerText = activePins;
+            } catch (err) {
+                console.error("Status check failed:", err);
+            }
         }
 
         async function stopCar() {
