@@ -1,0 +1,6 @@
+{
+  "name": "Brand builder app",
+  "description": "Imagine and preview products across multiple mediums with brand consistency using Nano-Banana image generation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

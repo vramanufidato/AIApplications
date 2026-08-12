@@ -1,0 +1,6 @@
+{
+  "name": "Emotion Check",
+  "description": "AI-powered wellness companion for emotional reflection, cognitive reframing, habit tracking, and self-therapy.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
