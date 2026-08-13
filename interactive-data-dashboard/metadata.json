@@ -1,0 +1,6 @@
+{
+  "name": "Interactive Data Dashboard",
+  "description": "Comprehensive interactive data analytics and visualization dashboard with file upload, automated profiling, linked filters, dynamic chart builder, and exports.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
