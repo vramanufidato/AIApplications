@@ -1,0 +1,6 @@
+{
+  "name": "Meeting Agenda Generator",
+  "description": "Craft timed meeting agendas with summaries, action items, key stakeholders, and calendar scheduling from uploaded documents.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

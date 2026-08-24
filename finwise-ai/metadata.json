@@ -1,0 +1,6 @@
+{
+  "name": "FinWise AI",
+  "description": "Virtual SEBI-registered-equivalent financial research analyst providing personalized investment comparisons, stock research, book-grounded analysis, mutual fund discovery, technical signals, red-flag monitoring, and what-if financial simulations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
