@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Blockchain</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { margin-bottom: 0.25rem; }
+    section { margin: 1.5rem 0; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; }
+    label { display: block; margin-top: 0.5rem; }
+    input { width: 100%; max-width: 320px; padding: 0.4rem; box-sizing: border-box; }
+    button { margin-top: 0.75rem; padding: 0.5rem 1rem; cursor: pointer; }
+    pre { background: #f5f5f5; padding: 1rem; overflow-x: auto; font-size: 0.85rem; }
+    .muted { color: #666; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <h1>Blockchain</h1>
+  <p class="muted">{{ chain|length }} block(s) · {{ pending|length }} pending transaction(s)</p>
+
+  <section>
+    <h2>Add transaction</h2>
+    <form action="{{ url_for('create_transaction') }}" method="post">
+      <label>Sender <input name="sender" required placeholder="Alice"></label>
+      <label>Recipient <input name="recipient" required placeholder="Bob"></label>
+      <label>Amount <input name="amount" type="number" step="any" min="0" required placeholder="5"></label>
+      <button type="submit">Queue transaction</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Mine block</h2>
+    <p class="muted">Runs proof-of-work (hash starting with 0000). This may take a few seconds.</p>
+    <form action="{{ url_for('mine') }}" method="post">
+      <button type="submit">Mine new block</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Chain (JSON)</h2>
+    <pre>{{ chain | tojson(indent=2) }}</pre>
+  </section>
+</body>
+</html>
