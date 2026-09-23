@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AutoClaw Persona POC — Psychologist &amp; Astrologer</title>
+<style>
+  :root {
+    --bg: #0f1220;
+    --panel: #171a2b;
+    --panel-2: #1e2237;
+    --text: #e9ecf5;
+    --muted: #9aa3bd;
+    --accent: #6c8cff;
+    --accent-2: #b98cff;
+    --bubble-user: #2c3a6e;
+    --bubble-bot: #222741;
+    --ok: #57d4a6;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, sans-serif;
+    background: radial-gradient(1200px 700px at 15% -10%, #202844 0%, var(--bg) 55%);
+    color: var(--text);
+    display: grid;
+    place-items: center;
+    padding: 20px;
+  }
+  .app {
+    width: min(680px, 100%);
+    height: min(780px, 92vh);
+    background: var(--panel);
+    border: 1px solid #262b45;
+    border-radius: var(--radius);
+    display: grid;
+    grid-template-rows: auto auto 1fr auto auto;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,.45);
+  }
+  header {
+    padding: 16px 18px 12px;
+    background: linear-gradient(180deg, #1b2036, #171a2b);
+    border-bottom: 1px solid #262b45;
+  }
+  header h1 { margin: 0; font-size: 17px; letter-spacing: .2px; }
+  header p { margin: 4px 0 0; font-size: 12.5px; color: var(--muted); }
+  .modes {
+    display: flex; gap: 8px; padding: 10px 18px;
+    border-bottom: 1px solid #262b45; background: var(--panel);
+  }
+  .modes button {
+    flex: 1;
+    padding: 9px 12px;
+    border-radius: 10px;
+    border: 1px solid #2c3350;
+    background: var(--panel-2);
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .15s ease;
+  }
+  .modes button[aria-pressed="true"] {
+    color: #fff;
+    border-color: transparent;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  }
+  .modes button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .chat {
+    overflow-y: auto;
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .row { display: flex; }
+  .row.user { justify-content: flex-end; }
+  .bubble {
+    max-width: 80%;
+    padding: 10px 13px;
+    border-radius: 13px;
+    font-size: 14px;
+    line-height: 1.45;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+  .row.bot .bubble { background: var(--bubble-bot); border: 1px solid #2b3150; }
+  .row.user .bubble { background: var(--bubble-user); border: 1px solid #3a4a86; }
+  .who { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+  .meta {
+    padding: 8px 18px; font-size: 11px; color: var(--muted);
+    border-top: 1px solid #262b45; background: var(--panel);
+  }
+  form {
+    display: flex; gap: 8px; padding: 12px 14px;
+    border-top: 1px solid #262b45; background: var(--panel-2);
+  }
+  textarea {
+    flex: 1; resize: none; height: 42px; max-height: 120px;
+    padding: 10px 12px; border-radius: 10px;
+    border: 1px solid #2c3350; background: #141827; color: var(--text);
+    font: inherit; font-size: 14px;
+  }
+  textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  form button {
+    padding: 0 18px; border: 0; border-radius: 10px; cursor: pointer;
+    color: #fff; font-weight: 700; font-size: 14px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  }
+  form button:disabled { opacity: .5; cursor: default; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+</style>
+</head>
+<body>
+  <main class="app">
+    <header>
+      <h1>AutoClaw Persona POC</h1>
+      <p>One bot, two guides: a supportive listener and a reflective astrologer. Offline demo.</p>
+    </header>
+
+    <div class="modes" role="group" aria-label="Choose a persona">
+      <button id="m-psychologist" type="button" aria-pressed="true">🫶 Psychologist</button>
+      <button id="m-astrologer" type="button" aria-pressed="false">✨ Astrologer</button>
+    </div>
+
+    <div class="chat" id="chat" role="log" aria-live="polite" aria-label="Conversation"></div>
+
+    <div class="meta">POC only — not therapy, not real astrology. In mock mode replies are canned.</div>
+
+    <form id="composer">
+      <label class="sr" for="input">Message</label>
+      <textarea id="input" placeholder="Type a message… (e.g. I feel stuck about my career)" autocomplete="off"></textarea>
+      <button type="submit" id="send">Send</button>
+    </form>
+  </main>
+
+<script>
+(function () {
+  'use strict';
+
+  var state = {
+    persona: 'psychologist',
+    history: [],
+  };
+
+  var CRISIS = [
+    /\bkill\s+myself\b/i, /\bsuicid/i, /\bend\s+my\s+life\b/i,
+    /\bwant\s+to\s+die\b/i, /\bself[-\s]?harm\b/i, /\bhurt(ing)?\s+myself\b/i
+  ];
+  var CRISIS_REPLY =
+    "I'm really glad you told me, and I want you to be safe. I'm a demo bot and can't provide crisis care.\n\n" +
+    "Please reach out to a real person now:\n" +
+    "\u2022 Your local emergency number (112 in India/EU, 911 US, 999 UK).\n" +
+    "\u2022 A crisis helpline in your country (India: AASRA +91-9820466726).\n" +
+    "\u2022 Someone you trust \u2014 tell them how you feel.\n\n" +
+    "If you are in immediate danger, call emergency services.";
+
+  function picked(list, seed) {
+    return list[Math.abs(seed) % list.length];
+  }
+
+  function mockReply(persona, text) {
+    var t = String(text || '').trim();
+    var seed = t.length + state.history.length;
+    var named = (t.match(/\b(?:i'?m|i am|my name is)\s+([A-Za-z][A-Za-z'-]{1,20})/i) || [])[1];
+
+    if (persona === 'astrologer') {
+      return "Let's read this more as a mirror than a forecast" + (named ? ', ' + named : '') + ". " +
+        picked([
+          "The energy you describe suggests a season of noticing what you keep postponing \u2014 what small step feels both honest and doable this week?",
+          "There is a quiet theme of transition here. If the sky were asking you one question, it would be: what are you ready to release?",
+          "Rather than a fixed answer, the stars point to patience. Which part of this is genuinely within your control right now?"
+        ], seed) +
+        " (Astrology here is for reflection and fun \u2014 not prediction.)";
+    }
+    return "Thank you for sharing that" + (named ? ', ' + named : '') + " \u2014 it sounds like it matters to you. " +
+      "I can listen and reflect, but I am a demo and not a licensed professional. " +
+      picked([
+        "What feels heaviest about this right now?",
+        "When did you first start noticing this feeling?",
+        "If a close friend described the same thing, what would you gently say to them?",
+        "What would a slightly better next hour look like for you?"
+      ], seed);
+  }
+
+  function reply(persona, text) {
+    for (var i = 0; i < CRISIS.length; i++) {
+      if (CRISIS[i].test(text)) return CRISIS_REPLY;
+    }
+    return mockReply(persona, text);
+  }
+
+  var chat = document.getElementById('chat');
+  var input = document.getElementById('input');
+  var form = document.getElementById('composer');
+
+  function add(role, text) {
+    var row = document.createElement('div');
+    row.className = 'row ' + role;
+    var bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    if (role === 'bot') {
+      var who = document.createElement('div');
+      who.className = 'who';
+      who.textContent = state.persona === 'astrologer' ? 'Astrologer' : 'Psychologist';
+      bubble.appendChild(who);
+    }
+    var span = document.createElement('span');
+    span.textContent = text;
+    bubble.appendChild(span);
+    row.appendChild(bubble);
+    chat.appendChild(row);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function setPersona(p) {
+    state.persona = p;
+    state.history = [];
+    document.getElementById('m-psychologist').setAttribute('aria-pressed', String(p === 'psychologist'));
+    document.getElementById('m-astrologer').setAttribute('aria-pressed', String(p === 'astrologer'));
+    add('bot', p === 'astrologer'
+      ? "Astrologer mode here. Tell me what's on your mind and we'll read it as reflection, not fate."
+      : "Psychologist mode here. I'm a supportive listener \u2014 what's on your mind?");
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var text = input.value.trim();
+    if (!text) return;
+    add('user', text);
+    input.value = '';
+    input.focus();
+    var out = reply(state.persona, text);
+    state.history.push({ role: 'user', content: text });
+    state.history.push({ role: 'assistant', content: out });
+    setTimeout(function () { add('bot', out); }, 220);
+  });
+
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      form.requestSubmit ? form.requestSubmit() : form.dispatchEvent(new Event('submit', { cancelable: true }));
+    }
+  });
+
+  document.getElementById('m-psychologist').addEventListener('click', function () { setPersona('psychologist'); });
+  document.getElementById('m-astrologer').addEventListener('click', function () { setPersona('astrologer'); });
+
+  setPersona('psychologist');
+})();
+</script>
+</body>
+</html>

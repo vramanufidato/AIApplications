@@ -1,0 +1,18 @@
+﻿{
+  "name": "autoclaw-telegram-persona-poc",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "POC: AutoClaw as a personal psychologist + astrologer over a Telegram bot (BotFather). No third-party dependencies.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/bot.js",
+    "demo": "node scripts/open-demo.mjs",
+    "smoke": "node test/smoke.mjs",
+    "provider": "node test/provider.test.mjs",
+    "check": "node scripts/check.mjs",
+    "verify": "node scripts/check.mjs && node test/smoke.mjs && node test/provider.test.mjs"
+  }
+}
