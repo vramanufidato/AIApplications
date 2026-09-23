@@ -1,0 +1,77 @@
+{
+  "slug": "nisabtham",
+  "title": "Nisabtham - Pocket FM mystery audio series",
+  "topic": "Pocket FM mystery audio webseries (promo)",
+  "theme": "dark, earphone-led, 'sound is the scare'",
+  "language": "ta-IN",
+  "content_type": "reel",
+  "voice": "ta-IN-ValluvarNeural",
+  "output_dir": "data/nisabtham",
+
+  "hooks": [
+    "இரவு 2 மணி... உன் இயர்போனில் ஒரு குரல் உன்னைப் பேர் சொல்லி அழைக்கிறது.",
+    "நீ கேட்கும் ஒவ்வொரு எபிசோடும்... உண்மையில் நடந்தது.",
+    "தமிழில் முதல் முறை — காதுக்குள் நுழையும் ஒரு மர்மம்.",
+    "இதை இரவில் தனியா கேட்காத... தைரியம் இருந்தா கேளு.",
+    "கடைசி 10 வினாடி வரைக்கும் யாருன்னே தெரியாது."
+  ],
+
+  "caption": "🎧 இரவு 1:47. உங்க இயர்போன் ஒலி மட்டும். திடீர்னு ஒரு குரல் — உங்க பேரைச் சொல்றது.\n\nபாக்கெட் எஃப்எம்மில் வெளியாகும் புது தமிழ் ஆடியோ மர்மத் தொடர்: \"நிசப்தம்\".\n\nஒரு ஊர்ல, ஒவ்வொரு வருஷமும் ஒரே நாள்ல, ஒரே நேரத்துல ஒருத்தர் காணாமப் போறாங்க. யாரும் பேசாத ஒரு குரல், ஒவ்வொரு எபிசோடிலும் உங்களை அந்த ரகசியத்துக்கு இட்டுச் செல்லும்.\n\nஎன்ன இருக்கு:\n• முதல் எபிசோட் இலவசம்\n• வாரம் இரு புது எபிசோட்\n• இயர்போன் போட்டா தான் முழு அனுபவம்\n\nநீங்க தைரியமானவரா? கமென்ட்ல 🎧 போடுங்க — அடுத்த எபிசோட் எப்போ வருதுன்னு நானே சொல்லுவேன்.",
+
+  "hashtags": [
+    "#Tamil", "#TamilAudio", "#AudioSeries", "#TamilPodcast", "#TamilReels",
+    "#PocketFM", "#PocketFMTamil", "#TamilMystery", "#MysteryAudio", "#TamilStory",
+    "#TamilSuspense", "#TamilThriller", "#நிசப்தம்", "#கதை", "#AudioDramaTamil",
+    "#TamilAudioSeries", "#TamilStorytelling", "#NightStories", "#TamilHorrorStory",
+    "#TamilWebSeries", "#EarphoneStory", "#TamilFiction", "#MysteryTamil",
+    "#HorrorTamilStory", "#TamilContentCreator", "#StoryTamil", "#TamilVoiceStory"
+  ],
+
+  "cover_prompt": "Vertical 9:16 cinematic mystery poster for an audio thriller series. A single pair of black wired earphones resting on wet dark asphalt at night, glowing cold blue street lamp in fog, deep shadows, teal and black color grade, film grain, eerie empty atmosphere, negative space top and bottom, no text, ultra detailed.",
+
+  "scenes": [
+    {"name": "s1_street", "prompt": "Vertical 9:16 cinematic mystery film still, empty narrow city street at 2am, one flickering cold-blue street lamp, thick fog, wet reflective asphalt, nobody around, dark teal and black grade, film grain, no text."},
+    {"name": "s2_corridor", "prompt": "Vertical 9:16 cinematic mystery film still, long dark corridor at night, faint blue light at the far end, blurred shadowy figure walking away, unsettling emptiness, film grain, no text."},
+    {"name": "s3_eye", "prompt": "Vertical 9:16 extreme macro close-up of a human eye slowly opening in darkness, cold blue glow reflected in the pupil, terror, cinematic, film grain, no text."},
+    {"name": "s4_posters", "prompt": "Vertical 9:16 dim concrete wall covered with faded missing-person posters, blurred unrecognizable faces, cold blue light, dust and decay, cinematic, film grain, no text."},
+    {"name": "s5_wave", "prompt": "Vertical 9:16 pure black background with a glowing electric-blue audio waveform pulsing in the center, abstract sound wave, minimal, high contrast, no text."}
+  ],
+
+  "voice_lines": [
+    {"name": "vo_a", "text": "இரவு இரண்டு மணி... உங்க பேரு எனக்கு தெரியும்.", "rate": "-15%", "pitch": "-15Hz"},
+    {"name": "vo_b", "text": "தமிழில் ஒரு புது மர்மம்.", "rate": "-10%", "pitch": "-10Hz"},
+    {"name": "vo_c", "text": "இந்த ஊர்ல ஒவ்வொரு வருஷமும்... ஒருத்தர் காணாமப் போறாங்க.", "rate": "-12%", "pitch": "-12Hz"},
+    {"name": "vo_d", "text": "யாரும் பேசாத ஒரு குரல்... உங்களை அழைக்கும்.", "rate": "-18%", "pitch": "-18Hz"},
+    {"name": "vo_e", "text": "நிசப்தம். Pocket FM. முதல் எபிசோட் இப்போ கேட்கலாம்.", "rate": "-5%", "pitch": "-8Hz"},
+    {"name": "vo_f", "text": "இயர்போன் அணிந்து கேளுங்க.", "rate": "-5%", "pitch": "-8Hz"}
+  ],
+
+  "reel": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30,
+    "font": "C:/Windows/Fonts/Nirmala.ttc",
+    "output": "out/nisabtham-reel-9x16.mp4",
+    "bed": [
+      {"freq": 55, "volume": 0.10, "tremolo": 0.15},
+      {"freq": 110, "volume": 0.05, "tremolo": 0.18}
+    ],
+    "segments": [
+      {"image": "cover.jpeg", "frames": 180, "zoom": "in", "text": "இரவு 2:00 AM", "enable": "between(t,0.8,5.6)", "fontsize": 60},
+      {"image": "scenes/s1_street.jpeg", "frames": 90, "zoom": "out", "text": "தமிழில் ஒரு புது மர்மம்", "enable": "between(t,6.0,9.1)", "fontsize": 60},
+      {"image": "scenes/s2_corridor.jpeg", "frames": 165, "zoom": "in", "text": "ஒவ்வொரு வருஷமும் ஒருத்தர்", "enable": "between(t,9.6,14.0)", "fontsize": 58},
+      {"image": "scenes/s3_eye.jpeg", "frames": 165, "zoom": "out", "text": "யாரும் பேசாத குரல்", "enable": "between(t,14.8,19.7)", "fontsize": 60},
+      {"image": "scenes/s4_posters.jpeg", "frames": 195, "zoom": "in", "text": "நிசப்தம் · Pocket FM", "enable": "between(t,20.4,26.0)", "fontsize": 72},
+      {"image": "scenes/s5_wave.jpeg", "frames": 75, "zoom": "out", "text": "இயர்போன் அணிந்து கேளுங்க", "enable": "between(t,26.6,28.9)", "fontsize": 56},
+      {"image": "scenes/s5_wave.jpeg", "frames": 60, "zoom": "in", "text": "Follow + Save\nமுதல் எபிசோட் இலவசம்", "enable": "between(t,29.2,31.0)", "fontsize": 58}
+    ],
+    "voice": [
+      {"file": "audio/vo_a.mp3", "delay_ms": 800},
+      {"file": "audio/vo_b.mp3", "delay_ms": 6000},
+      {"file": "audio/vo_c.mp3", "delay_ms": 9000},
+      {"file": "audio/vo_d.mp3", "delay_ms": 14600},
+      {"file": "audio/vo_e.mp3", "delay_ms": 20000},
+      {"file": "audio/vo_f.mp3", "delay_ms": 26600}
+    ]
+  }
+}

@@ -1,0 +1,78 @@
+# InstagramAG — Free-Tools Instagram Content Agent
+
+A multi-agent pipeline that generates **captions, hashtags, scene assets, Tamil voiceover and a
+final 9:16 Reel** for Instagram — using free tools only. It follows the 4-agent spec:
+
+```
+AGENT 1  Content Generation  -> hooks, caption, hashtags, scene prompts   (content_agent)
+AGENT 2  Asset Generation    -> 9:16 scene images (AutoGLM Seedream)       (asset_agent)
+         Voiceover           -> Tamil/other TTS via edge-tts (free)        (voice_agent)
+         Assembly            -> ffmpeg: Ken-Burns + on-screen text + audio (assembly_agent)
+AGENT 3  Validation          -> caption/hashtag/format checks report      (validation_agent)
+AGENT 4  Review + Scheduling -> free Instagram / Meta Business Suite flow (scheduling_agent)
+```
+
+> Scheduling is a **human handoff**: no account credentials are requested or stored. The pipeline
+> prepares the asset pack + validates it; you upload/schedule inside Instagram or Meta Business Suite.
+
+## Install
+
+```bash
+pip install -r requirements.txt      # edge-tts
+# ffmpeg must be on PATH (with drawtext/harfbuzz for Tamil shaping)
+```
+
+## Configure
+
+Copy `config.example.json` to `config.json` and edit the topic, caption, hashtags, scene prompts
+and voice lines for your series.
+
+```json
+{
+  "language": "ta-IN",
+  "voice": "ta-IN-ValluvarNeural",
+  "output_dir": "data/nisabtham",
+  ...
+}
+```
+
+## Run
+
+```bash
+python run_pipeline.py --config config.json
+```
+
+Outputs land in `data/<slug>/`:
+
+```
+data/<slug>/
+  out/reel-9x16.mp4          # the final Reel
+  assets/scenes/*.jpeg       # generated stills
+  assets/audio/vo_*.mp3      # voiceover lines
+  cover-9x16.jpeg
+  01-reel-content-pack.md    # hooks / caption / hashtags / script
+  02-review-and-scheduling.md
+  validation_report.json
+```
+
+## Agents
+
+| Module | Responsibility |
+|---|---|
+| `agents/content_agent.py` | Writes the content pack (hooks, caption, hashtags, script). |
+| `agents/asset_agent.py` | Text-to-image scene stills via the AutoGLM Seedream endpoint. |
+| `agents/voice_agent.py` | Voiceover via `edge-tts` (free, no API key). |
+| `agents/assembly_agent.py` | Builds the Reel with ffmpeg (zoompan + drawtext + audio mix). |
+| `agents/validation_agent.py` | `validation_report.json` (caption ≤2200, hashtags ≤30, MP4 9:16 ≤90s). |
+| `agents/scheduling_agent.py` | Prints the free Instagram native / Meta Business Suite steps. |
+
+## Retry policy
+
+Any generation call that returns `We're experiencing high demand right now…` is retried after a
+**4-minute** backoff (see `RETRY_BACKOFF_S = 240` in `agents/asset_agent.py`).
+
+## Notes
+
+- Tamil on-screen text needs a shaping-capable font. `C:/Windows/Fonts/Nirmala.ttc` ships with
+  Windows and works with ffmpeg's harfbuzz-backed `drawtext`.
+- Media outputs are git-ignored by default (see `.gitignore`); commit code + docs, keep media out of git.

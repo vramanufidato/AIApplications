@@ -1,0 +1,39 @@
+{
+  "content_type": "reel",
+  "language": "ta-IN",
+  "topic": "Pocket FM mystery audio webseries (promo) - placeholder title 'Nisabtham'",
+  "generated_at": "2026-09-23T12:46:00+05:30",
+  "checks": {
+    "caption": {
+      "limit_chars": 2200,
+      "actual_chars": 643,
+      "pass": true
+    },
+    "hashtags": {
+      "limit": 30,
+      "actual": 27,
+      "pass": true
+    },
+    "video": {
+      "container": "MP4",
+      "aspect_ratio": "9:16",
+      "resolution": "1080x1920",
+      "duration_s": 30,
+      "max_duration_s": 90,
+      "pass": true,
+      "note": "15s cutdown also prepared"
+    },
+    "image": {
+      "format": "JPEG",
+      "aspect_ratio": "9:16",
+      "resolution": "1600x2848",
+      "pass": true
+    },
+    "assets_downloadable": true
+  },
+  "overall": "pass",
+  "warnings": [
+    "Native IG scheduling for Reels supports MP4 9:16 and <90s; trending audio must be added inside the IG app.",
+    "This agent cannot log into Instagram/Meta Business Suite; scheduling is a user handoff."
+  ]
+}

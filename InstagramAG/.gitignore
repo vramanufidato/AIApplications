@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Local config with any personal details
+config.json
+
+# Generated media / heavy artifacts (keep code + docs, not binaries)
+data/
+*.mp4
+*.mp3
+*.wav
+*.jpeg
+*.jpg
+*.png
+
+# OS
+.DS_Store
+Thumbs.db
