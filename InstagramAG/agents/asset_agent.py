@@ -82,12 +82,19 @@ def download(url: str, dst: str) -> None:
     urllib.request.urlretrieve(url, dst)
 
 
-def run(cfg: dict, base: str) -> None:
-    """Generate cover + scene stills into <base>."""
+def run(cfg: dict, base: str, scenes: bool = True) -> None:
+    """Generate cover (+ optional scene stills) into <base>.
+
+    scenes=False is used by the Meta AI provider, which only needs a cover
+    thumbnail (the animation clips come from the Meta AI app).
+    """
     cover_prompt = cfg.get("cover_prompt")
     if cover_prompt:
         print("  [asset] cover ...")
         download(generate_image(cover_prompt), os.path.join(base, "cover.jpeg"))
+
+    if not scenes:
+        return
 
     for scene in cfg.get("scenes", []):
         dst = os.path.join(base, "scenes", f"{scene['name']}.jpeg")

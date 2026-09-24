@@ -5,11 +5,14 @@ final 9:16 Reel** for Instagram — using free tools only. It follows the 4-agen
 
 ```
 AGENT 1  Content Generation  -> hooks, caption, hashtags, scene prompts   (content_agent)
-AGENT 2  Asset Generation    -> 9:16 scene images (AutoGLM Seedream)       (asset_agent)
+AGENT 2  Video source        -> Meta AI animation clips (default)         (clip_agent)
+         Asset Generation    -> 9:16 cover / stills (AutoGLM Seedream)      (asset_agent)
          Voiceover           -> Tamil/other TTS via edge-tts (free)        (voice_agent)
-         Assembly            -> ffmpeg: Ken-Burns + on-screen text + audio (assembly_agent)
+         Assembly            -> ffmpeg: clips|Ken-Burns + text + audio      (assembly_agent)
 AGENT 3  Validation          -> caption/hashtag/format checks report      (validation_agent)
 AGENT 4  Review + Scheduling -> free Instagram / Meta Business Suite flow (scheduling_agent)
+
+**Default output: a 30-second 9:16 Reel built from Meta AI animation clips.**
 ```
 
 > Scheduling is a **human handoff**: no account credentials are requested or stored. The pipeline
@@ -47,6 +50,7 @@ Outputs land in `data/<slug>/`:
 ```
 data/<slug>/
   out/reel-9x16.mp4          # the final Reel
+  thumbnails/*.png           # 9:16 cover + 1:1 grid per video
   assets/scenes/*.jpeg       # generated stills
   assets/audio/vo_*.mp3      # voiceover lines
   cover-9x16.jpeg
@@ -60,11 +64,31 @@ data/<slug>/
 | Module | Responsibility |
 |---|---|
 | `agents/content_agent.py` | Writes the content pack (hooks, caption, hashtags, script). |
+| `agents/clip_agent.py` | Locates + validates the Meta AI animation clips for the Reel. |
+| `agents/thumbnail_agent.py` | Renders 9:16 cover + 1:1 grid thumbnails (thumbnail best practices). |
 | `agents/asset_agent.py` | Text-to-image scene stills via the AutoGLM Seedream endpoint. |
 | `agents/voice_agent.py` | Voiceover via `edge-tts` (free, no API key). |
 | `agents/assembly_agent.py` | Builds the Reel with ffmpeg (zoompan + drawtext + audio mix). |
 | `agents/validation_agent.py` | `validation_report.json` (caption ≤2200, hashtags ≤30, MP4 9:16 ≤90s). |
 | `agents/scheduling_agent.py` | Prints the free Instagram native / Meta Business Suite steps. |
+
+## Video providers
+
+`video.provider` selects the video source:
+
+| Provider | What it does |
+|---|---|
+| `meta_ai` **(default)** | Normalises Meta AI animation clips to 1080×1920/30fps, gives each clip an equal slot to hit `video.duration` (**30 s default**), then adds captions + voiceover. |
+| `stills` | Ken-Burns zoompan over generated scene stills (the earlier approach). |
+
+Meta AI has no free public API, so you generate the clips in the Meta AI app and drop them in
+`data/<slug>/assets/clips/`. Full steps: [`docs/meta-ai-animation.md`](docs/meta-ai-animation.md).
+
+Switch provider:
+
+```bash
+python run_pipeline.py --config config.json --provider stills
+```
 
 ## Retry policy
 

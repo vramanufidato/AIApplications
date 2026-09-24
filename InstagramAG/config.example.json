@@ -8,6 +8,33 @@
   "voice": "ta-IN-ValluvarNeural",
   "output_dir": "data/nisabtham",
 
+  "video": {
+    "provider": "meta_ai",
+    "duration": 30,
+    "clips_dir": "assets/clips",
+    "clips": []
+  },
+
+  "thumbnails": [
+    {
+      "name": "nisabtham-reel",
+      "base": "cover.jpeg",
+      "brand": "POCKET FM",
+      "tag": "AUDIO SERIES",
+      "title": "நிசப்தம்",
+      "kicker": "Pocket FM · மர்ம ஆடியோ தொடர்",
+      "badge": "முதல் எபிசோட் இலவசம்"
+    },
+    {
+      "name": "nisabtham-metaai",
+      "video": "out/nisabtham-reel-9x16.mp4",
+      "time": 17,
+      "title": "நிசப்தம்",
+      "kicker": "Pocket FM · மர்ம ஆடியோ தொடர்",
+      "badge": "முதல் எபிசோட் இலவசம்"
+    }
+  ],
+
   "hooks": [
     "இரவு 2 மணி... உன் இயர்போனில் ஒரு குரல் உன்னைப் பேர் சொல்லி அழைக்கிறது.",
     "நீ கேட்கும் ஒவ்வொரு எபிசோடும்... உண்மையில் நடந்தது.",
