@@ -1,0 +1,241 @@
+[
+  {
+    "tag": "html",
+    "text": "F\nFIDATO | Venkatesh R\nHome\nArt & Content\nAI Music & Audio\nArchitecture\nResume\nCredentials\nMedia Assets\nContact\nCommissi",
+    "id": "",
+    "class": "",
+    "name": null,
+    "aria_label": null,
+    "href": null,
+    "displayed": true,
+    "matched": [
+      "contact",
+      "resume"
+    ]
+  },
+  {
+    "tag": "body",
+    "text": "F\nFIDATO | Venkatesh R\nHome\nArt & Content\nAI Music & Audio\nArchitecture\nResume\nCredentials\nMedia Assets\nContact\nCommissi",
+    "id": "",
+    "class": "",
+    "name": null,
+    "aria_label": null,
+    "href": null,
+    "displayed": true,
+    "matched": [
+      "contact",
+      "resume"
+    ]
+  },
+  {
+    "tag": "header",
+    "text": "F\nFIDATO | Venkatesh R\nHome\nArt & Content\nAI Music & Audio\nArchitecture\nResume\nCredentials\nMedia Assets\nContact\nCommissi",
+    "id": "navbar",
+    "class": "navbar",
+    "name": null,
+    "aria_label": null,
+    "href": null,
+    "displayed": true,
+    "matched": [
+      "contact",
+      "resume"
+    ]
+  },
+  {
+    "tag": "div",
+    "text": "F\nFIDATO | Venkatesh R\nHome\nArt & Content\nAI Music & Audio\nArchitecture\nResume\nCredentials\nMedia Assets\nContact\nCommissi",
+    "id": "",
+    "class": "nav-container",
+    "name": null,
+    "aria_label": null,
+    "href": null,
+    "displayed": true,
+    "matched": [
+      "contact",
+      "resume"
+    ]
+  },
+  {
+    "tag": "nav",
+    "text": "Home\nArt & Content\nAI Music & Audio\nArchitecture\nResume\nCredentials\nMedia Assets\nContact",
+    "id": "",
+    "class": "nav-links",
+    "name": null,
+    "aria_label": "Main Navigation",
+    "href": null,
+    "displayed": true,
+    "matched": [
+      "contact",
+      "resume"
+    ]
+  },
+  {
+    "tag": "a",
+    "text": "Resume",
+    "id": "",
+    "class": "nav-link",
+    "name": "",
+    "aria_label": null,
+    "href": "https://fidatosmainportfolio.netlify.app/resume",
+    "displayed": true,
+    "matched": [
+      "resume"
+    ]
+  },
+  {
+    "tag": "a",
+    "text": "Contact",
+    "id": "",
+    "class": "nav-link",
+    "name": "",
+    "aria_label": null,
+    "href": "https://fidatosmainportfolio.netlify.app/contact",
+    "displayed": true,
+    "matched": [
+      "contact"
+    ]
+  },
+  {
+    "tag": "a",
+    "text": "Commission Work",
+    "id": "",
+    "class": "cta-nav-btn",
+    "name": "",
+    "aria_label": null,
+    "href": "https://fidatosmainportfolio.netlify.app/contact",
+    "displayed": true,
+    "matched": [
+      "contact"
+    ]
+  },
+  {
+    "tag": "main",
+    "text": "FIDATO (VENKATESH R) \u2014 UNIFIED BRAND IDENTITY\nContent Creation, AI Audio Scoring,\n& Enterprise Systems Architecture.\n\"Fi",
+    "id": "",
+    "class": "",
+    "name": null,
+    "aria_label": null,
+    "href": null,
+    "displayed": true,
+    "matched": [
+      "resume"
+    ]
+  },
+  {
+    "tag": "section",
+    "text": "FIDATO (VENKATESH R) \u2014 UNIFIED BRAND IDENTITY\nContent Creation, AI Audio Scoring,\n& Enterprise Systems Architecture.\n\"Fi",
+    "id": "home",
+    "class": "hero",
+    "name": null,
+    "aria_label": null,
+    "href": null,
+    "displayed": true,
+    "matched": [
+      "resume"
+    ]
+  },
+  {
+    "tag": "div",
+    "text": "FIDATO (VENKATESH R) \u2014 UNIFIED BRAND IDENTITY\nContent Creation, AI Audio Scoring,\n& Enterprise Systems Architecture.\n\"Fi",
+    "id": "",
+    "class": "container",
+    "name": null,
+    "aria_label": null,
+    "href": null,
+    "displayed": true,
+    "matched": [
+      "resume"
+    ]
+  },
+  {
+    "tag": "div",
+    "text": "Explore My Work \u2192\nView Resume",
+    "id": "",
+    "class": "hero-ctas",
+    "name": null,
+    "aria_label": null,
+    "href": null,
+    "displayed": true,
+    "matched": [
+      "resume"
+    ]
+  },
+  {
+    "tag": "a",
+    "text": "View Resume",
+    "id": "",
+    "class": "btn btn-ghost",
+    "name": "",
+    "aria_label": null,
+    "href": "https://fidatosmainportfolio.netlify.app/resume",
+    "displayed": true,
+    "matched": [
+      "resume"
+    ]
+  },
+  {
+    "tag": "footer",
+    "text": "FIDATO\nUnifying Content Creation, Visual Art, AI Audio Innovation, and Systems Architecture.\n\u00a9 2025 Fidato (Venkatesh R)",
+    "id": "",
+    "class": "footer",
+    "name": null,
+    "aria_label": null,
+    "href": null,
+    "displayed": true,
+    "matched": [
+      "resume"
+    ]
+  },
+  {
+    "tag": "div",
+    "text": "FIDATO\nUnifying Content Creation, Visual Art, AI Audio Innovation, and Systems Architecture.\n\u00a9 2025 Fidato (Venkatesh R)",
+    "id": "",
+    "class": "container footer-content",
+    "name": null,
+    "aria_label": null,
+    "href": null,
+    "displayed": true,
+    "matched": [
+      "resume"
+    ]
+  },
+  {
+    "tag": "div",
+    "text": "SITE SECTIONS\nHome\nArt Portfolio\nAI Music\nArchitecture\nResume\nCredentials\nMedia Assets",
+    "id": "",
+    "class": "footer-links",
+    "name": null,
+    "aria_label": null,
+    "href": null,
+    "displayed": true,
+    "matched": [
+      "resume"
+    ]
+  },
+  {
+    "tag": "ul",
+    "text": "Home\nArt Portfolio\nAI Music\nArchitecture\nResume\nCredentials\nMedia Assets",
+    "id": "",
+    "class": "",
+    "name": null,
+    "aria_label": null,
+    "href": null,
+    "displayed": true,
+    "matched": [
+      "resume"
+    ]
+  },
+  {
+    "tag": "li",
+    "text": "Resume",
+    "id": "",
+    "class": "",
+    "name": null,
+    "aria_label": null,
+    "href": null,
+    "displayed": true,
+    "matched": [
+      "resume"
+    ]
+  }
+]

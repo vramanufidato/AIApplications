@@ -1,0 +1,101 @@
+[
+  {
+    "id": "TC-001",
+    "name": "Homepage loads successfully",
+    "description": "Open target_url in headless Chrome; assert page title contains 'Fidato' and the hero H1 'Content Creation, AI Audio Scoring, & Enterprise Systems Architecture.' is visible.",
+    "priority": "High",
+    "category": "smoke",
+    "depends_on_user_creation": false,
+    "expected_result": "HTTP load with no error page; title contains 'Fidato'; h1.hero present and visible."
+  },
+  {
+    "id": "TC-002",
+    "name": "Primary navigation renders with all 8 section links",
+    "description": "Assert nav[aria-label='Main Navigation'] exists and contains links: Home, Art & Content, AI Music & Audio, Architecture, Resume, Credentials, Media Assets, Contact.",
+    "priority": "High",
+    "category": "smoke",
+    "depends_on_user_creation": false,
+    "expected_result": "All 8 nav links present and displayed with correct hrefs."
+  },
+  {
+    "id": "TC-003",
+    "name": "Each internal section link resolves (no broken routes)",
+    "description": "Parametrized over /art, /music, /architecture, /resume, /credentials, /media, /contact: navigate and assert the resulting page does not show a 404/'Page not found' and has a non-empty <body>.",
+    "priority": "High",
+    "category": "functional",
+    "depends_on_user_creation": false,
+    "expected_result": "Every section route loads a real page (no 404), non-empty body text."
+  },
+  {
+    "id": "TC-004",
+    "name": "Hero CTA 'Explore My Work' navigates to /art",
+    "description": "Click the hero CTA in div.hero-ctas and assert the URL becomes /art and the Art page content renders.",
+    "priority": "Medium",
+    "category": "functional",
+    "depends_on_user_creation": false,
+    "expected_result": "URL ends with /art and page body is non-empty."
+  },
+  {
+    "id": "TC-005",
+    "name": "Hero CTA 'View Resume' navigates to /resume",
+    "description": "Click the hero 'View Resume' button (a.btn.btn-ghost) and assert URL becomes /resume.",
+    "priority": "Medium",
+    "category": "functional",
+    "depends_on_user_creation": false,
+    "expected_result": "URL ends with /resume and resume content renders."
+  },
+  {
+    "id": "TC-006",
+    "name": "Footer SITE SECTIONS links are valid",
+    "description": "Enumerate footer.footer-links anchors and assert each has a href and resolves to a non-404 page.",
+    "priority": "Medium",
+    "category": "regression",
+    "depends_on_user_creation": false,
+    "expected_result": "All footer section links have hrefs and resolve successfully."
+  },
+  {
+    "id": "TC-007",
+    "name": "Contact / Commission Work CTA reaches /contact",
+    "description": "Click the navbar 'Commission Work' CTA (a.cta-nav-btn) and the 'Contact' nav link; assert both land on /contact.",
+    "priority": "Medium",
+    "category": "functional",
+    "depends_on_user_creation": false,
+    "expected_result": "Both CTAs resolve to /contact."
+  },
+  {
+    "id": "TC-008",
+    "name": "External links are well-formed and open in new tab",
+    "description": "Assert known external links (Main Portfolio nxtdev.xyz, Visual Art Portfolio nxtdev.xyz, Suno @fidato_warrior, Medium, Credly badges) exist with valid https hrefs.",
+    "priority": "Low",
+    "category": "functional",
+    "depends_on_user_creation": false,
+    "expected_result": "All external anchors present with https hrefs and target=_blank where applicable."
+  },
+  {
+    "id": "TC-009",
+    "name": "No broken images on homepage",
+    "description": "Iterate all <img> elements and assert naturalWidth > 0 (no failed loads).",
+    "priority": "Medium",
+    "category": "regression",
+    "depends_on_user_creation": false,
+    "expected_result": "Every <img> has naturalWidth > 0."
+  },
+  {
+    "id": "TC-010",
+    "name": "Unknown route returns 404 page",
+    "description": "Navigate to a non-existent path (e.g. /this-page-does-not-exist) and assert the site returns a 404 / 'Page not found' response rather than silent blank page.",
+    "priority": "Low",
+    "category": "regression",
+    "depends_on_user_creation": false,
+    "expected_result": "Unknown path yields a 404 status or an explicit not-found page."
+  },
+  {
+    "id": "TC-011",
+    "name": "Mobile viewport renders hero and nav",
+    "description": "Load homepage at 390x844 (iPhone-ish). Assert the hero h1 and nav container are present and the page body is non-empty.",
+    "priority": "Medium",
+    "category": "smoke",
+    "depends_on_user_creation": false,
+    "expected_result": "Hero and navigation present and visible at mobile width."
+  }
+]

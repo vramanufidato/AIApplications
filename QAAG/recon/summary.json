@@ -1,0 +1,46 @@
+{
+  "target_url": "https://fidatosmainportfolio.netlify.app/",
+  "title": "Fidato (Venkatesh R) | Content Creator, Visual Artist & AI Audio Director",
+  "final_url": "https://fidatosmainportfolio.netlify.app/",
+  "headings": [
+    {
+      "tag": "h1",
+      "text": "Content Creation, AI Audio Scoring,\n& Enterprise Systems Architecture."
+    },
+    {
+      "tag": "h3",
+      "text": "Content Creator & Visual Artist"
+    },
+    {
+      "tag": "h3",
+      "text": "AI Music Director & Audio Producer"
+    },
+    {
+      "tag": "h3",
+      "text": "Enterprise Cloud & AI Architect"
+    },
+    {
+      "tag": "h3",
+      "text": "FIDATO"
+    }
+  ],
+  "nav_labels": [
+    "AI Music & Audio",
+    "Architecture",
+    "Art & Content",
+    "Commission Work",
+    "Contact",
+    "Credentials",
+    "F\nFIDATO | Venkatesh R",
+    "Home",
+    "Media Assets",
+    "Resume"
+  ],
+  "body_text_chars": 1480,
+  "inputs_count": 0,
+  "buttons_count": 0,
+  "links_count": 27,
+  "key_elements_count": 18,
+  "modal_present": false,
+  "homepage_screenshot": "recon/homepage.png"
+}

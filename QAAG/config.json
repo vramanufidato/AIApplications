@@ -1,0 +1,7 @@
+{
+  "target_url": "https://fidatosmainportfolio.netlify.app/",
+  "test_user_mobile": "+91-9999999999",
+  "test_user_email": "qaag.testuser@gmail.com",
+  "test_flow_hint": "portfolio navigation: load homepage, scroll sections, open project links, contact links",
+  "project_folder": "C:/Users/venka/OneDrive/Documents/GitHub/QAAG"
+}

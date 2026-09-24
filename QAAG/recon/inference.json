@@ -1,0 +1,32 @@
+{
+  "site_type": "portfolio",
+  "target_url": "https://fidatosmainportfolio.netlify.app/",
+  "title": "Fidato (Venkatesh R) | Content Creator, Visual Artist & AI Audio Director",
+  "probable_flows": [
+    "Load homepage and render hero / brand identity block",
+    "Navigate to Art & Content section (/art)",
+    "Navigate to AI Music & Audio section (/music)",
+    "Navigate to Architecture section (/architecture)",
+    "Open Resume (/resume)",
+    "Open Credentials (/credentials)",
+    "Open Media Assets (/media)",
+    "Reach Contact / Commission Work (/contact)",
+    "Follow external links (nxtdev portfolios, Suno, Medium, Credly)"
+  ],
+  "search_available": false,
+  "login_available": false,
+  "signup_available": false,
+  "category_navigation": true,
+  "notes": "Static personal-brand portfolio (Netlify). No forms, inputs, buttons, login, signup, search, or modals detected during recon. Interaction surface is entirely navigation links and external outbound links. No user-creation flow exists, so OTP/depends_on_user_creation tests are not applicable.",
+  "notable_elements": [
+    {"desc": "Primary nav with 8 section links", "locator": "nav.nav-links a.nav-link"},
+    {"desc": "Brand / Home link in navbar", "locator": "header#navbar a[href='/']"},
+    {"desc": "Contact CTA in navbar", "locator": "a.cta-nav-btn"},
+    {"desc": "Hero section", "locator": "section#home.hero"},
+    {"desc": "Hero primary CTA 'Explore My Work'", "locator": "div.hero-ctas a[href$='/art']"},
+    {"desc": "Hero secondary CTA 'View Resume'", "locator": "div.hero-ctas a[href$='/resume']"},
+    {"desc": "Three pillar cards (Art / Music / Architecture)", "locator": "a[href$='/art'], a[href$='/music'], a[href$='/architecture']"},
+    {"desc": "Footer with SITE SECTIONS link list", "locator": "footer.footer div.footer-links"},
+    {"desc": "External outbound links", "locator": "a[href^='https']:not([href*='fidatosmainportfolio'])"}
+  ]
+}
