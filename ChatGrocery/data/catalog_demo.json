@@ -1,0 +1,38 @@
+{
+  "location": "Demo City, Maharashtra",
+  "pincode": "400001",
+  "captured": "2026-09-25T12:00:00+05:30",
+  "platforms": ["Blinkit", "Zepto", "Swiggy Instamart"],
+  "skus": [
+    {
+      "id": "amul_taaza_1l",
+      "name": "Amul Taaza Milk 1L",
+      "unit": "1 L",
+      "quotes": [
+        {"platform": "Blinkit", "price": 77, "available": true},
+        {"platform": "Zepto", "price": 82, "available": true},
+        {"platform": "Swiggy Instamart", "price": 89, "available": true}
+      ]
+    },
+    {
+      "id": "tata_salt_1kg",
+      "name": "Tata Salt 1kg",
+      "unit": "1 kg",
+      "quotes": [
+        {"platform": "Blinkit", "price": 28, "available": true},
+        {"platform": "Zepto", "price": 24, "available": true},
+        {"platform": "Swiggy Instamart", "price": 33, "available": true}
+      ]
+    },
+    {
+      "id": "aashirvaad_atta_5kg",
+      "name": "Aashirvaad Atta 5kg",
+      "unit": "5 kg",
+      "quotes": [
+        {"platform": "Blinkit", "price": 330, "available": true},
+        {"platform": "Zepto", "price": 305, "available": true},
+        {"platform": "Swiggy Instamart", "price": 327, "available": true}
+      ]
+    }
+  ]
+}

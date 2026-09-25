@@ -1,0 +1,38 @@
+{
+  "location": "Tiruchirappalli, Tamil Nadu",
+  "pincode": "620001",
+  "captured": "2026-09-25T17:17:00+05:30",
+  "platforms": ["Blinkit", "Zepto", "Swiggy Instamart"],
+  "skus": [
+    {
+      "id": "amul_taaza_1l",
+      "name": "Amul Taaza Milk 1L",
+      "unit": "1 L",
+      "quotes": [
+        {"platform": "Blinkit", "price": 77, "available": true, "note": "Amul Taaza Toned Milk 1L"},
+        {"platform": "Zepto", "price": null, "available": false, "note": "Not serviceable at pincode 620001"},
+        {"platform": "Swiggy Instamart", "price": 77, "available": true, "note": "Amul Taaza Toned Milk 1ltr"}
+      ]
+    },
+    {
+      "id": "tata_salt_1kg",
+      "name": "Tata Salt 1kg",
+      "unit": "1 kg",
+      "quotes": [
+        {"platform": "Blinkit", "price": 22, "available": true, "note": "Tata Salt - Iodised Crystal 1kg"},
+        {"platform": "Zepto", "price": null, "available": false, "note": "Not serviceable at pincode 620001"},
+        {"platform": "Swiggy Instamart", "price": 31, "available": true, "note": "Tata Salt Iodised Namak 1kg (3% off Rs.32)"}
+      ]
+    },
+    {
+      "id": "aashirvaad_atta_5kg",
+      "name": "Aashirvaad Atta 5kg",
+      "unit": "5 kg",
+      "quotes": [
+        {"platform": "Blinkit", "price": 327, "available": true, "note": "Aashirvaad Superior MP Chakki Atta 5kg (organic variant Rs.330)"},
+        {"platform": "Zepto", "price": null, "available": false, "note": "Not serviceable at pincode 620001"},
+        {"platform": "Swiggy Instamart", "price": 327, "available": true, "note": "Aashirvaad Superior MP Atta 5kg (8% off Rs.358)"}
+      ]
+    }
+  ]
+}

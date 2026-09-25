@@ -1,0 +1,7 @@
+{
+  "catalog": "data/catalog_620001.json",
+  "threshold": 10.0,
+  "outdir": "output",
+  "webhook_url": "YOUR_PUMBLE_WEBHOOK_URL",
+  "summary_prefix": "Quick Commerce Prices"
+}

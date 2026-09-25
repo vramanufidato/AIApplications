@@ -1,0 +1,76 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>pytest  —  ChatGrocery test suite</title>
+<style>
+  html,body{margin:0;background:#0d1117;}
+  .win{font-family:'Cascadia Mono','Consolas',monospace;color:#c9d1d9;
+        background:#0d1117;padding:0;}
+  .bar{background:#161b22;padding:10px 14px;display:flex;align-items:center;gap:8px;}
+  .dot{width:12px;height:12px;border-radius:50%;display:inline-block;}
+  .r{background:#ff5f56}.y{background:#ffbd2e}.g{background:#27c93f}
+  .title{color:#8b949e;margin-left:10px;font-size:13px;font-family:Segoe UI,sans-serif;}
+  pre{margin:0;padding:18px 20px;font-size:13.5px;line-height:1.55;
+       white-space:pre-wrap;word-break:break-word;}
+  .pass{color:#3fb950;font-weight:600}
+  .fail{color:#f85149;font-weight:600}
+  .hi{color:#58a6ff}
+  .warn{color:#d29922}
+  .dim{color:#8b949e}
+</style></head>
+<body><div class="win">
+  <div class="bar"><span class="dot r"></span><span class="dot y"></span>
+    <span class="dot g"></span><span class="title">pytest  —  ChatGrocery test suite</span></div>
+  <pre>============================= test session starts =============================
+platform win32 -- Python 3.13.12, pytest-9.1.1, pluggy-1.6.0 -- C:\Program Files\AutoClaw\resources\python\python.exe
+cachedir: .pytest_cache
+metadata: {&#x27;Python&#x27;: &#x27;3.13.12&#x27;, &#x27;Platform&#x27;: &#x27;Windows-11-10.0.26200-SP0&#x27;, &#x27;Packages&#x27;: {&#x27;pytest&#x27;: &#x27;9.1.1&#x27;, &#x27;pluggy&#x27;: &#x27;1.6.0&#x27;}, &#x27;Plugins&#x27;: {&#x27;html&#x27;: &#x27;4.2.0&#x27;, &#x27;metadata&#x27;: &#x27;3.1.1&#x27;, &#x27;xdist&#x27;: &#x27;3.8.0&#x27;}}
+rootdir: C:\Users\venka\OneDrive\Documents\GitHub\AIApplications\ChatGrocery
+configfile: pytest.ini
+testpaths: tests
+plugins: html-4.2.0, metadata-3.1.1, xdist-3.8.0
+collecting ... collected 41 items
+
+tests/test_catalog.py::test_coerce_price_accepts_numeric_strings <span class="pass">PASSED</span>  [  2%]
+tests/test_catalog.py::test_coerce_price_rejects_junk <span class="pass">PASSED</span>             [  4%]
+tests/test_catalog.py::test_coerce_price_rejects_negative <span class="pass">PASSED</span>         [  7%]
+tests/test_catalog.py::test_parse_snapshot_basic <span class="pass">PASSED</span>                  [  9%]
+tests/test_catalog.py::test_parse_available_defaults_from_price <span class="pass">PASSED</span>   [ 12%]
+tests/test_catalog.py::test_parse_unavailable_row_has_no_price <span class="pass">PASSED</span>    [ 14%]
+tests/test_catalog.py::test_parse_handles_missing_sections <span class="pass">PASSED</span>        [ 17%]
+tests/test_catalog.py::test_load_snapshot_real_file <span class="pass">PASSED</span>               [ 19%]
+tests/test_compare.py::test_group_by_sku <span class="pass">PASSED</span>                          [ 21%]
+tests/test_compare.py::test_priced_filters_unavailable <span class="pass">PASSED</span>            [ 24%]
+tests/test_compare.py::test_cheapest_picks_minimum <span class="pass">PASSED</span>                [ 26%]
+tests/test_compare.py::test_cheapest_none_when_all_unavailable <span class="pass">PASSED</span>    [ 29%]
+tests/test_compare.py::test_cheapest_label_single <span class="pass">PASSED</span>                 [ 31%]
+tests/test_compare.py::test_cheapest_label_tie_is_sorted_and_joined <span class="pass">PASSED</span> [ 34%]
+tests/test_compare.py::test_cheapest_label_na_when_empty <span class="pass">PASSED</span>          [ 36%]
+tests/test_compare.py::test_spread_two_values <span class="pass">PASSED</span>                     [ 39%]
+tests/test_compare.py::test_spread_single_value_is_none <span class="pass">PASSED</span>           [ 41%]
+tests/test_compare.py::test_find_diffs_above_threshold <span class="pass">PASSED</span>            [ 43%]
+tests/test_compare.py::test_find_diffs_boundary_equal_threshold_excluded <span class="pass">PASSED</span> [ 46%]
+tests/test_compare.py::test_find_diffs_ignores_unavailable <span class="pass">PASSED</span>        [ 48%]
+tests/test_compare.py::test_platform_availability <span class="pass">PASSED</span>                 [ 51%]
+tests/test_compare.py::test_build_matrix_shape <span class="pass">PASSED</span>                    [ 53%]
+tests/test_notify.py::test_fmt_price <span class="pass">PASSED</span>                              [ 56%]
+tests/test_notify.py::test_build_summary_format <span class="pass">PASSED</span>                   [ 58%]
+tests/test_notify.py::test_build_summary_custom_prefix <span class="pass">PASSED</span>            [ 60%]
+tests/test_notify.py::test_build_payload_shape <span class="pass">PASSED</span>                    [ 63%]
+tests/test_notify.py::test_send_webhook_posts_json <span class="pass">PASSED</span>                [ 65%]
+tests/test_notify.py::test_send_webhook_rejects_placeholder_url <span class="pass">PASSED</span>   [ 68%]
+tests/test_pipeline.py::test_real_snapshot_has_no_diffs <span class="pass">PASSED</span>           [ 70%]
+tests/test_pipeline.py::test_real_snapshot_cheapest_calls <span class="pass">PASSED</span>         [ 73%]
+tests/test_pipeline.py::test_real_snapshot_zepto_unavailable <span class="pass">PASSED</span>      [ 75%]
+tests/test_pipeline.py::test_demo_snapshot_detects_diffs <span class="pass">PASSED</span>          [ 78%]
+tests/test_pipeline.py::test_pipeline_writes_report <span class="pass">PASSED</span>               [ 80%]
+tests/test_pipeline.py::test_pipeline_notify_posts_summary <span class="pass">PASSED</span>        [ 82%]
+tests/test_pipeline.py::test_skip_notify_without_url <span class="pass">PASSED</span>              [ 85%]
+tests/test_report.py::test_fmt_money_integer_and_decimal <span class="pass">PASSED</span>          [ 87%]
+tests/test_report.py::test_report_contains_sku_rows <span class="pass">PASSED</span>               [ 90%]
+tests/test_report.py::test_report_no_diff_note_when_empty <span class="pass">PASSED</span>         [ 92%]
+tests/test_report.py::test_report_diff_table_when_present <span class="pass">PASSED</span>         [ 95%]
+tests/test_report.py::test_report_availability_section <span class="pass">PASSED</span>            [ 97%]
+tests/test_report.py::test_write_report_roundtrip <span class="pass">PASSED</span>                 [100%]
+
+============================= 41 <span class="pass">passed</span> in 0.44s ==============================
+</pre>
+</div></body></html>
