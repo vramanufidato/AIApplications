@@ -1,0 +1,14 @@
+{
+  "watchlist": {
+    "RELIANCE": "RELIANCE.NS",
+    "TCS": "TCS.NS",
+    "HDFCBANK": "HDFCBANK.NS",
+    "INFY": "INFY.NS",
+    "ICICIBANK": "ICICIBANK.NS"
+  },
+  "sma_period": 30,
+  "rsi_period": 14,
+  "outdir": "output",
+  "webhook_url": "YOUR_PUMBLE_WEBHOOK_URL",
+  "summary_prefix": "NIFTY 50 Signals"
+}

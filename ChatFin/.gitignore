@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+
+# ChatFin runtime output
+output/
+
+# Local secrets / real config
+config.json
+.env
