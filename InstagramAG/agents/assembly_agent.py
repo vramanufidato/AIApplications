@@ -1,14 +1,17 @@
 """AGENT 2c - Reel assembly.
 
-Builds the final 9:16 Reel with ffmpeg. Two providers:
+Builds the final 9:16 Reel with ffmpeg from a unified timeline:
 
-  * video.provider = "meta_ai"  (DEFAULT) -> normalise Meta AI animation clips
-        (scale/crop 1080x1920, 30fps, each clip looped/trimmed to its slot so the
-        total is exactly `video.duration`, default 30s)
-  * video.provider = "stills"              -> Ken-Burns zoompan over scene stills
+    [ intro card ]  [ main body (Meta AI clips OR stills) ]  [ outro card ]
 
-Both then share: Tamil (or any) on-screen text via drawtext, ambient drone bed,
-and time-placed voiceover.
+  * intro card  - uses the cover/thumbnail image, so the key image is IN the reel
+  * outro card  - a "Follow / Subscribe" end page
+  * main body   - video.provider = "meta_ai" (default) normalises animation clips;
+                  "stills" uses Ken-Burns zoompan over scene stills.
+
+On-screen text (Tamil/Latin via harfbuzz drawtext), an ambient drone bed and the
+voiceover are laid over the whole timeline. Caption windows and voiceover are
+shifted automatically by the intro card's length.
 """
 from __future__ import annotations
 
@@ -17,58 +20,168 @@ import subprocess
 
 from . import clip_agent
 
+MIN_TITLE_SEC = 2.0  # every on-screen title/caption is held for at least this long
 
-def _font(font: str) -> str:
-    return font.replace("\\", "/").replace(":", "\\:")
-
-
-def _starts(segments, fps):
-    acc, out = 0, []
-    for s in segments:
-        out.append(acc / fps)
-        acc += s["frames"]
-    return out
+FONTS = {
+    "tamil": "C:/Windows/Fonts/Nirmala.ttc",
+    "latin": "C:/Windows/Fonts/ariblk.ttf",
+    "latinsub": "C:/Windows/Fonts/arialbd.ttf",
+}
 
 
-def _write_textfiles(segments, base) -> dict:
-    ids = {}
-    for i, seg in enumerate(segments):
-        if seg.get("text"):
-            tf = f"txt{i}.txt"
-            with open(os.path.join(base, tf), "w", encoding="utf-8", newline="\n") as fh:
-                fh.write(seg["text"])
-            ids[i] = tf
-    return ids
+def _esc(p: str) -> str:
+    return p.replace("\\", "/").replace(":", "\\:")
 
 
-def _overlay_lines(base_label, segments, starts, fps, text_ids, font):
-    lines, prev = [], base_label
-    ids = [i for i in range(len(segments)) if i in text_ids]
-    for n, i in enumerate(ids):
-        seg = segments[i]
-        end = starts[i] + seg["frames"] / fps
-        en = seg.get("enable", f"between(t,{starts[i]:.3f},{end:.3f})")
-        out = f"t{n}" if n < len(ids) - 1 else "vout"
-        tail = ",format=yuv420p" if n == len(ids) - 1 else ""
+def _font(kind: str) -> str:
+    return _esc(FONTS.get(kind, FONTS["tamil"]))
+
+
+def _timeline(cfg, base):
+    """Return (visuals, overlays, body_start, total).
+
+    visuals : [{"src": path, "sec": float}]
+    overlays: [{"start","end","title","title_font","fontsize","sub","sub_font",
+                "cta","cta_font","y"}]
+    """
+    reel = cfg["reel"]
+    video = cfg.get("video", {})
+    fps = reel.get("fps", 30)
+    provider = video.get("provider", "meta_ai")
+    visuals, overlays = [], []
+    t = 0.0
+
+    def overlay(src, start, dur, default_font="tamil"):
+        if not src.get("text"):
+            return
+        overlays.append({
+            "start": start + 0.25, "end": start + dur - 0.15,
+            "title": src["text"], "title_font": src.get("text_font", default_font),
+            "fontsize": src.get("fontsize", 120),
+            "sub": src.get("sub"), "sub_font": src.get("sub_font", "tamil"),
+            "cta": src.get("cta"), "cta_font": src.get("cta_font", "tamil"),
+            "y": src.get("y", 0.62),
+        })
+
+    intro = reel.get("intro")
+    if intro:
+        sec = intro.get("frames", 90) / fps
+        visuals.append({"src": intro.get("image", "cover.jpeg"), "sec": sec})
+        overlay(intro, t, sec, default_font="tamil")
+        t += sec
+    body_start = t
+
+    segs = reel.get("segments", [])
+    if provider in ("meta_ai", "animation", "clips"):
+        clips = clip_agent.resolve_clips(cfg, base)
+        body = float(video.get("duration", 30))
+        slot = body / len(clips)
+        for c in clips:
+            visuals.append({"src": c, "sec": slot})
+            t += slot
+        total_f = sum(s["frames"] for s in segs) or 1
+        raw = [(s["frames"] / total_f) * body for s in segs]
+        min_d = MIN_TITLE_SEC + 0.6
+        durs = [max(r, min_d) if s.get("text") else r for s, r in zip(segs, raw)]
+        over = sum(durs) - body
+        if over > 0:
+            slack = sum(d - min_d for s, d in zip(segs, durs) if d - min_d > 0)
+            if slack > 0:
+                durs = [d - over * ((d - min_d) / slack) if d - min_d > 0 else d
+                        for s, d in zip(segs, durs)]
+        acc = body_start
+        for s, dur in zip(segs, durs):
+            if s.get("text"):
+                overlays.append({
+                    "start": acc + 0.15, "end": acc + dur - 0.15,
+                    "title": s["text"], "title_font": s.get("text_font", "tamil"),
+                    "fontsize": s.get("fontsize", 60), "sub": None, "sub_font": "latinsub",
+                    "cta": None, "cta_font": "tamil", "y": s.get("y", 0.70)})
+            acc += dur
+    else:
+        for s in segs:
+            sec = s["frames"] / fps
+            if s.get("text"):
+                sec = max(sec, MIN_TITLE_SEC + 0.5)
+            visuals.append({"src": s["image"], "sec": sec})
+            overlay({**s, "fontsize": s.get("fontsize", 60)}, t, sec)
+            t += sec
+
+    outro = reel.get("outro")
+    if outro:
+        sec = outro.get("frames", 150) / fps
+        visuals.append({"src": outro.get("image", "scenes/s5_wave.jpeg"), "sec": sec})
+        overlay(outro, t, sec, default_font="latin")
+        t += sec
+
+    # enforce a minimum on-screen time for every title/caption
+    for i, ov in enumerate(overlays):
+        nxt = overlays[i + 1]["start"] if i + 1 < len(overlays) else t
+        cap = nxt - 0.1
+        want = ov["start"] + MIN_TITLE_SEC
+        if ov["end"] < want and cap > ov["start"] + 0.5:
+            ov["end"] = min(want, cap)
+
+    return visuals, overlays, body_start, t
+
+
+def _overlay_filters(overlays, tdir, base_label):
+    os.makedirs(tdir, exist_ok=True)
+    lines, prev, counter = [], base_label, 0
+
+    def nxt():
+        nonlocal counter
+        counter += 1
+        return f"x{counter}"
+
+    def write(name, text):
+        with open(os.path.join(tdir, name), "w", encoding="utf-8", newline="\n") as fh:
+            fh.write(text)
+        return f"{os.path.basename(tdir)}/{name}"
+
+    for j, ov in enumerate(overlays):
+        fs = ov["fontsize"]
+        en = f"enable='between(t,{ov['start']:.2f},{ov['end']:.2f})'"
+
+        tf = write(f"o{j}t.txt", ov["title"])
+        o = nxt()
         lines.append(
-            f"[{prev}]drawtext=fontfile='{font}':textfile='{text_ids[i]}':fontcolor=white:"
-            f"fontsize={seg.get('fontsize', 60)}:line_spacing=14:text_align=center:box=1:"
-            f"boxcolor=black@0.45:boxborderw=26:x=(w-text_w)/2:y=h*{seg.get('y', '0.70')}:"
-            f"enable='{en}'{tail}[{out}]"
-        )
-        prev = out
-    if not ids:
-        lines.append(f"[{base_label}]format=yuv420p[vout]")
+            f"[{prev}]drawtext=fontfile='{_font(ov['title_font'])}':textfile='{tf}':"
+            f"fontcolor=white:fontsize={fs}:borderw=4:bordercolor=black@0.5:"
+            f"shadowcolor=black@0.9:shadowx=5:shadowy=5:x=(w-text_w)/2:y=h*{ov['y']}:{en}[{o}]")
+        prev = o
+
+        if ov.get("sub"):
+            sf = write(f"o{j}s.txt", ov["sub"])
+            o = nxt()
+            lines.append(
+                f"[{prev}]drawtext=fontfile='{_font(ov['sub_font'])}':textfile='{sf}':"
+                f"fontcolor=0xD8E8FA:fontsize={int(fs * 0.30)}:"
+                f"shadowcolor=black@0.8:shadowx=3:shadowy=3:x=(w-text_w)/2:"
+                f"y=h*{ov['y']}+{int(fs * 1.05)}:{en}[{o}]")
+            prev = o
+
+        if ov.get("cta"):
+            cf = write(f"o{j}c.txt", ov["cta"])
+            o = nxt()
+            lines.append(
+                f"[{prev}]drawtext=fontfile='{_font(ov['cta_font'])}':textfile='{cf}':"
+                f"fontcolor=0x04121F:fontsize={int(fs * 0.34)}:box=1:"
+                f"boxcolor=0x2FA8FF@0.92:boxborderw=24:x=(w-text_w)/2:y=h*0.84:{en}[{o}]")
+            prev = o
+
+    lines.append(f"[{prev}]format=yuv420p[vout]")
     return lines
 
 
-def _audio(cmd, lines, n_used, beds, voices, duration):
-    for b, bed in enumerate(beds):
-        cmd += ["-f", "lavfi", "-t", str(duration),
+def _audio(cmd, lines, n_used, beds, voices, total, body_start):
+    for bed in beds:
+        cmd += ["-f", "lavfi", "-t", str(total),
                 "-i", f"sine=frequency={bed['freq']}:sample_rate=44100"]
     for v in voices:
         cmd += ["-i", v["file"]]
 
+    shift = int(body_start * 1000)
     mixed = []
     for b, bed in enumerate(beds):
         lines.append(f"[{n_used + b}:a]volume={bed['volume']},"
@@ -77,12 +190,10 @@ def _audio(cmd, lines, n_used, beds, voices, duration):
     if len(beds) > 1:
         lines.append("".join(mixed) + f"amix=inputs={len(beds)}:normalize=0[bed]")
         mixed = ["[bed]"]
-
     for k, v in enumerate(voices):
         idx = n_used + len(beds) + k
-        lines.append(f"[{idx}:a]adelay={v['delay_ms']}[a{k}]")
+        lines.append(f"[{idx}:a]adelay={int(v['delay_ms']) + shift}[a{k}]")
         mixed.append(f"[a{k}]")
-
     lines.append("".join(mixed) +
                  f"amix=inputs={len(mixed)}:normalize=0,alimiter=limit=0.95,aresample=48000[aout]")
 
@@ -104,84 +215,36 @@ def _emit(cmd, lines, base, reel):
     return out
 
 
-def _render_from_clips(cfg, base):
-    reel = cfg["reel"]
-    video = cfg.get("video", {})
-    fps = reel.get("fps", 30)
-    width, height = reel.get("width", 1080), reel.get("height", 1920)
-    duration = float(video.get("duration", 30))
-    segments = reel.get("segments", [])
-    beds = reel.get("bed", [])
-    voices = reel.get("voice", [])
-    font = _font(reel["font"])
-
-    clips = clip_agent.resolve_clips(cfg, base)
-    slot = duration / len(clips)
-
-    os.makedirs(os.path.join(base, "out"), exist_ok=True)
-    text_ids = _write_textfiles(segments, base)
-
-    cmd = ["ffmpeg", "-y"]
-    for clip in clips:
-        cmd += ["-stream_loop", "-1", "-t", f"{slot:.3f}", "-i", clip]
-
-    lines = []
-    for i in range(len(clips)):
-        lines.append(
-            f"[{i}:v]scale={width}:{height}:force_original_aspect_ratio=increase,"
-            f"crop={width}:{height},setsar=1,fps={fps},trim=duration={slot:.3f},"
-            f"setpts=PTS-STARTPTS[v{i}]"
-        )
-    lines.append("".join(f"[v{i}]" for i in range(len(clips))) +
-                 f"concat=n={len(clips)}:v=1:a=0[vbase]")
-
-    # scale caption windows to the exact target duration
-    total = sum(s["frames"] for s in segments) or 1
-    factor = (duration * fps) / total
-    scaled = [dict(s, frames=max(1, round(s["frames"] * factor))) for s in segments]
-    lines += _overlay_lines("vbase", scaled, _starts(scaled, fps), fps, text_ids, font)
-
-    _audio(cmd, lines, len(clips), beds, voices, duration)
-    return _emit(cmd, lines, base, reel)
-
-
-def _render_from_stills(cfg, base):
-    reel = cfg["reel"]
-    fps = reel.get("fps", 30)
-    width, height = reel.get("width", 1080), reel.get("height", 1920)
-    segments = reel["segments"]
-    beds = reel.get("bed", [])
-    voices = reel.get("voice", [])
-    font = _font(reel["font"])
-    duration = sum(s["frames"] for s in segments) / fps
-
-    os.makedirs(os.path.join(base, "out"), exist_ok=True)
-    text_ids = _write_textfiles(segments, base)
-
-    cmd = ["ffmpeg", "-y"]
-    for seg in segments:
-        cmd += ["-i", seg["image"]]
-
-    lines = []
-    for i, seg in enumerate(segments):
-        z = "max(1.25-0.0018*on,1.0)" if seg.get("zoom", "in") == "out" \
-            else "min(1.0+0.0018*on,1.25)"
-        lines.append(
-            f"[{i}:v]scale={width}:{height}:force_original_aspect_ratio=increase,"
-            f"crop={width}:{height},setsar=1,"
-            f"zoompan=z='{z}':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':"
-            f"d={seg['frames']}:s={width}x{height}:fps={fps},setsar=1[v{i}]"
-        )
-    lines.append("".join(f"[v{i}]" for i in range(len(segments))) +
-                 f"concat=n={len(segments)}:v=1:a=0[vcat]")
-    lines += _overlay_lines("vcat", segments, _starts(segments, fps), fps, text_ids, font)
-
-    _audio(cmd, lines, len(segments), beds, voices, duration)
-    return _emit(cmd, lines, base, reel)
-
-
 def run(cfg: dict, base: str) -> str:
-    provider = cfg.get("video", {}).get("provider", "meta_ai")
-    if provider in ("meta_ai", "animation", "clips"):
-        return _render_from_clips(cfg, base)
-    return _render_from_stills(cfg, base)
+    reel = cfg["reel"]
+    fps = reel.get("fps", 30)
+    width, height = reel.get("width", 1080), reel.get("height", 1920)
+    beds = reel.get("bed", [])
+    voices = reel.get("voice", [])
+
+    visuals, overlays, body_start, total = _timeline(cfg, base)
+    print(f"  [assembly] {len(visuals)} visual unit(s), {len(overlays)} caption(s), "
+          f"body@{body_start:.1f}s, total {total:.1f}s")
+    for ov in overlays:
+        print(f"     title {ov['start']:5.2f}-{ov['end']:5.2f}s  ({ov['end'] - ov['start']:.2f}s)")
+
+    os.makedirs(os.path.join(base, "out"), exist_ok=True)
+    cmd = ["ffmpeg", "-y"]
+    for v in visuals:
+        if v["src"].lower().endswith((".png", ".jpg", ".jpeg", ".webp")):
+            cmd += ["-loop", "1", "-t", f"{v['sec']:.3f}", "-i", v["src"]]
+        else:
+            cmd += ["-stream_loop", "-1", "-t", f"{v['sec']:.3f}", "-i", v["src"]]
+
+    lines = []
+    for i, v in enumerate(visuals):
+        lines.append(
+            f"[{i}:v]scale={width}:{height}:force_original_aspect_ratio=increase,"
+            f"crop={width}:{height},setsar=1,fps={fps},trim=duration={v['sec']:.3f},"
+            f"setpts=PTS-STARTPTS[v{i}]")
+    lines.append("".join(f"[v{i}]" for i in range(len(visuals))) +
+                 f"concat=n={len(visuals)}:v=1:a=0[vbase]")
+
+    lines += _overlay_filters(overlays, os.path.join(base, "_reel_txt"), "vbase")
+    _audio(cmd, lines, len(visuals), beds, voices, total, body_start)
+    return _emit(cmd, lines, base, reel)

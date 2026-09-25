@@ -79,6 +79,28 @@
     "fps": 30,
     "font": "C:/Windows/Fonts/Nirmala.ttc",
     "output": "out/nisabtham-reel-9x16.mp4",
+    "intro": {
+      "image": "cover.jpeg",
+      "frames": 90,
+      "text": "நிசப்தம்",
+      "text_font": "tamil",
+      "sub": "Pocket FM · மர்ம ஆடியோ தொடர்",
+      "sub_font": "tamil",
+      "fontsize": 130,
+      "y": 0.42
+    },
+    "outro": {
+      "image": "scenes/s5_wave.jpeg",
+      "frames": 150,
+      "text": "FOLLOW",
+      "text_font": "latin",
+      "fontsize": 170,
+      "y": 0.34,
+      "sub": "Subscribe · Like · Save",
+      "sub_font": "latinsub",
+      "cta": "POCKET FM · நிசப்தம்",
+      "cta_font": "tamil"
+    },
     "bed": [
       {"freq": 55, "volume": 0.10, "tremolo": 0.15},
       {"freq": 110, "volume": 0.05, "tremolo": 0.18}

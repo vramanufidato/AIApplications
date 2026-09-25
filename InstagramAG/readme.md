@@ -72,6 +72,36 @@ data/<slug>/
 | `agents/validation_agent.py` | `validation_report.json` (caption ≤2200, hashtags ≤30, MP4 9:16 ≤90s). |
 | `agents/scheduling_agent.py` | Prints the free Instagram native / Meta Business Suite steps. |
 
+## Reel structure
+
+Every Reel is assembled on one timeline:
+
+```
+[ intro card ]  [ main body: Meta AI clips OR stills ]  [ outro card ]
+   cover image        video.duration (30s default)          FOLLOW / Subscribe
+```
+
+- **Intro card** uses the cover image (`reel.intro.image`), so the key image appears *inside* the
+  reel, with the series title + a subtitle.
+- **Outro card** is the **Follow / Subscribe end page** (`reel.outro`): big `FOLLOW`, a
+  `Subscribe · Like · Save` line, and a brand CTA banner. Swap the image to any still.
+- Caption windows and the voiceover are shifted automatically by the intro length (the
+  `body@Ns` value printed during assembly).
+- Total length = intro + body + outro (e.g. 2.5s + 30s + 5s = 37.5s).
+
+Configure in `config.json` -> `reel.intro` / `reel.outro`:
+
+```json
+"intro": { "image": "cover.jpeg", "frames": 75, "text": "நிசப்தம்",
+           "text_font": "tamil", "sub": "Pocket FM · மர்ம ஆடியோ தொடர்", "sub_font": "tamil" },
+"outro": { "image": "scenes/s5_wave.jpeg", "frames": 150, "text": "FOLLOW",
+           "text_font": "latin", "sub": "Subscribe · Like · Save",
+           "cta": "POCKET FM · நிசப்தம்", "cta_font": "tamil" }
+```
+
+Fonts: `tamil` = Nirmala (also fine for Latin), `latin` = Arial Black (titles), `latinsub` = Arial
+Bold. Use a Tamil-capable font for any Tamil string.
+
 ## Video providers
 
 `video.provider` selects the video source:
