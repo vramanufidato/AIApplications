@@ -16,7 +16,7 @@ A recurring naming convention is `<Name>AG`, where **AG** denotes an *agent* (or
 
 | Project | What it does | Stack |
 |---|---|---|
-
+| [MediumAG]((https://github.com/vramanufidato/AIApplications/tree/main/MediumScrapingPOC)) | Multi-agent pipeline turning a raw draft into publication-ready assets: formatted Medium/Substack article + infographic/mind-map, a podcast MP3 (NotebookLM / TTS + FFmpeg), and a Spotify upload checklist. | Python |
 | [InstagramAG]() | 4-agent pipeline generating Instagram captions, hashtags, scene assets, Tamil voiceover (edge-tts) and a final 9:16 Reel via ffmpeg — free tools only. | Python |
 | [YoutubeAG](https://github.com/vramanufidato/AIApplications/tree/main/YoutubeAG) | Automated YouTube pipeline ("Unheard Stories from Poet") turning 5 inputs into a publish-ready package: script, voiceover, visuals, music, captions, thumbnail, end card, SEO. | Python |
 | [utube](https://github.com/vramanufidato/AIApplications/tree/main/utube) | "Architect Pro v2" — YouTube orchestration engine using Gemini 1.5 Flash to generate 1,500-word scripts, 60+ visual prompts, and SEO metadata. | React/Vite + Gemini |
