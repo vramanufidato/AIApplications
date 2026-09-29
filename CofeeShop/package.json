@@ -1,0 +1,16 @@
+{
+  "name": "copper-kettle-coffee",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Copper Kettle Coffee — coffee shop site with a zero-dependency booking server, JSON ledger and back-office view.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "smoke": "node scripts/smoke.mjs",
+    "seed": "node scripts/seed.mjs",
+    "check": "node scripts/check-pages.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

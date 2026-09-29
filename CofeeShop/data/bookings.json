@@ -1,0 +1,54 @@
+[
+  {
+    "id": "CK-20260930-DCAD",
+    "name": "Asha Rao",
+    "phone": "+91 98450 12345",
+    "email": "asha@example.com",
+    "date": "2026-09-30",
+    "time": "18:00",
+    "party": 2,
+    "seating": "Terrace",
+    "notes": "Sample booking (setup demo)",
+    "status": "confirmed",
+    "createdAt": "2026-09-29T04:00:39.369Z"
+  },
+  {
+    "id": "CK-20261002-D705",
+    "name": "Vikram Mehta",
+    "phone": "+91 99860 45217",
+    "email": "",
+    "date": "2026-10-02",
+    "time": "09:00",
+    "party": 4,
+    "seating": "Indoor",
+    "notes": "Sample booking (setup demo)",
+    "status": "confirmed",
+    "createdAt": "2026-09-29T04:00:39.384Z"
+  },
+  {
+    "id": "CK-20261005-5797",
+    "name": "Priya Sharma",
+    "phone": "+91 90080 33412",
+    "email": "priya@example.com",
+    "date": "2026-10-05",
+    "time": "11:00",
+    "party": 3,
+    "seating": "Window bar",
+    "notes": "Sample booking (setup demo)",
+    "status": "confirmed",
+    "createdAt": "2026-09-29T04:00:39.409Z"
+  },
+  {
+    "id": "CK-20261001-F43A",
+    "name": "Browser Check Guest",
+    "phone": "+91 98111 22334",
+    "email": "check@example.com",
+    "date": "2026-10-01",
+    "time": "12:00",
+    "party": 2,
+    "seating": "No preference",
+    "notes": "Created via automated browser check",
+    "status": "confirmed",
+    "createdAt": "2026-09-29T04:07:51.409Z"
+  }
+]

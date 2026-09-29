@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Back office — Copper Kettle Coffee</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="admin">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">Copper Kettle<span class="brand-sub">Back office · Bookings</span></a>
+      <nav class="nav" aria-label="Admin">
+        <a href="index.html">← View site</a>
+        <a class="nav-cta" href="/api/bookings.csv">Export CSV</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container admin-main">
+    <p class="kicker">Bookings ledger</p>
+    <h1 class="h-section">Today's tables, <em>recorded</em>.</h1>
+    <p class="section-lede">Every request from the booking form lands in <code>data/bookings.json</code> through the local server — this page reads it straight from the API.</p>
+
+    <div class="stats">
+      <div class="stat"><span class="stat-num" id="stat-total">–</span><span class="stat-label">Total bookings</span></div>
+      <div class="stat"><span class="stat-num" id="stat-upcoming">–</span><span class="stat-label">Upcoming</span></div>
+      <div class="stat"><span class="stat-num" id="stat-today">–</span><span class="stat-label">Today</span></div>
+    </div>
+
+    <div class="controls">
+      <input id="filter" type="search" placeholder="Filter by name, phone, ref…" aria-label="Filter bookings" />
+      <button id="refresh" class="btn btn-ghost" type="button">Refresh</button>
+      <span id="shown-count" class="sub"></span>
+      <span id="updated-at" class="sub"></span>
+    </div>
+
+    <p id="table-status" class="form-status" role="status" aria-live="polite"></p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Ref</th><th>Guest</th><th>Contact</th><th>Date &amp; time</th>
+            <th>Party</th><th>Seating</th><th>Notes</th><th>Created</th>
+          </tr>
+        </thead>
+        <tbody id="bookings-body">
+          <tr><td colspan="8"><div class="empty-state">Loading…</div></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="muted-small" style="margin-top:18px">Ledger file: <code>data/bookings.json</code> · The CSV export keeps a copy you can open in Excel or Sheets.</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-base" style="border-top:0; margin-top:0">
+      <span>© 2026 Copper Kettle Coffee</span>
+      <span>Back office · local demo</span>
+    </div>
+  </footer>
+
+  <script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+node_modules/
+npm-debug.log*
+data/*.smoke.json
+data/*.tmp
+Thumbs.db
+.DS_Store
